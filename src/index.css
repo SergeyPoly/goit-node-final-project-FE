@@ -8,6 +8,13 @@
     --breakpoint-desktop: 1440px;
 }
 
+:root {
+    --white: oklch(1 0 0);
+    --main: oklch(0.1149 0 0);
+    --dark: oklch(0.2178 0 0);
+    --gray: oklch(0.8023 0.0011 17.18);
+}
+
 @utility container {
     margin-inline: auto;
     width: 100%;
