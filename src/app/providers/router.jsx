@@ -6,6 +6,8 @@ import { AddRecipePage } from '@/pages/add-recipe/ui/AddRecipePage.jsx';
 import { UserPage } from '@/pages/user/ui/UserPage.jsx';
 import { useUserStore } from '@/entities/user/model/use-user-store.js';
 
+import { ComponentsPage } from '@/pages/components/ui/ComponentsPage.jsx';
+
 const PrivateRoute = ({ children }) => {
   const isAuth = useUserStore((state) => state.isAuth);
   return isAuth ? children : <Navigate replace to="/" />;
@@ -40,6 +42,13 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+
+      // TODO: delete ComponentsPage after development
+      {
+        path: 'components',
+        element: <ComponentsPage />,
+      },
+
       {
         path: '*',
         element: <Navigate to="/" replace />,

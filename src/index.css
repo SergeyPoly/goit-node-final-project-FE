@@ -6,6 +6,11 @@
     --breakpoint-mobile: 375px;
     --breakpoint-tablet: 768px;
     --breakpoint-desktop: 1440px;
+
+    --color-white: oklch(1 0 0);
+    --color-main: oklch(0.1149 0 0);
+    --color-dark: oklch(0.2178 0 0);
+    --color-grey: oklch(0.8023 0.0011 17.18);
 }
 
 @utility container {
@@ -21,4 +26,12 @@
     @variant desktop {
         max-width: 1440px;
     }
+}
+
+body {
+    @apply tracking-[-0.02em] text-main;
+}
+
+button, a {
+    @apply cursor-pointer;
 }
