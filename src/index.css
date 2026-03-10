@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: "Mulish", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+    --breakpoint-mobile: 375px;
+    --breakpoint-tablet: 768px;
+    --breakpoint-desktop: 1440px;
+}
+
+@utility container {
+    margin-inline: auto;
+    width: 100%;
+
+    @variant mobile {
+        max-width: 375px;
+    }
+    @variant tablet {
+        max-width: 768px;
+    }
+    @variant desktop {
+        max-width: 1440px;
+    }
+}
