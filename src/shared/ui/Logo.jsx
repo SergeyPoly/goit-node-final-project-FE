@@ -1,3 +1,5 @@
-export const Logo = () => (
-  <div className="text-2xl font-bold tracking-tight text-orange-600">LOGO HERE</div>
+import clsx from "clsx";
+
+export const Logo = ({ className = "" }) => (
+  <div className={clsx("text-xl md:text-2xl font-extrabold tracking-tight", className)}>foodies</div>
 );
