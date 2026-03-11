@@ -1,25 +1,25 @@
-import { Button } from "@/shared/ui/Button";
+import { Button } from '@/shared/ui/Button';
 
 export const ComponentsPage = () => {
   const isFavorite = true;
 
   return (
     <div className="p-4">
-      <div className="flex gap-4 flex-wrap items-center">
+      <div className="flex flex-wrap items-center gap-4">
         <h2 className="text-lg font-bold">Buttons</h2>
 
         <Button>Sign in</Button>
-        
+
         <Button isActive>Sign up</Button>
 
         <Button variant="favorite" isActive={isFavorite}>
-          {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+          {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
         </Button>
 
         <Button
           variant="icon"
           iconName="heart-icon"
-          iconClass="w-4 md:w-4.5 h-4 md:h-4.5"
+          iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
           isActive={false}
           iconVisualHiddenText="Add to Favorites"
         />
@@ -27,7 +27,7 @@ export const ComponentsPage = () => {
         <Button
           variant="icon"
           iconName="heart-icon"
-          iconClass="w-4 md:w-4.5 h-4 md:h-4.5"
+          iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
           isActive
           iconVisualHiddenText="Remove from Favorites"
         />
@@ -44,7 +44,7 @@ export const ComponentsPage = () => {
         <Button
           variant="icon"
           iconName="arrow-up-right-icon"
-          iconClass="w-4 md:w-4.5 h-4 md:h-4.5"
+          iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
           href="/category"
           iconVisualHiddenText="Link to Category"
         />
@@ -52,7 +52,7 @@ export const ComponentsPage = () => {
         <Button
           variant="icon"
           iconName="trash-icon"
-          iconClass="w-4 md:w-4.5 h-4 md:h-4.5"
+          iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
           iconVisualHiddenText="Delete item"
         />
 
@@ -60,7 +60,7 @@ export const ComponentsPage = () => {
 
         <Button variant="dark-hover">Add recipe</Button>
 
-        <div className="w-full flex flex-col gap-2">
+        <div className="flex w-full flex-col gap-2">
           <Button variant="dark" className="w-full" type="submit" disabled>
             Sign in
           </Button>
