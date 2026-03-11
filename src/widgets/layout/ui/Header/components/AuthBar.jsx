@@ -1,19 +1,30 @@
 import { useUserStore } from '@/entities/user/model/use-user-store.js';
+import clsx from 'clsx';
 
 export const AuthBar = () => {
   const { setUser } = useUserStore();
 
+  const buttonStyles = clsx("box-border rounded-[30px] py-[10px] px-4 text-xs font-bold border uppercase",
+    "hover:bg-[var(--color-dark)] hover:text-[var(--color-white)] hover:border-[var(--color-white)]",
+    "bg-[var(--color-white)] text-[var(--color-dark)] border-transparent",
+    "tablet:py-[14px] tablet:px-[30px]"
+    )
+
   return (
-    <div className="flex gap-3">
+    <div className="flex bg-[var(--color-white)] rounded-[30px] ">
       <button
-        className="rounded-md border px-4 py-2 text-sm font-medium"
-        onClick={() => setUser({ name: 'test user', id: 1 })}
+        onClick={setUser}
+        className={buttonStyles}
       >
-        Sign In
+        Sign in
       </button>
-      <button className="rounded-md bg-orange-600 px-4 py-2 text-sm font-medium text-white">
-        Sign Up
+
+      <button
+        className={buttonStyles}
+      >
+        Sign up
       </button>
+
     </div>
   );
 };
