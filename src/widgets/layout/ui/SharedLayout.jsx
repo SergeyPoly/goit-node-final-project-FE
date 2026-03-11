@@ -6,7 +6,7 @@ export const SharedLayout = () => {
   return (
     <div className="flex min-h-screen flex-col font-sans antialiased">
       <Header />
-      <main className="grow bg-white">
+      <main className="grow bg-white co">
         <Outlet />
       </main>
       <Footer />

@@ -25,18 +25,15 @@
 @utility container {
     margin-inline: auto;
     width: 100%;
-    padding-inline: 1rem;
 
     @variant mobile {
         max-width: 375px;
     }
     @variant tablet {
         max-width: 768px;
-        padding-inline: 2rem;
     }
     @variant desktop {
         max-width: 1440px;
-        padding-inline: 5rem;
     }
 }
 
