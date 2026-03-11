@@ -7,7 +7,6 @@
     --breakpoint-tablet: 768px;
     --breakpoint-desktop: 1440px;
 
-    --color-white: oklch(1 0 0);
     --color-main: oklch(0.1149 0 0);
     --color-dark: oklch(0.2178 0 0);
     --color-grey: oklch(0.8023 0.0011 17.18);
@@ -33,5 +32,18 @@ body {
 }
 
 button, a {
-    @apply cursor-pointer;
+    @apply cursor-pointer transition-colors duration-300 ease-in-out;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
