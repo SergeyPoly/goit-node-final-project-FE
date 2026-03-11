@@ -6,10 +6,10 @@ export const Footer = () => {
   return (
     <footer className="border-t bg-gray-50 py-12">
       <div className="container mx-auto flex items-center justify-between px-4 border-be pb-[40px] md:pb-[46px] border-b-(--color-grey)">
-        <Logo href="/" className=" text-[--color-main]" />
+        <Logo/>
         <NetworkLinks/>
       </div>
-      <Copyright className="block mt-[40px]" />
+      <Copyright />
     </footer>
   );
 };
