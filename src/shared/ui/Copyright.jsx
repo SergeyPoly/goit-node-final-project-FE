@@ -1,5 +1,5 @@
 export const Copyright = () => (
-  <p className="text-center font-medium tracking-tight text-[#1A1A1A]">
+  <p className="mt-[40px] block text-center text-sm font-medium tracking-tight md:text-base">
     @2024, Foodies. All rights reserved.
   </p>
 );
