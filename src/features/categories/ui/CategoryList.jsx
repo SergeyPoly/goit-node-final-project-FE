@@ -1,20 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { cn } from '@/shared/lib/clsx';
 import { CategoryCard } from '@/features/categories/ui/CategoryCard';
+import { useBreakpoint } from '@/shared/lib/hooks/useBreakpoint';
 
 export const CategoryList = ({ categories = [] }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [limit, setLimit] = useState(11);
+  const { isMobile } = useBreakpoint();
 
-  useEffect(() => {
-    const handleResize = () => {
-      setLimit(window.innerWidth < 768 ? 8 : 11);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
+  const limit = isMobile ? 8 : 11;
   const visibleCategories = isExpanded ? categories : categories.slice(0, limit);
   const showButton = !isExpanded && categories.length > limit;
 
@@ -57,7 +50,7 @@ export const CategoryList = ({ categories = [] }) => {
       {showButton && (
         <li
           onClick={() => setIsExpanded(true)}
-          className="tablet:h-92.25 bg-main desktop:col-span-4 flex h-62.5 w-full cursor-pointer items-center justify-center overflow-hidden rounded-[1.875rem]"
+          className="bg-main desktop:col-span-4 tablet:h-92.25 flex h-62.5 w-full cursor-pointer items-center justify-center overflow-hidden rounded-[1.875rem]"
         >
           <p className="tablet:text-xl tablet:leading-[1.2] text-base font-extrabold text-white uppercase">
             All categories
