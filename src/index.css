@@ -7,24 +7,36 @@
     --breakpoint-tablet: 768px;
     --breakpoint-desktop: 1440px;
 
-    --color-white: oklch(1 0 0);
     --color-main: oklch(0.1149 0 0);
     --color-dark: oklch(0.2178 0 0);
     --color-grey: oklch(0.8023 0.0011 17.18);
+
+    --shadow-border-white: inset 0 0 1px 1px var(--color-white);
+    --shadow-border-main: inset 0 0 1px 1px var(--color-main);
+    --shadow-border-dark: inset 0 0 1px 1px var(--color-dark);
+    --shadow-border-grey: inset 0 0 1px 1px var(--color-grey);
+
+    --grid-template-columns-15: repeat(15, minmax(0, 1fr));
+    --grid-column-span-7: span 7 / span 7;
+    --grid-column-span-4: span 4 / span 4;
+
 }
 
 @utility container {
     margin-inline: auto;
     width: 100%;
+    padding-inline: 1rem;
 
     @variant mobile {
         max-width: 375px;
     }
     @variant tablet {
         max-width: 768px;
+        padding-inline: 2rem;
     }
     @variant desktop {
         max-width: 1440px;
+        padding-inline: 5rem;
     }
 }
 
@@ -33,5 +45,22 @@ body {
 }
 
 button, a {
-    @apply cursor-pointer;
+    @apply cursor-pointer transition-colors duration-300 ease-in-out;
+}
+
+p {
+    @apply cursor-default;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
