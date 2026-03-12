@@ -1,29 +1,20 @@
 import { useUserStore } from '@/entities/user/model/use-user-store.js';
-import clsx from 'clsx';
+import { Button } from '@/shared/ui/Button.jsx'
+import { useState } from 'react';
 
 export const AuthBar = () => {
   const { setUser } = useUserStore();
-
-  const buttonStyles = clsx("box-border rounded-[30px] py-[10px] px-4 text-xs font-bold border uppercase",
-    "hover:bg-[var(--color-dark)] hover:text-[var(--color-white)] hover:border-[var(--color-white)]",
-    "bg-[var(--color-white)] text-[var(--color-dark)] border-transparent",
-    "tablet:py-[14px] tablet:px-[30px]"
-    )
+  const [active, setActive] = useState("signin");
 
   return (
     <div className="flex bg-[var(--color-white)] rounded-[30px] ">
-      <button
-        onClick={setUser}
-        className={buttonStyles}
-      >
+      <Button isActive={active === "signin"}
+        onClick={() => { setUser({ name: 'test user', id: 1 }), setActive("signin") }}>
         Sign in
-      </button>
+      </Button>
 
-      <button
-        className={buttonStyles}
-      >
-        Sign up
-      </button>
+      <Button isActive={active === "signup"}
+        onClick={() => setActive("signup")}>Sign up</Button>
 
     </div>
   );
