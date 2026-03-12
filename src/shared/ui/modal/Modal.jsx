@@ -46,20 +46,19 @@ export default function Modal({ isOpen, onClose, children }) {
         className="
           relative
           w-full max-w-[343px] md:max-w-[560px]
-          rounded-5 md:rounded-[30px]
+          rounded-[20px] md:rounded-[30px]
           bg-white
           px-8 py-14 md:p-20
         "
       >
         <Button
           type="button"
+          variant="icon"
           onClick={onClose}
-          className="absolute right-5 top-5"
-        >
-          <svg width="24" height="24">
-            <use href="/icons.svg#x-icon" />
-          </svg>
-        </Button>
+          className="absolute right-5 top-5 shadow-none"
+          iconName="x-icon"
+          iconClass="w-6 h-6"
+        />
 
         {children}
       </div>
