@@ -3,22 +3,28 @@ import { Logo } from '@/shared/ui/Logo.jsx';
 import { Nav } from '@/widgets/layout/ui/Header/components/Nav.jsx';
 import { AuthBar } from '@/widgets/layout/ui/Header/components/AuthBar.jsx';
 import { UserBar } from '@/widgets/layout/ui/Header/components/UserBar.jsx';
+import { useLocation } from 'react-router-dom';
+import clsx from 'clsx';
 
 export const Header = () => {
   const { isAuth, user } = useUserStore();
+  const { pathname } = useLocation();
+
+  const isHome = pathname === '/';
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <div className="flex items-center gap-8">
-          <Logo />
-        </div>
+    <header
+      className="container px-2 pt-2 tablet:px-4 tablet:pt-4 desktop:px-5 desktop:pt-5"
+    >
+      <div className={clsx(
+        'rounded-t-2xl flex items-center justify-between p-4 tablet:px-8 tablet:py-5 desktop:px-[60px]',
+        isHome ? 'bg-main' : 'bg-white/80',
+      )}>
+        <Logo isDarkType={!isHome} />
 
-        <Nav />
+        <Nav isDarkType={isHome} />
 
-        <div className="flex items-center gap-4">
-          {isAuth ? <UserBar user={user} /> : <AuthBar />}
-        </div>
+        {isAuth ? <UserBar user={user} path={isHome} /> : <AuthBar />}
       </div>
     </header>
   );
