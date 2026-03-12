@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useUserStore } from '@/entities/user/model/use-user-store.js';
 import { useState } from 'react';
 import { ToggledWindow } from './ToogleWindow';
+import clsx from 'clsx';
 
 export const UserBar = ({ user, path }) => {
   const { logout } = useUserStore();
@@ -15,14 +16,14 @@ export const UserBar = ({ user, path }) => {
           {user?.name || 'My Profile'}
         </Link>
         <button
-          onClick={() => setIsOpen((prev) => !prev)}><svg className="text-[var(--color-white)] w-4 h-4">
+          onClick={() => setIsOpen((prev) => !prev)}><svg className={clsx("text-[var(--color-white)] w-4 h-4", isOpen ? "rotate-180" : "rotate-0")}>
             <use href={`/icons.svg#chevron-down-icon`}></use>
           </svg></button>
         <ToggledWindow isOpen={isOpen} logout={logout}></ToggledWindow>
       </div>
 
-      <button className={`${path ? "text-[var(--color-white)]" : "text-[var(--color-dark)]"} tablet:hidden`}>
-        <svg className={` w-7 h-7`} >
+      <button className={clsx(path ? "text-[var(--color-white)]" : "text-[var(--color-dark)]", "tablet:hidden")}>
+        <svg className="w-7 h-7" >
           <use href="/icons.svg#menu-icon"></use>
         </svg>
       </button>
