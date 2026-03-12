@@ -1,7 +1,5 @@
-import clsx from "clsx";
-
-export const Copyright = ({className = ""}) => (
-  <p className={clsx("text-center text-sm md:text-base font-medium tracking-tight", className)}>
+export const Copyright = () => (
+  <p className="mt-[40px] block text-center text-sm font-medium tracking-tight md:text-base">
     @2024, Foodies. All rights reserved.
   </p>
 );

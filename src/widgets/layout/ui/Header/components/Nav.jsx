@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
-export const Nav = ({ className = "" }) => {
+export const Nav = ({ isDarkType = true }) => {
   const buttonStyle = clsx(
-    "box-border font-bold text-xs uppercase text-[var(--color-white)] p-[14px] rounded-3xl border-2 border-transparent transition-all duration-200",
-    "hover:border-[var(--color-white)]/20"
+    "box-border font-bold text-xs uppercase p-[14px] rounded-3xl border border-transparent transition-all duration-200",
+    isDarkType ? "hover:border-[var(--color-white)]/20" : "hover:border-[var(--color-grey)]",
+    isDarkType ? "text-[var(--color-white)]" : "text-[var(--color-main)]"
   );
 
   return (
-    <nav className={clsx("font-medium border gap-10", className)}>
+    <nav className={clsx("font-medium gap-1 mobile:hidden tablet:flex desktop:gap-10")}>
       <Link title="Home" to="/" className={`${buttonStyle}`}>
         Home
       </Link>

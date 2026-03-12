@@ -1,1 +1,9 @@
-export const HomePage = () => <div>Home Page</div>;
+import { Categories } from '@/features/categories/ui/Categories';
+
+export const HomePage = () => {
+  return (
+    <>
+      <Categories />
+    </>
+  );
+};

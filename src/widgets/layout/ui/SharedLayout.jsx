@@ -4,9 +4,9 @@ import { Footer } from './Footer/Footer.jsx';
 
 export const SharedLayout = () => {
   return (
-    <div className="flex min-h-screen flex-col font-sans antialiased mobile:p-[8px] tablet:p-[16px] desktop:p-[20px]">
-      <Header className="container"/>
-      <main className="mobile:bg-amber-300 tablet:bg-amber-700 desktop:bg-gray-300 container grow bg-white">
+    <div className="flex min-h-screen flex-col font-sans antialiased">
+      <Header className='container'/>
+      <main className="grow bg-white co">
         <Outlet />
       </main>
       <Footer />

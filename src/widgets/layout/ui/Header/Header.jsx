@@ -16,10 +16,10 @@ export const Header = ({ className = "" }) => {
     <header className={clsx("mx-auto sticky top-0 z-50 backdrop-blur-md rounded-t-2xl )", isHome ? "bg-[var(--color-main)]" : "bg-white/80",className)}>
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-8">
-          <Logo href="/" className={clsx(isHome ? "text-(--color-white)" : "text-[--color-main]")} />
+          <Logo isDarkType={!isHome} />
         </div>
 
-        <Nav className="mobile:hidden tablet:flex" />
+        <Nav isDarkType={isHome} />
 
         <div className="flex items-center gap-4">
           {isAuth ? <UserBar user={user} path={isHome} /> : <AuthBar />}

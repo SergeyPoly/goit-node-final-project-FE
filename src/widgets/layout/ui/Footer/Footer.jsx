@@ -4,12 +4,14 @@ import { Copyright } from '@/shared/ui/Copyright.jsx';
 
 export const Footer = () => {
   return (
-    <footer className="border-t bg-gray-50 py-12">
-      <div className="container mx-auto flex items-center justify-between px-4 border-be pb-[40px] md:pb-[46px] border-b-(--color-grey)">
-        <Logo href="/" className=" text-[--color-main]" />
-        <NetworkLinks/>
+    <footer className="bg-gray-50 py-12">
+      <div className=" border-be border-b-(--color-grey)">
+        <div className="container flex items-center justify-between pb-[40px] md:pb-[46px]">
+          <Logo />
+          <NetworkLinks />
+        </div>
       </div>
-      <Copyright className="block mt-[40px]" />
+      <Copyright />
     </footer>
   );
 };
