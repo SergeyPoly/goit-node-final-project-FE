@@ -1,3 +1,13 @@
-export const Logo = () => (
-  <div className="text-2xl font-bold tracking-tight text-orange-600">LOGO HERE</div>
+import clsx from 'clsx';
+
+export const Logo = ({ isDarkType = true }) => (
+  <a
+    href="/"
+    className={clsx(
+      'text-xl font-extrabold tracking-tight md:text-2xl',
+      isDarkType ? 'text-[--color-main]' : 'text-[--color-white]'
+    )}
+  >
+    foodies
+  </a>
 );
