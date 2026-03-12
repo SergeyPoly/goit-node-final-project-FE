@@ -1,38 +1,41 @@
-import clsx from "clsx"
-import { useState } from "react";
+import { useState } from 'react';
+import { cn } from '@/shared/lib/clsx';
 
 export const FormField = ({
-    placeholder,
-    type = "text",
-    className = "",
-    iconClass,
-    id = "",
-    name = "" }) => {
-    const [showPassword, setShowPassword] = useState(false);
+  placeholder,
+  type = 'text',
+  className = '',
+  iconClass,
+  id = '',
+  name = '',
+}) => {
+  const [showPassword, setShowPassword] = useState(false);
 
-    const isPassword = type === "password";
+  const isPassword = type === 'password';
 
-    const fieldStyles = clsx("w-full p-3.5 border-box border-1 font-500 text-[var(--color-main)] placeholder-shown:border-[var(--color-grey)] border-[var(--color-main)] outline-none placeholder:text-[var(--color-grey)] text-sm tablet:text-base font-bold rounded-[1.875rem]", className)
-    return (
-        <div className={isPassword ? "relative" : ""}>
-            <input
-                id={id}
-                name={name}
-                type={isPassword ? (showPassword ? "text" : "password") : type}
-                className={fieldStyles}
-                placeholder={placeholder}>
-
-            </input>
-            {isPassword && (
-                <button onClick={() => setShowPassword(prev => !prev)} className="absolute right-3 top-[1rem] tablet:top-[1.2rem]">
-                <svg className={clsx(iconClass, "text-inherit")}>
-                    <use href={`/icons.svg#${showPassword ? "eye-icon" : "eye-slash-icon"}`}>
-                    </use>
-                </svg>
-            </button>
-            )}
-        </div>
-    )
-
-
-}
+  const fieldStyles = cn(
+    'w-full p-3.5 tablet:px-4.5 tablet:py-4 text-dark placeholder-shown:shadow-border-grey shadow-border-main placeholder:text-dark text-sm tablet:text-base outline-none font-medium rounded-[1.875rem] mask-stars',
+    className
+  );
+  return (
+    <div className={isPassword ? 'relative' : ''}>
+      <input
+        id={id}
+        name={name}
+        type={isPassword ? (showPassword ? 'text' : 'password') : type}
+        className={fieldStyles}
+        placeholder={placeholder}
+      />
+      {isPassword && (
+        <button
+          onClick={() => setShowPassword((prev) => !prev)}
+          className="tablet:right-4.5 absolute top-1/2 right-3.5 -translate-y-1/2"
+        >
+          <svg className={cn(iconClass, 'text-inherit')}>
+            <use href={`/icons.svg#${showPassword ? 'eye-icon' : 'eye-slash-icon'}`}></use>
+          </svg>
+        </button>
+      )}
+    </div>
+  );
+};

@@ -1,5 +1,5 @@
-import { Button } from "@/shared/ui/Button";
-import { FormField } from "../../../shared/ui/FormField";
+import { Button } from '@/shared/ui/Button';
+import { FormField } from '../../../shared/ui/FormField';
 import { Modal } from '@/shared/ui/Modal';
 import { useState } from 'react';
 
@@ -8,7 +8,7 @@ export const ComponentsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="p-4">
+    <div className="flex flex-col gap-8 p-4">
       <div className="flex flex-wrap items-center gap-4">
         <h2 className="text-lg font-bold">Buttons</h2>
 
@@ -45,15 +45,13 @@ export const ComponentsPage = () => {
           iconVisualHiddenText="Share on Facebook"
         />
 
-      <Button variant="dark" className="w-full" type="submit" disabled>Sign in</Button>
-      <Button variant="dark" className="w-full" type="submit">Sign in</Button>
-      
-      <FormField placeholder={"name*"}
-        iconClass="w-5 h-5"
-        type="password"></FormField>
-      
-      <FormField placeholder={"name*"}
-        iconClass="w-5 h-5"></FormField>
+        <Button variant="dark">Publish</Button>
+
+        <Button variant="dark-hover">Add recipe</Button>
+
+        <FormField placeholder={'Password'} iconClass="w-4.5 h-4.5 tablet:w-5 tablet:h-5" type="password"></FormField>
+
+        <FormField placeholder={'Name*'}></FormField>
         <Button
           variant="icon"
           iconName="arrow-up-right-icon"
@@ -70,7 +68,6 @@ export const ComponentsPage = () => {
         />
 
         <Button variant="dark">Publish</Button>
-        <Button variant="dark" onClick={() => setIsOpen(true)}>MODAL</Button>
         <Button variant="dark-hover">Add recipe</Button>
 
         <div className="flex w-full flex-col gap-2">
@@ -83,11 +80,22 @@ export const ComponentsPage = () => {
         </div>
       </div>
 
+      <div className="flex flex-col gap-4">
+        <h2 className="text-lg font-bold">Modal</h2>
+
+        <Button variant="dark" onClick={() => setIsOpen(true)}>
+          MODAL
+        </Button>
+      </div>
+
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <p>test content</p>
-        <p>test content</p>
-        <p>test content</p>
-        <p>test content</p>
+        <FormField placeholder={'Name*'} type="text"></FormField>
+        <FormField placeholder={'Email*'} type="email"></FormField>
+        <FormField
+          placeholder={'Password'}
+          iconClass="w-4.5 h-4.5 tablet:w-5 tablet:h-5"
+          type="password"
+        ></FormField>
       </Modal>
     </div>
   );
