@@ -1,5 +1,5 @@
 import { Button } from '@/shared/ui/Button';
-import Modal from '@/shared/ui/modal/Modal.jsx';
+import { Modal } from '@/shared/ui/Modal';
 import { useState } from 'react';
 
 export const ComponentsPage = () => {

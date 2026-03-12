@@ -4,7 +4,7 @@ import { Button } from '@/shared/ui/Button.jsx';
 
 const modalRoot = document.getElementById('modal-root');
 
-export default function Modal({ isOpen, onClose, children }) {
+export const Modal = ({ isOpen, onClose, children }) => {
   const handleEsc = useCallback(
     (e) => {
       if (e.key === 'Escape') {
