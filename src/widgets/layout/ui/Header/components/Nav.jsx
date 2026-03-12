@@ -1,21 +1,26 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 
 export const Nav = ({ isDarkType = true }) => {
-  const buttonStyle = clsx(
-    "box-border font-bold text-xs uppercase p-[14px] rounded-3xl border border-transparent transition-all duration-200",
-    isDarkType ? "hover:border-[var(--color-white)]/20" : "hover:border-[var(--color-grey)]",
-    isDarkType ? "text-[var(--color-white)]" : "text-[var(--color-main)]"
+  const baseStyle = "box-border font-bold text-xs uppercase p-[14px] rounded-3xl border transition-all duration-200";
+
+  const getNavLinkStyle = ({ isActive }) => clsx(
+    baseStyle,
+    isDarkType ? "text-white" : "text-gray-900",
+    isActive
+      ? (isDarkType ? "border-white" : "border-gray-900")
+      : "border-transparent",
+    !isActive && (isDarkType ? "hover:border-white/20" : "hover:border-gray-300")
   );
 
   return (
-    <nav className={clsx("font-medium gap-1 mobile:hidden tablet:flex desktop:gap-10")}>
-      <Link title="Home" to="/" className={`${buttonStyle}`}>
+    <nav className="hidden tablet:flex font-medium desktop:gap-10">
+      <NavLink to="/" className={getNavLinkStyle}>
         Home
-      </Link>
-      <Link title="Add Recipe" to="/recipe/add" className={buttonStyle}>
+      </NavLink>
+      <NavLink to="/recipe/add" className={getNavLinkStyle}>
         Add Recipe
-      </Link>
+      </NavLink>
     </nav>
   );
 };

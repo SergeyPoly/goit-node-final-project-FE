@@ -5,7 +5,7 @@ export const Logo = ({ isDarkType = true }) => (
     href="/"
     className={clsx(
       'text-xl font-extrabold tracking-tight md:text-2xl',
-      isDarkType ? 'text-[var(--color-main)]' : 'text-[var(--color-white)]'
+      isDarkType ? 'text-main' : 'text-white'
     )}
   >
     foodies
