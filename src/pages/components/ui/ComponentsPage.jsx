@@ -1,4 +1,5 @@
 import { Button } from "@/shared/ui/Button";
+import { FormField } from "../../../shared/ui/FormField";
 
 export const ComponentsPage = () => {
   const isFavorite = true;
@@ -39,6 +40,13 @@ export const ComponentsPage = () => {
 
       <Button variant="dark" className="w-full" type="submit" disabled>Sign in</Button>
       <Button variant="dark" className="w-full" type="submit">Sign in</Button>
+      
+      <FormField placeholder={"name*"}
+        iconClass="w-5 h-5"
+        type="password"></FormField>
+      
+      <FormField placeholder={"name*"}
+        iconClass="w-5 h-5"></FormField>
     </div>
   );
 };
