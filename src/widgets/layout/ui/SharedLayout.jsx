@@ -5,8 +5,8 @@ import { Footer } from './Footer/Footer.jsx';
 export const SharedLayout = () => {
   return (
     <div className="flex min-h-screen flex-col font-sans antialiased">
-      <Header className='container'/>
-      <main className="grow bg-white co">
+      <Header />
+      <main className="grow bg-white">
         <Outlet />
       </main>
       <Footer />

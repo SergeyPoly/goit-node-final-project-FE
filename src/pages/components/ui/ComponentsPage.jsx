@@ -1,7 +1,10 @@
 import { Button } from '@/shared/ui/Button';
+import { Modal } from '@/shared/ui/Modal';
+import { useState } from 'react';
 
 export const ComponentsPage = () => {
   const isFavorite = true;
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="p-4">
@@ -57,7 +60,7 @@ export const ComponentsPage = () => {
         />
 
         <Button variant="dark">Publish</Button>
-
+        <Button variant="dark" onClick={() => setIsOpen(true)}>MODAL</Button>
         <Button variant="dark-hover">Add recipe</Button>
 
         <div className="flex w-full flex-col gap-2">
@@ -69,6 +72,13 @@ export const ComponentsPage = () => {
           </Button>
         </div>
       </div>
+
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <p>test content</p>
+        <p>test content</p>
+        <p>test content</p>
+        <p>test content</p>
+      </Modal>
     </div>
   );
 };
