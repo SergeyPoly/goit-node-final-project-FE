@@ -17,7 +17,7 @@ export const Header = () => {
       className="container px-2 pt-2 tablet:px-4 tablet:pt-4 desktop:px-5 desktop:pt-5"
     >
       <div className={clsx(
-        'rounded-t-2xl flex items-center justify-between p-4 tablet:px-8 tablet:py-5 desktop:px-[60px]',
+        'rounded-t-[20px] tablet:rounded-t-[30px] flex items-center justify-between p-4 tablet:px-8 tablet:py-5 desktop:px-[60px]',
         isHome ? 'bg-main' : 'bg-white/80',
       )}>
         <Logo isDarkType={!isHome} />
