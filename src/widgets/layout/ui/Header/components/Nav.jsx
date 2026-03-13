@@ -1,12 +1,26 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import clsx from 'clsx';
 
-export const Nav = () => (
-  <nav className="flex gap-6 font-medium">
-    <Link title="Home" to="/" className="hover:text-orange-600">
-      Home
-    </Link>
-    <Link title="Add Recipe" to="/recipe/add" className="hover:text-orange-600">
-      Add Recipe
-    </Link>
-  </nav>
-);
+export const Nav = ({ isDarkType = true }) => {
+  const baseStyle = "box-border font-bold text-xs uppercase p-[14px] rounded-3xl border transition-all duration-200";
+
+  const getNavLinkStyle = ({ isActive }) => clsx(
+    baseStyle,
+    isDarkType ? "text-white" : "text-gray-900",
+    isActive
+      ? (isDarkType ? "border-white" : "border-gray-900")
+      : "border-transparent",
+    !isActive && (isDarkType ? "hover:border-white/20" : "hover:border-gray-300")
+  );
+
+  return (
+    <nav className="hidden tablet:flex font-medium desktop:gap-10">
+      <NavLink to="/" className={getNavLinkStyle}>
+        Home
+      </NavLink>
+      <NavLink to="/recipe/add" className={getNavLinkStyle}>
+        Add Recipe
+      </NavLink>
+    </nav>
+  );
+};
