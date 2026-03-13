@@ -4,10 +4,31 @@ import { FormField } from '@/shared/ui/FormField';
 import { ImageManager } from '@/shared/ui/ImageManager';
 import { Icon } from '@/shared/ui/Icon';
 import { Modal } from '@/shared/ui/Modal';
+import { Select } from '@/shared/ui/Select';
+
+const CATEGORIES = [
+  { value: 'beef', label: 'Beef' },
+  { value: 'breakfast', label: 'Breakfast' },
+  { value: 'chicken', label: 'Chicken' },
+  { value: 'desserts', label: 'Desserts' },
+  { value: 'goat', label: 'Goat' },
+  { value: 'lamb', label: 'Lamb' },
+  { value: 'miscellaneous', label: 'Miscellaneous' },
+  { value: 'pasta', label: 'Pasta' },
+  { value: 'pork', label: 'Pork' },
+  { value: 'seafood', label: 'Seafood' },
+  { value: 'side', label: 'Side' },
+  { value: 'soup', label: 'Soup' },
+  { value: 'starter', label: 'Starter' },
+  { value: 'vegan', label: 'Vegan' },
+  { value: 'vegetarian', label: 'Vegetarian' },
+];
 
 export const ComponentsPage = () => {
   const isFavorite = true;
   const [isOpen, setIsOpen] = useState(false);
+
+  const [category, setCategory] = useState('');
 
   return (
     <div className="flex flex-col gap-8 p-4">
@@ -142,6 +163,12 @@ export const ComponentsPage = () => {
           name="photo-frame-icon"
           className="tablet:w-16 tablet:h-16 text-dark/20 h-12.5 w-12.5"
         />
+      </div>
+
+      <div className="flex flex-col gap-4">
+        <h2 className="text-lg font-bold">Select</h2>
+
+        <Select options={CATEGORIES} value={category} onChange={(opt) => setCategory(opt.value)} />
       </div>
     </div>
   );
