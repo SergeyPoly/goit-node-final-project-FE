@@ -1,7 +1,9 @@
-import { Button } from '@/shared/ui/Button';
-import { FormField } from '../../../shared/ui/FormField';
-import { Modal } from '@/shared/ui/Modal';
 import { useState } from 'react';
+import { Button } from '@/shared/ui/Button';
+import { FormField } from '@/shared/ui/FormField';
+import { ImageManager } from '@/shared/ui/ImageManager';
+import { Icon } from '@/shared/ui/Icon';
+import { Modal } from '@/shared/ui/Modal';
 
 export const ComponentsPage = () => {
   const isFavorite = true;
@@ -49,9 +51,13 @@ export const ComponentsPage = () => {
 
         <Button variant="dark-hover">Add recipe</Button>
 
-        <FormField placeholder={'Password'} iconClass="w-4.5 h-4.5 tablet:w-5 tablet:h-5" type="password"></FormField>
+        <FormField
+          placeholder={'Password'}
+          iconClass="w-4.5 h-4.5 tablet:w-5 tablet:h-5"
+          type="password"
+        />
 
-        <FormField placeholder={'Name*'}></FormField>
+        <FormField placeholder={'Name*'} />
         <Button
           variant="icon"
           iconName="arrow-up-right-icon"
@@ -86,17 +92,57 @@ export const ComponentsPage = () => {
         <Button variant="dark" onClick={() => setIsOpen(true)}>
           MODAL
         </Button>
+
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <FormField placeholder={'Name*'} type="text" />
+          <FormField placeholder={'Email*'} type="email" />
+          <FormField
+            placeholder={'Password'}
+            iconClass="w-4.5 h-4.5 tablet:w-5 tablet:h-5"
+            type="password"
+          />
+        </Modal>
       </div>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <FormField placeholder={'Name*'} type="text"></FormField>
-        <FormField placeholder={'Email*'} type="email"></FormField>
-        <FormField
-          placeholder={'Password'}
-          iconClass="w-4.5 h-4.5 tablet:w-5 tablet:h-5"
-          type="password"
-        ></FormField>
-      </Modal>
+      <div className="flex flex-col gap-4">
+        <h2 className="text-lg font-bold">ImageManager</h2>
+
+        {/* Adding/Editing Recipe Picture */}
+        <ImageManager variant="recipe" onChange={(file) => console.log('Selected file:', file)} />
+        <ImageManager
+          variant="recipe"
+          image="https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_rp_progressive&w=740&q=80"
+          onChange={(file) => console.log('Selected file:', file)}
+        />
+
+        {/* Recipe Picture */}
+        <ImageManager
+          variant="recipe"
+          image="https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_rp_progressive&w=740&q=80"
+        />
+
+        {/* Editing User Profile Picture */}
+        <ImageManager
+          variant="profile"
+          image="https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_rp_progressive&w=740&q=80"
+          onChange={(file) => console.log('Selected file:', file)}
+        />
+
+        {/* User Profile Picture */}
+        <ImageManager
+          variant="profile"
+          image="https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_rp_progressive&w=740&q=80"
+        />
+      </div>
+
+      <div className="flex flex-col gap-4">
+        <h2 className="text-lg font-bold">Icon</h2>
+
+        <Icon
+          name="photo-frame-icon"
+          className="tablet:w-16 tablet:h-16 text-dark/20 h-12.5 w-12.5"
+        />
+      </div>
     </div>
   );
 };
