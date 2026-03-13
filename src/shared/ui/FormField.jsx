@@ -15,6 +15,7 @@ export const FormField = ({
 
   const fieldStyles = cn(
     'w-full p-3.5 tablet:px-4.5 tablet:py-4 text-dark placeholder-shown:shadow-border-grey shadow-border-main placeholder:text-dark text-sm tablet:text-base outline-none font-medium rounded-[1.875rem] mask-stars',
+    isPassword && 'pr-10 tablet:pr-11',
     className
   );
   return (
