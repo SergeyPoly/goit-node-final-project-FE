@@ -5,6 +5,7 @@ import { ImageManager } from '@/shared/ui/ImageManager';
 import { Icon } from '@/shared/ui/Icon';
 import { Modal } from '@/shared/ui/Modal';
 import { Select } from '@/shared/ui/Select';
+import { TextField } from '@/shared/ui/TextField';
 
 const CATEGORIES = [
   { value: 'beef', label: 'Beef' },
@@ -28,7 +29,13 @@ export const ComponentsPage = () => {
   const isFavorite = true;
   const [isOpen, setIsOpen] = useState(false);
 
+  // Select
   const [category, setCategory] = useState('');
+
+  // TextField
+  const [title, setTitle] = useState('');
+  const [desc, setDesc] = useState('');
+  const [val, setVal] = useState('Error text example');
 
   return (
     <div className="flex flex-col gap-8 p-4">
@@ -169,6 +176,33 @@ export const ComponentsPage = () => {
         <h2 className="text-lg font-bold">Select</h2>
 
         <Select options={CATEGORIES} value={category} onChange={(opt) => setCategory(opt.value)} />
+      </div>
+
+      <div className="flex flex-col gap-4">
+        <h2 className="text-lg font-bold">Select</h2>
+
+        <TextField
+          placeholder="Enter a description of the dish"
+          value={title}
+          onChange={setTitle}
+          maxLength={10}
+        />
+
+        <TextField
+          multiline
+          placeholder="Enter a description of the dish"
+          value={desc}
+          onChange={setDesc}
+          maxLength={1000}
+        />
+
+        <TextField
+          error
+          placeholder="Enter a description"
+          value={val}
+          onChange={setVal}
+          maxLength={200}
+        />
       </div>
     </div>
   );

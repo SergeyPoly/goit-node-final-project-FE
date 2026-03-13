@@ -10,6 +10,7 @@
     --color-main: oklch(0.1149 0 0);
     --color-dark: oklch(0.2178 0 0);
     --color-grey: oklch(0.8023 0.0011 17.18);
+    --color-error: oklch(0.4715 0.193475 29.2339);
 
     --shadow-border-white: inset 0 0 1px 1px var(--color-white);
     --shadow-border-main: inset 0 0 1px 1px var(--color-main);
