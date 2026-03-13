@@ -53,11 +53,12 @@ export const Modal = ({ isOpen, onClose, children }) => {
       >
         <Button
           type="button"
-          variant="icon"
+          variant="modal-icon"
           onClick={onClose}
-          className="absolute right-5 top-5 shadow-none"
+          className="absolute right-5 top-5"
           iconName="x-icon"
           iconClass="w-6 h-6"
+          iconVisualHiddenText="Close Modal"
         />
 
         {children}

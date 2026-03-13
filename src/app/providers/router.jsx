@@ -4,14 +4,8 @@ import { HomePage } from '@/pages/home/ui/HomePage.jsx';
 import { RecipePage } from '@/pages/recipe/ui/RecipePage.jsx';
 import { AddRecipePage } from '@/pages/add-recipe/ui/AddRecipePage.jsx';
 import { UserPage } from '@/pages/user/ui/UserPage.jsx';
-import { useUserStore } from '@/entities/user/model/use-user-store.js';
-
 import { ComponentsPage } from '@/pages/components/ui/ComponentsPage.jsx';
-
-const PrivateRoute = ({ children }) => {
-  const isAuth = useUserStore((state) => state.isAuth);
-  return isAuth ? children : <Navigate replace to="/" />;
-};
+import { PrivateRoute } from './PrivateRoute.jsx';
 
 export const router = createBrowserRouter([
   {

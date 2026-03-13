@@ -1,19 +1,26 @@
 import { useUserStore } from '@/entities/user/model/use-user-store.js';
+import { Button } from '@/shared/ui/Button.jsx';
+import { useState } from 'react';
 
 export const AuthBar = () => {
   const { setUser } = useUserStore();
+  const [isSignInType, setIsSignInType] = useState(true);
 
   return (
-    <div className="flex gap-3">
-      <button
-        className="rounded-md border px-4 py-2 text-sm font-medium"
-        onClick={() => setUser({ name: 'test user', id: 1 })}
+    <div className="flex rounded-[30px] bg-white">
+      <Button
+        isActive={isSignInType}
+        onClick={() => {
+          setUser({ name: 'test user', id: 1 })
+          setIsSignInType(true)
+        }}
       >
-        Sign In
-      </button>
-      <button className="rounded-md bg-orange-600 px-4 py-2 text-sm font-medium text-white">
-        Sign Up
-      </button>
+        Sign in
+      </Button>
+
+      <Button isActive={!isSignInType} onClick={() => setIsSignInType(false)}>
+        Sign up
+      </Button>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'https://api.example.com', // TODO change to real api url
+  baseURL: 'https://goit-nodejs-final-project.onrender.com/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
