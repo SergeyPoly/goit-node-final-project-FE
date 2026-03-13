@@ -2,44 +2,39 @@ import { Button } from '@/shared/ui/Button.jsx';
 
 export const Hero = () => {
   return (
-    <section className="w-full px-4 md:px-8 xl:px-10">
-      <div className="relative mx-auto overflow-hidden rounded-6 bg-black px-4 pb-10 pt-12 text-white md:px-8 md:pb-14 md:pt-16 xl:min-h-[calc(100vh-120px)] xl:max-w-[1440px] xl:px-16 xl:pb-20 xl:pt-24">
-        <div className="mx-auto flex max-w-[980px] flex-col items-center text-center">
-          <h1 className="max-w-[343px] text-4xl font-extrabold uppercase leading-[0.92] tracking-[-0.02em] md:max-w-[720px] md:text-6xl xl:max-w-[875px] xl:text-[90px] xl:leading-[0.92]">
-            Improve your
-            <br />
-            culinary talents
+    <section className="container px-2 tablet:px-4 desktop:px-5">
+      <div className="rounded-b-[20px] tablet:rounded-b-[30px] relative bg-black text-white pt-[124px] desktop:pt-[64px] px-4 tablet:px-8 pb-[100px] tablet:pb-[90px] desktop:pb-[80px]">
+
+          <h1 className="text-[40px] tablet:text-[70px] desktop:text-[90px] leading-[40px] tablet:leading-[70px] desktop:leading-[90px] font-extrabold tracking-[-0.03em] uppercase text-center mb-5 tablet:mb-10 desktop:max-w-[875px] mx-auto">
+            Improve your culinary talents
           </h1>
 
-          <p className="mt-6 max-w-[577px] text-sm leading-6 text-white/80 md:text-base">
-            Amazing recipes for beginners in the world of cooking, enveloping you in the aromas and tastes of various cuisines.
+          <p className="text-sm text-center tracking-[-0.02em] mb-5 tablet:mb-10 tablet:max-w-[577px] mx-auto">
+            Amazing recipes for beginners in the world of cooking, enveloping you in the aromas and
+            tastes of various cuisines.
           </p>
 
           <Button
             type="button"
             variant="dark"
-            className="mt-8 border border-white bg-black text-white hover:border-white hover:bg-white hover:text-dark"
+            className="border border-white text-center block mx-auto mb-10"
           >
             Add recipe
           </Button>
-        </div>
 
-       <div className="relative mx-auto mt-4 h-[190px] max-w-[520px] md:mt-12 md:h-[320px] xl:mt-20 xl:h-[380px] xl:max-w-[620px]">
-            <img
-                src="/hero/hero-small.webp"
-                alt="Small dessert plate"
-                className="absolute bottom-8 left-1/2 z-10 w-[80px] -translate-x-[150px] rounded-4 object-cover
-                        md:bottom-10 md:w-[120px] md:-translate-x-[220px]
-                        xl:bottom-12 xl:w-[128px]"
-            />
 
-            <img
-                src="/hero/hero-main.webp"
-                alt="Main meat dish"
-                className="absolute bottom-0 left-1/2 w-[200px] -translate-x-[40px] rounded-6 object-cover
-                        md:w-[340px] md:-translate-x-[100px]
-                        xl:w-[400px]"
-            />
+        <div className="flex justify-center items-center">
+          <img
+            src="/hero/hero-small.webp"
+            alt="Small dessert plate"
+            className="w-[77px] tablet:w-[128px] mt-11 tablet:mt-20"
+          />
+
+          <img
+            src="/hero/hero-main.webp"
+            alt="Main meat dish"
+            className="w-[190px] tablet:w-[302px]"
+          />
         </div>
       </div>
     </section>
