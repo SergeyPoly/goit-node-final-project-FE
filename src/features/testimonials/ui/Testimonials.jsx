@@ -5,8 +5,6 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import styles from './Testimonials.module.css';
-
 const testimonials = [
 	{
 		text: 'Thank you for the wonderful recipe for feta pasta with tomatoes and basil. It turned out to be not only tasty, but also incredibly colorful. This has become a favorite family meal!',
@@ -28,42 +26,51 @@ const testimonials = [
 
 export const Testimonials = () => {
 	return (
-		<section className={styles.container} aria-label="Testimonials">
-			<p className={styles.subtitle}>What our customers say</p>
-			<h2 className={styles.header}>TESTIMONIALS</h2>
+    <section
+      className="mx-auto my-[80px] box-border flex h-auto w-full max-w-[822px] flex-col gap-4 py-4 md:h-[520px] md:gap-[15px] md:py-5"
+      aria-label="Testimonials"
+    >
+      <p className="m-0 text-center text-[16px] leading-[24px] font-medium tracking-[-0.02em] text-[#1A1A1A]">
+        What our customers say
+      </p>
 
-			<div className={styles.card}>
-				<div className={styles.quote} aria-hidden>
-          <svg width="59" height="48" viewBox="0 0 59 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 48V31.9412C0 25.9412 1.05672 20.4118 3.17015 15.3529C5.28358 10.2941 8.86468 5.17647 13.9134 0L23.0716 7.2353C20.1363 10.1765 17.9055 12.9412 16.3791 15.5294C14.8527 18.1177 13.8547 20.7647 13.3851 23.4706H24.6567V48H0ZM34.3433 48V31.9412C34.3433 25.9412 35.4 20.4118 37.5134 15.3529C39.6269 10.2941 43.208 5.17647 48.2567 0L57.4149 7.2353C54.4796 10.1765 52.2488 12.9412 50.7224 15.5294C49.196 18.1177 48.198 20.7647 47.7284 23.4706H59V48H34.3433Z" fill="#BFBEBE"/>
+      <h2 className="m-0 text-center text-[40px] font-extrabold text-[#0f172a] md:text-[40px]">
+        TESTIMONIALS
+      </h2>
+
+      <div className="relative box-border flex h-auto items-center justify-center overflow-hidden rounded-[14px] bg-white p-4 md:h-[320px] md:p-[40px]">
+        <div className="pointer-events-none absolute -top-8 left-[120px] md:-top-10 md:left-[120px] p-[40px] text-[64px] md:text-[88px] text-[#BFBEBE] opacity-[0.25] md:opacity-[0.35]">
+          <svg width="59" height="48" aria-hidden>
+            <use href="/icons.svg#quote-icon" />
           </svg>
         </div>
 
-				<Swiper
-					modules={[Autoplay, Pagination]}
-					spaceBetween={0}
-					slidesPerView={1}
-					loop={true}
-					autoplay={{
-						delay: 5500,
-						disableOnInteraction: false,
-						pauseOnMouseEnter: true,
-					}}
-					pagination={{
-						clickable: true,
-						bulletClass: styles.bullet,
-						bulletActiveClass: styles.bulletActive,
-					}}
-					className={styles.swiper}
-				>
-					{testimonials.map((item, idx) => (
-						<SwiperSlide key={idx} className={styles.slide}>
-							<p className={styles.text}>{item.text}</p>
-							<p className={styles.author}>{item.author}</p>
-						</SwiperSlide>
-					))}
-				</Swiper>
-			</div>
-		</section>
-	);
-}
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          spaceBetween={0}
+          slidesPerView={1}
+          loop={true}
+          autoplay={{
+            delay: 5500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          pagination={{ clickable: true }}
+          className="h-[180px] md:h-[220px] w-full mt-[60px] md:mt-[40px]"
+        >
+          {testimonials.map((item, idx) => (
+            <SwiperSlide
+              key={idx}
+              className="box-border flex h-full flex-col items-center justify-center px-4 text-center md:px-[40px]"
+            >
+              <p className="mb-4 max-w-[680px] text-[16px] leading-[1.6] text-[#0f172a] md:mb-[24px] md:text-[18px]">
+                {item.text}
+              </p>
+              <p className="mt-[30px] md:mt-[60px] text-[16px] font-bold text-[#0f172a] md:text-[18px]">{item.author}</p>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </section>
+  );
+};

@@ -72,3 +72,22 @@ p {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: var(--dot-inactive);
+  opacity: 1;
+  border-radius: 9999px;
+  margin: 0 6px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #000 !important;
+}
+
+@media (max-width: 900px) {
+  .swiper-pagination-bullet {
+    top: 60px !important;
+  }
+}
