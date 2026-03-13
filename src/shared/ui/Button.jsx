@@ -10,6 +10,7 @@ const VARIANTS = {
   'dark-hover':
     'w-fit px-4 tablet:px-7 py-2.5 tablet:py-3.5 text-sm tablet:text-base font-bold rounded-[1.875rem] bg-transparent hover:bg-main text-dark hover:text-white uppercase shadow-border-dark',
   icon: 'w-9 tablet:w-10.5 h-9 tablet:h-10.5 flex justify-center items-center rounded-full',
+  'modal-icon': 'flex justify-center items-center',
 };
 
 const STATE_CLASSES = {
