@@ -18,6 +18,8 @@
     --shadow-border-grey: inset 0 0 1px 1px var(--color-grey);
 
     --grid-template-columns-15: repeat(15, minmax(0, 1fr));
+    --grid-template-columns-25: repeat(25, minmax(0, 1fr));
+    --grid-column-span-18: span 18 / span 18;
     --grid-column-span-7: span 7 / span 7;
     --grid-column-span-4: span 4 / span 4;
 
@@ -39,6 +41,18 @@
         max-width: 1440px;
         padding-inline: 80px;
     }
+}
+
+@utility main-text {
+    @apply text-dark text-sm tablet:text-base font-medium;
+}
+
+@utility h2 {
+    @apply tablet:text-[2.5rem] tablet:leading-[1.1] text-main text-[1.75rem] leading-[1.142857] font-extrabold uppercase;
+}
+
+@utility h4 {
+    @apply text-main text-lg leading-[1.33333] tablet:text-xl tablet:leading-[1.2] font-extrabold uppercase;
 }
 
 body {

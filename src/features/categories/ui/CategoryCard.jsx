@@ -1,15 +1,60 @@
 import { cn } from '@/shared/lib/clsx';
 import { Button } from '@/shared/ui/Button';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useRecipesSearchMutation } from '../model/use-recipes-search-mutation';
+import { useQueryClient } from '@tanstack/react-query';
+import { recipesKeys } from '@/features/recipes/model/use-recipes-query';
+import { categoryKeyToSlug } from '@/shared/lib/routing/category-slug';
 
 export const CategoryCard = ({
+  isAllCategories = false,
   title,
   imageUrl,
   imageMobileUrl,
   imageDesktopUrl,
   className = '',
-  href,
 }) => {
   const fallback = imageDesktopUrl ?? imageMobileUrl ?? imageUrl ?? null;
+
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { mutateAsync, isPending } = useRecipesSearchMutation();
+
+  const handleOpen = async () => {
+    try {
+      const categoryName = title ? String(title).trim() : '';
+      const categorySlug = categoryKeyToSlug(categoryName);
+
+      const category = isAllCategories ? null : categoryName;
+      const params = { category, page: 1, limit: 10 };
+
+      const data = await mutateAsync(params);
+
+      queryClient.setQueryData(recipesKeys.search(params), data);
+
+      navigate(isAllCategories ? '/recipes' : `/recipes/${encodeURIComponent(categorySlug)}`);
+    } catch (e) {
+      const serverMessage = e?.response?.data?.message || e?.response?.data?.error;
+      toast.error(serverMessage || 'Server error');
+    }
+  };
+
+  if (isAllCategories) {
+    return (
+      <button
+        type="button"
+        className={cn(
+          'bg-main tablet:h-92.25 tablet:text-xl tablet:leading-[1.2] flex h-62.5 w-full cursor-pointer items-center justify-center overflow-hidden rounded-[1.875rem] text-base font-extrabold text-white uppercase',
+          className
+        )}
+        onClick={handleOpen}
+        disabled={isPending}
+      >
+        {title}
+      </button>
+    );
+  }
 
   return (
     <div
@@ -43,8 +88,9 @@ export const CategoryCard = ({
           className="tablet:w-11 tablet:h-11 shadow-border-grey/20 h-10 w-10 text-white"
           iconName="arrow-up-right-icon"
           iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
-          href={href}
-          iconVisualHiddenText={`Link to ${title} category`}
+          onClick={handleOpen}
+          disabled={isPending}
+          iconVisualHiddenText={`Open ${title} category recipes`}
         />
       </div>
     </div>

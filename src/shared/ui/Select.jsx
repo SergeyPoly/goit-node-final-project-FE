@@ -10,16 +10,36 @@ export const Select = ({
   className = '',
   name = '',
   required = false,
+  searchable = false,
+  noOptionsText = 'No matches',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [keyboardIndex, setKeyboardIndex] = useState(-1);
   const [dropUp, setDropUp] = useState(false);
+  const [query, setQuery] = useState('');
   const rootRef = useRef(null);
   const listRef = useRef(null);
+  const searchInputRef = useRef(null);
 
   const selectedIndex = useMemo(
     () => options.findIndex((opt) => opt.value === value),
     [options, value]
+  );
+
+  const filteredOptions = useMemo(() => {
+    if (!searchable) return options;
+    const q = query.trim().toLowerCase();
+    if (!q) return options;
+    return options.filter((opt) =>
+      String(opt?.label ?? '')
+        .toLowerCase()
+        .includes(q)
+    );
+  }, [options, query, searchable]);
+
+  const filteredSelectedIndex = useMemo(
+    () => filteredOptions.findIndex((opt) => opt.value === value),
+    [filteredOptions, value]
   );
 
   const calculatePosition = useCallback(() => {
@@ -34,27 +54,42 @@ export const Select = ({
   }, []);
 
   useEffect(() => {
-    if (isOpen && selectedIndex !== -1 && listRef.current) {
-      const activeElement = listRef.current.children[selectedIndex];
+    if (isOpen && filteredSelectedIndex !== -1 && listRef.current) {
+      const activeElement = listRef.current.children[filteredSelectedIndex];
       const scrollTimeout = setTimeout(() => {
         activeElement?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }, 0);
       return () => clearTimeout(scrollTimeout);
     }
-  }, [isOpen, selectedIndex]);
+  }, [isOpen, filteredSelectedIndex]);
+
+  useEffect(() => {
+    if (isOpen) {
+      const t = setTimeout(() => {
+        if (searchable) searchInputRef.current?.focus();
+      }, 0);
+      return () => clearTimeout(t);
+    }
+  }, [isOpen, searchable]);
 
   const toggleDropdown = () => {
     const nextState = !isOpen;
     if (nextState) {
       setDropUp(calculatePosition());
-      setKeyboardIndex(selectedIndex);
+      setKeyboardIndex(filteredSelectedIndex);
+      setIsOpen(true);
+      return;
     }
-    setIsOpen(nextState);
+
+    setIsOpen(false);
+    setQuery('');
+    setKeyboardIndex(-1);
   };
 
   const handleOptionClick = (option) => {
     onChange?.(option);
     setIsOpen(false);
+    setQuery('');
     setKeyboardIndex(-1);
   };
 
@@ -67,10 +102,10 @@ export const Select = ({
       if (!isOpen) {
         setDropUp(calculatePosition());
         setIsOpen(true);
-        setKeyboardIndex(selectedIndex);
+        setKeyboardIndex(filteredSelectedIndex);
       } else {
         setKeyboardIndex((prev) => {
-          const next = prev < options.length - 1 ? prev + 1 : prev;
+          const next = prev < filteredOptions.length - 1 ? prev + 1 : prev;
           listRef.current?.children[next]?.scrollIntoView({ block: 'nearest' });
           return next;
         });
@@ -82,7 +117,7 @@ export const Select = ({
       if (!isOpen) {
         setDropUp(calculatePosition());
         setIsOpen(true);
-        setKeyboardIndex(selectedIndex);
+        setKeyboardIndex(filteredSelectedIndex);
       } else {
         setKeyboardIndex((prev) => {
           const next = prev > 0 ? prev - 1 : prev;
@@ -95,11 +130,11 @@ export const Select = ({
     if (e.key === 'Enter') {
       if (isOpen && keyboardIndex >= 0) {
         e.preventDefault();
-        handleOptionClick(options[keyboardIndex]);
+        handleOptionClick(filteredOptions[keyboardIndex]);
       } else if (!isOpen) {
         setDropUp(calculatePosition());
         setIsOpen(true);
-        setKeyboardIndex(selectedIndex);
+        setKeyboardIndex(filteredSelectedIndex);
       }
     }
   };
@@ -108,6 +143,8 @@ export const Select = ({
     const handleClickOutside = (event) => {
       if (rootRef.current && !rootRef.current.contains(event.target)) {
         setIsOpen(false);
+        setQuery('');
+        setKeyboardIndex(-1);
       }
     };
 
@@ -145,7 +182,7 @@ export const Select = ({
           'shadow-border-grey tablet:px-4.5 tablet:py-4 tablet:text-base focus:shadow-border-main flex w-full items-center justify-between rounded-[1.875rem] bg-transparent p-3.5 text-sm font-medium transition-all outline-none'
         )}
       >
-        <span className={cn(value ? 'text-main' : 'text-dark')}>
+        <span className={cn(value ? 'text-main' : 'text-grey')}>
           {selectedOption ? selectedOption.label : placeholder}
         </span>
         <Icon
@@ -158,41 +195,64 @@ export const Select = ({
       </button>
 
       {isOpen && (
-        <ul
-          ref={listRef}
-          id={`${name}-dropdown-list`}
-          role="listbox"
-          aria-labelledby={`${name}-select-button`}
+        <div
           className={cn(
-            'tablet:px-4.5 tablet:py-4 border-grey/10 absolute left-0 z-50 flex max-h-60 w-full flex-col gap-1.5 overflow-y-auto scroll-smooth rounded-[0.9375rem] border bg-white p-3.5 shadow-sm',
+            'tablet:px-4.5 tablet:py-4 border-grey/10 absolute left-0 z-50 flex max-h-80 w-full flex-col gap-2 overflow-hidden rounded-[0.9375rem] border bg-white p-3.5 shadow-sm',
             dropUp ? 'bottom-full mb-2' : 'top-full mt-2'
           )}
         >
-          {options.map((option, index) => (
-            <li
-              key={`${name}-opt-${option.value}`}
-              role="option"
-              id={`${name}-opt-${option.value}`}
-              aria-selected={value === option.value}
-            >
-              <button
-                type="button"
-                data-label={option.label}
-                onClick={() => handleOptionClick(option)}
-                className={cn(
-                  'tablet:text-base text-main relative flex w-full flex-col text-left text-sm outline-none after:invisible after:block after:h-0 after:overflow-hidden after:font-bold after:content-[attr(data-label)] after:select-none',
-                  'transition-[font-variation-settings]!',
-                  '[font-variation-settings:"wght"_500]',
-                  'hover:[font-variation-settings:"wght"_800] focus:[font-variation-settings:"wght"_800]',
-                  (value === option.value || keyboardIndex === index) &&
-                    '[font-variation-settings:"wght"_800]'
-                )}
-              >
-                {option.label}
-              </button>
-            </li>
-          ))}
-        </ul>
+          {searchable && (
+            <input
+              ref={searchInputRef}
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setKeyboardIndex(-1);
+              }}
+              placeholder={placeholder}
+              className={cn(
+                'shadow-border-grey focus:shadow-border-main w-full rounded-[0.9375rem] bg-transparent px-3 py-2 text-sm outline-none'
+              )}
+            />
+          )}
+
+          <ul
+            ref={listRef}
+            id={`${name}-dropdown-list`}
+            role="listbox"
+            aria-labelledby={`${name}-select-button`}
+            className={cn('flex w-full flex-col gap-1.5 overflow-y-auto scroll-smooth')}
+          >
+            {filteredOptions.length === 0 ? (
+              <li className="text-grey px-1 text-sm">{noOptionsText}</li>
+            ) : (
+              filteredOptions.map((option, index) => (
+                <li
+                  key={`${name}-opt-${option.value}`}
+                  role="option"
+                  id={`${name}-opt-${option.value}`}
+                  aria-selected={value === option.value}
+                >
+                  <button
+                    type="button"
+                    data-label={option.label}
+                    onClick={() => handleOptionClick(option)}
+                    className={cn(
+                      'tablet:text-base text-main relative flex w-full flex-col text-left text-sm outline-none after:invisible after:block after:h-0 after:overflow-hidden after:font-bold after:content-[attr(data-label)] after:select-none',
+                      'transition-[font-variation-settings]!',
+                      '[font-variation-settings:"wght"_500]',
+                      'hover:[font-variation-settings:"wght"_800] focus:[font-variation-settings:"wght"_800]',
+                      (value === option.value || keyboardIndex === index) &&
+                        '[font-variation-settings:"wght"_800]'
+                    )}
+                  >
+                    {option.label}
+                  </button>
+                </li>
+              ))
+            )}
+          </ul>
+        </div>
       )}
     </div>
   );
