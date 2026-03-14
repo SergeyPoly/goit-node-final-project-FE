@@ -3,7 +3,7 @@ import { Button } from '@/shared/ui/Button.jsx';
 export const Hero = () => {
   return (
     <section className="container px-2 tablet:px-4 desktop:px-5">
-      <div className="rounded-b-[20px] tablet:rounded-b-[30px] relative bg-black text-white pt-[124px] desktop:pt-[64px] px-4 tablet:px-8 pb-[100px] tablet:pb-[90px] desktop:pb-[80px]">
+      <div className="rounded-b-[20px] tablet:rounded-b-[30px] relative bg-main text-white pt-[124px] desktop:pt-[64px] px-4 tablet:px-8 pb-[100px] tablet:pb-[90px] desktop:pb-[80px]">
 
           <h1 className="text-[40px] tablet:text-[70px] desktop:text-[90px] leading-[40px] tablet:leading-[70px] desktop:leading-[90px] font-extrabold tracking-[-0.03em] uppercase text-center mb-5 tablet:mb-10 desktop:max-w-[875px] mx-auto">
             Improve your culinary talents
