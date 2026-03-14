@@ -1,15 +1,15 @@
-import { useState } from 'react';
 import { cn } from '@/shared/lib/clsx';
 import { CategoryCard } from '@/features/categories/ui/CategoryCard';
 import { useBreakpoint } from '@/shared/lib/hooks/useBreakpoint';
+import { mapCategoriesToUi } from '../model/map-categories-to-ui';
 
 export const CategoryList = ({ categories = [] }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const { isMobile } = useBreakpoint();
 
+  const categoriesForUi = mapCategoriesToUi(categories);
+
   const limit = isMobile ? 8 : 11;
-  const visibleCategories = isExpanded ? categories : categories.slice(0, limit);
-  const showButton = !isExpanded && categories.length > limit;
+  const visibleCategories = categoriesForUi.slice(0, limit);
 
   return (
     <ul className="tablet:grid-cols-2 desktop:grid-cols-15 tablet:gap-5 grid grid-cols-1 gap-4">
@@ -41,22 +41,14 @@ export const CategoryList = ({ categories = [] }) => {
               title={cat.title}
               imageMobileUrl={cat.image?.mobile}
               imageDesktopUrl={cat.image?.desktop}
-              href={cat.href}
             />
           </li>
         );
       })}
 
-      {showButton && (
-        <li
-          onClick={() => setIsExpanded(true)}
-          className="bg-main desktop:col-span-4 tablet:h-92.25 flex h-62.5 w-full cursor-pointer items-center justify-center overflow-hidden rounded-[1.875rem]"
-        >
-          <p className="tablet:text-xl tablet:leading-[1.2] text-base font-extrabold text-white uppercase">
-            All categories
-          </p>
-        </li>
-      )}
+      <li className="w-full desktop:col-span-4 ">
+        <CategoryCard isAllCategories title="All categories" />
+      </li>
     </ul>
   );
 };

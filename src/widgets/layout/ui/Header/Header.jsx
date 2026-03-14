@@ -11,18 +11,19 @@ export const Header = () => {
   const { pathname } = useLocation();
 
   const isHome = pathname === '/';
+  const isDark = pathname === '/' || pathname.startsWith('/recipes');
 
   return (
     <header
       className="container px-2 pt-2 tablet:px-4 tablet:pt-4 desktop:px-5 desktop:pt-5"
     >
       <div className={clsx(
-        'rounded-t-[20px] tablet:rounded-t-[30px] flex items-center justify-between p-4 tablet:px-8 tablet:py-5 desktop:px-[60px]',
-        isHome ? 'bg-main' : 'bg-white/80',
+        'rounded-t-[20px] tablet:rounded-t-[30px] flex items-center justify-between p-4 tablet:px-8 tablet:py-5 desktop:px-15',
+        isDark ? 'bg-main' : 'bg-white/80',
       )}>
-        <Logo isDarkType={!isHome} />
+        <Logo isDarkType={!isDark} />
 
-        <Nav isDarkType={isHome} />
+        <Nav isDarkType={isDark} />
 
         {isAuth ? <UserBar user={user} path={isHome} /> : <AuthBar />}
       </div>

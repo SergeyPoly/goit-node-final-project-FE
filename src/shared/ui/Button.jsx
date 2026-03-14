@@ -9,6 +9,8 @@ const VARIANTS = {
   dark: 'w-fit px-4 tablet:px-7 py-2.5 tablet:py-3.5 text-sm tablet:text-base font-bold rounded-[1.875rem] bg-dark hover:bg-main disabled:bg-grey text-white uppercase shadow-border-dark disabled:shadow-none',
   'dark-hover':
     'w-fit px-4 tablet:px-7 py-2.5 tablet:py-3.5 text-sm tablet:text-base font-bold rounded-[1.875rem] bg-transparent hover:bg-main text-dark hover:text-white uppercase shadow-border-dark',
+  'dark-hover-circle':
+    'w-10 h-10 text-sm font-normal rounded-full bg-transparent hover:bg-main text-dark hover:text-white shadow-border-grey flex justify-center items-center hover:shadow-none',
   icon: 'w-9 tablet:w-10.5 h-9 tablet:h-10.5 flex justify-center items-center rounded-full',
   'modal-icon': 'flex justify-center items-center',
   text: 'tablet:text-base text-main text-sm font-medium',

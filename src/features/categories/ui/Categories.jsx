@@ -2,12 +2,9 @@ import { CategoryList } from './CategoryList';
 import { MainTitle } from '@/shared/ui/MainTitle';
 import { Subtitle } from '@/shared/ui/Subtitle';
 import { useCategoriesQuery } from '../model/use-categories-query';
-import { mapCategoriesToUi } from '../model/map-categories-to-ui';
 
 export const Categories = () => {
   const { data: categories, isLoading, isFetching } = useCategoriesQuery();
-
-  const categoriesForUi = mapCategoriesToUi(categories);
 
   const showLoader = isLoading || isFetching;
 
@@ -27,7 +24,7 @@ export const Categories = () => {
             <div className="loader" />
           </div>
         ) : (
-          <CategoryList categories={categoriesForUi} />
+          <CategoryList categories={categories} />
         )}
       </div>
     </section>

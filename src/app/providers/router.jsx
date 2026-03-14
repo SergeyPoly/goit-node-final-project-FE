@@ -6,6 +6,7 @@ import { AddRecipePage } from '@/pages/add-recipe/ui/AddRecipePage.jsx';
 import { UserPage } from '@/pages/user/ui/UserPage.jsx';
 import { ComponentsPage } from '@/pages/components/ui/ComponentsPage.jsx';
 import { PrivateRoute } from './PrivateRoute.jsx';
+import { RecipesPage } from '@/pages/recipes/ui/RecipesPage.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: 'recipes',
+        element: <RecipesPage />,
+      },
+      {
+        path: 'recipes/:category',
+        element: <RecipesPage />,
       },
       {
         path: 'recipe/:id',
