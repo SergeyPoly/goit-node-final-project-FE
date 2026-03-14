@@ -2,7 +2,6 @@ import { Button } from '@/shared/ui/Button';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-
 export const RecipeCard = ({
     title,
     imageUrl,
@@ -42,7 +41,7 @@ export const RecipeCard = ({
     );
 
     return (
-        <div className='w-87 tablet:76'>
+        <div className='w-85.75 tablet:w-85.5 desktop:w-76.25'>
             <div className='mb-4'>
                 {imageBlock}
                 <p className='uppercase font-extrabold text-lg tablet:text-xl mb-2'>
