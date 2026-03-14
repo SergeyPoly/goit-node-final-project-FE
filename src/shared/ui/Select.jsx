@@ -12,6 +12,9 @@ export const Select = ({
   required = false,
   searchable = false,
   noOptionsText = 'No matches',
+  clearable = true,
+  clearIconName = 'x-icon',
+  clearAriaLabel = 'Clear selection',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [keyboardIndex, setKeyboardIndex] = useState(-1);
@@ -93,9 +96,27 @@ export const Select = ({
     setKeyboardIndex(-1);
   };
 
+  const handleClear = (e) => {
+    e?.preventDefault?.();
+    e?.stopPropagation?.();
+    
+    onChange?.(null);
+    setIsOpen(false);
+    setQuery('');
+    setKeyboardIndex(-1);
+  };
+
   const handleKeyDown = (e) => {
     if (e.key === 'Escape') setIsOpen(false);
     if (e.key === 'Tab' && isOpen) setIsOpen(false);
+
+    if (clearable && value && (e.key === 'Backspace' || e.key === 'Delete')) {
+      if (!isOpen) {
+        e.preventDefault();
+        handleClear(e);
+        return;
+      }
+    }
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
@@ -185,13 +206,34 @@ export const Select = ({
         <span className={cn(value ? 'text-main' : 'text-grey')}>
           {selectedOption ? selectedOption.label : placeholder}
         </span>
-        <Icon
-          name="chevron-down-icon"
-          className={cn(
-            'text-main h-4.5 w-4.5 transition-transform duration-300',
-            isOpen && 'rotate-180'
+
+        <span className="flex items-center gap-2">
+          {clearable && value && (
+            <span
+              role="button"
+              tabIndex={0}
+              aria-label={clearAriaLabel}
+              onClick={handleClear}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') handleClear(e);
+              }}
+              className={cn(
+                'text-main inline-flex h-6 w-6 items-center justify-center rounded-full outline-none',
+                'hover:bg-grey/10 focus:bg-grey/10'
+              )}
+            >
+              <Icon name={clearIconName} className="h-4 w-4" />
+            </span>
           )}
-        />
+
+          <Icon
+            name="chevron-down-icon"
+            className={cn(
+              'text-main h-4.5 w-4.5 transition-transform duration-300',
+              isOpen && 'rotate-180'
+            )}
+          />
+        </span>
       </button>
 
       {isOpen && (
