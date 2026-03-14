@@ -1,45 +1,33 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
+import { useTestimonials } from '@/entities/testimonials/api/useTestimonials';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const testimonials = [
-	{
-		text: 'Thank you for the wonderful recipe for feta pasta with tomatoes and basil. It turned out to be not only tasty, but also incredibly colorful. This has become a favorite family meal!',
-		author: 'LARRY PAGEIM',
-	},
-	{
-		text: 'I tried the chicken curry recipe and it was outstanding — easy to follow and full of flavor. My guests asked for seconds and the leftovers disappeared by morning.',
-		author: 'SUSAN DOE',
-	},
-	{
-		text: 'The dessert suggestions are simply perfect. I made the lemon tart and it was zesty and delicate. My whole family loved it — thank you for such great recipes!',
-		author: 'MICHAEL SMITH',
-	},
-	{
-		text: 'Great UX and wonderful recipes. The step-by-step instructions made cooking enjoyable and stress-free. Highly recommended!',
-		author: 'ANNA KLEIN',
-	},
-];
-
 export const Testimonials = () => {
+  const { data = [], isLoading } = useTestimonials();
+
+  if (isLoading) {
+    return <div className="py-10 text-center text-main">Loading...</div>;
+  }
+
 	return (
     <section
-      className="mx-auto my-[80px] box-border flex h-auto w-full max-w-[822px] flex-col gap-4 py-4 md:h-[520px] md:gap-[15px] md:py-5"
+      className="container mt-[64px]"
       aria-label="Testimonials"
     >
-      <p className="m-0 text-center text-[16px] leading-[24px] font-medium tracking-[-0.02em] text-[#1A1A1A]">
+      <p className="text-center text-sm tablet:text-base font-medium tracking-[-0.02em] mb-4">
         What our customers say
       </p>
 
-      <h2 className="m-0 text-center text-[40px] font-extrabold text-[#0f172a] md:text-[40px]">
+      <h2 className="text-center text-3xl tablet:text-[40px] tablet:leading-[44px] font-extrabold mb-3 tablet:-mb-2">
         TESTIMONIALS
       </h2>
 
-      <div className="relative box-border flex h-auto items-center justify-center overflow-hidden rounded-[14px] bg-white p-4 md:h-[320px] md:p-[40px]">
-        <div className="pointer-events-none absolute -top-8 left-[120px] md:-top-10 md:left-[120px] p-[40px] text-[64px] md:text-[88px] text-[#BFBEBE] opacity-[0.25] md:opacity-[0.35]">
+      <div className="max-w-[822px] mx-auto">
+        <div className="mb-5 tablet:mb-10 pl-2 tablet:pl-10 text-[#BFBEBE]">
           <svg width="59" height="48" aria-hidden>
             <use href="/icons.svg#quote-icon" />
           </svg>
@@ -47,6 +35,7 @@ export const Testimonials = () => {
 
         <Swiper
           modules={[Autoplay, Pagination]}
+          autoHeight={true}
           spaceBetween={0}
           slidesPerView={1}
           loop={true}
@@ -56,17 +45,17 @@ export const Testimonials = () => {
             pauseOnMouseEnter: true,
           }}
           pagination={{ clickable: true }}
-          className="h-[180px] md:h-[220px] w-full mt-[60px] md:mt-[40px]"
         >
-          {testimonials.map((item, idx) => (
+
+          {data.map(({ testimonial, id, owner: { name } }) => (
             <SwiperSlide
-              key={idx}
-              className="box-border flex h-full flex-col items-center justify-center px-4 text-center md:px-[40px]"
+              key={id}
+              className="text-center"
             >
-              <p className="mb-4 max-w-[680px] text-[16px] leading-[1.6] text-[#0f172a] md:mb-[24px] md:text-[18px]">
-                {item.text}
+              <p className="text-lg tablet:text-2xl mb-[64px] tablet:mb-[80px] font-medium">
+                {testimonial}
               </p>
-              <p className="mt-[30px] md:mt-[60px] text-[16px] font-bold text-[#0f172a] md:text-[18px]">{item.author}</p>
+              <p className="uppercase tablet:text-xl font-bold mb-10">{name}</p>
             </SwiperSlide>
           ))}
         </Swiper>
