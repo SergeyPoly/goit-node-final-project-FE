@@ -32,6 +32,10 @@ const STATE_CLASSES = {
       'bg-transparent hover:bg-main text-main hover:text-white shadow-border-grey hover:shadow-none',
     active: 'bg-main text-white',
   },
+  'dark-hover-circle': {
+    inactive: '',
+    active: 'shadow-border-main',
+  },
 };
 
 const ButtonContent = ({ children, iconName, iconClass, iconVisualHiddenText }) => (
