@@ -15,16 +15,15 @@ export const useRecipesFilters = ({ categoryKey } = {}) => {
   const { isMobile } = useBreakpoint();
   const desiredLimit = isMobile ? 8 : 12;
 
-  const { get, setParam } = useQueryParam({ ensureLimit: desiredLimit });
+  const { get, setParam } = useQueryParam();
 
   const pageFromUrl = Number(get('page', '1'));
-  const limitFromUrl = Number(get('limit', String(desiredLimit)));
 
   const ingredient = get('ingredient', '');
   const area = get('area', '');
 
   const page = Number.isFinite(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
-  const limit = Number.isFinite(limitFromUrl) && limitFromUrl > 0 ? limitFromUrl : desiredLimit;
+  const limit = desiredLimit;
 
   const queryParams = useMemo(
     () => ({
@@ -44,23 +43,12 @@ export const useRecipesFilters = ({ categoryKey } = {}) => {
   useToastOnError(areasQuery.isError, areasQuery.error, 'Failed to load areas');
 
   useEffect(() => {
-    if (!Number.isFinite(limitFromUrl) || limitFromUrl !== desiredLimit) {
-      setParam('limit', String(desiredLimit), { resetPage: false });
-    }
-  }, [desiredLimit, limitFromUrl, setParam]);
-
-  useEffect(() => {
     const serverPage = recipesQuery.data?.currentPage;
-    const serverLimit = recipesQuery.data?.limit;
-
-    if (Number.isFinite(serverLimit) && serverLimit > 0 && serverLimit !== limitFromUrl) {
-      setParam('limit', String(serverLimit), { resetPage: false });
-    }
 
     if (Number.isFinite(serverPage) && serverPage > 0 && serverPage !== pageFromUrl) {
       setParam('page', String(serverPage), { resetPage: false });
     }
-  }, [limitFromUrl, pageFromUrl, recipesQuery.data, setParam]);
+  }, [pageFromUrl, recipesQuery.data, setParam]);
 
   const setPage = useCallback(
     (p) => setParam('page', String(p || 1), { resetPage: false }),
@@ -83,7 +71,7 @@ export const useRecipesFilters = ({ categoryKey } = {}) => {
   return {
     // values
     page: recipesQuery.data?.currentPage ?? page,
-    limit: recipesQuery.data?.limit ?? limit,
+    limit,
     ingredient,
     area,
 
