@@ -58,6 +58,7 @@ export const Pagination = ({
             <li key={`page-${p}`}>
               <Button
                 variant="dark-hover-circle"
+                className={cn(isActive && 'pointer-events-none')}
                 isActive={isActive}
                 aria-current={isActive ? 'page' : undefined}
                 onClick={() => handleClick(p)}
