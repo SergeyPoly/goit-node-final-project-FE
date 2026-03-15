@@ -4,7 +4,7 @@ import { Subtitle } from '@/shared/ui/Subtitle';
 export const Hero = () => {
   return (
     <section className="tablet:px-4 desktop:px-5 container px-2">
-      <div className="tablet:gap-14.5 tablet:rounded-b-[1.875rem] bg-main desktop:pt-17 desktop:pb-27.5 relative flex flex-col items-center gap-12 rounded-b-[1.25rem] px-4 tablet:px-5 desktop:px-15 pt-32.5 pb-29.5">
+      <div className="tablet:gap-14.5 tablet:rounded-b-[1.875rem] bg-main desktop:pt-17 desktop:pb-27.5 tablet:px-5 desktop:px-15 relative flex flex-col items-center gap-12 rounded-b-[1.25rem] px-4 pt-32.5 pb-29.5">
         <div className="tablet:gap-10 flex flex-col items-center gap-5">
           <h1 className="h1 desktop:max-w-4xl text-center text-white">
             Improve your culinary talents
@@ -20,7 +20,7 @@ export const Hero = () => {
           </Button>
         </div>
 
-        <div className="flex justify-center gap-5.5 tablet:gap-9">
+        <div className="tablet:gap-9 tablet:mr-4 mr-1.25 flex justify-center gap-5.5">
           <picture>
             <source
               media="(min-width: 768px)"
@@ -33,7 +33,7 @@ export const Hero = () => {
             <img
               src="/hero/hero-small-desk.webp"
               alt="Small dessert plate"
-              className="tablet:w-32 mt-20.25 tablet:mt-[7.59375rem] w-19.25 rotate-11 rounded-[0.9375rem] object-cover"
+              className="tablet:w-32 tablet:mt-[7.59375rem] mt-20.25 w-19.25 rotate-11 rounded-[0.9375rem] object-cover"
             />
           </picture>
 
@@ -49,7 +49,7 @@ export const Hero = () => {
             <img
               src="/hero/hero-main-desk.webp"
               alt="Main meat dish"
-              className="tablet:w-75.5 mr-1.25 tablet:mr-4 w-47.5 -rotate-12 rounded-[1.875rem] object-cover"
+              className="tablet:w-75.5 w-47.5 -rotate-12 rounded-[1.875rem] object-cover"
             />
           </picture>
         </div>
