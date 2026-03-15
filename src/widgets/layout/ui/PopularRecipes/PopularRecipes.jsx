@@ -1,28 +1,36 @@
-import { PopularRecipesList } from './PopularRecipesList';
-import { recipes } from './recipes';
+import { usePopularRecipes } from '@/entities/recipe/api/usePopularRecipes.js';
+import { RecipeCard } from '@/shared/ui/RecipeCard.jsx';
 
 export const PopularRecipes = () => {
-    const isLoading = false;
-    const isFetching = false;
+  const { data, isLoading } = usePopularRecipes();
 
-    const popularRecipes = recipes;
+  if (isLoading) {
+    return <div className="text-main py-10 text-center">Loading...</div>;
+  }
 
-    const showLoader = isLoading || isFetching;
-
-    return (
-        <section id="popular-recipes" className="tablet:mt-25 desktop:mt-30 mt-16 container">
-            <div>
-                    <h3 className='text-lg uppercase tablet:text-2xl font-extrabold mb-8 tablet:mb-10'>Popular Recipes</h3>
-                    {showLoader ? (
-                        <div className="flex h-96 items-center justify-center">
-                            <div className="loader" />
-                        </div>
-                    ) : (
-                        <PopularRecipesList popularRecipes={popularRecipes} />
-                    )}
-
-
-            </div>
-        </section>
-    );
+  return (
+    <section>
+      <div>
+        <h3 className="text-lg tablet:text-2xl mb-8 tablet:mb-10 font-extrabold uppercase">
+          Popular Recipes
+        </h3>
+        <ul className="grid grid-cols-1 gap-8 tablet:gap-x-5 tablet:gap-y-10 tablet:grid-cols-2 desktop:grid-cols-4">
+          {data?.recipes.map(({ id, title, thumb, description, owner }) => {
+            return (
+              <li key={id}>
+                <RecipeCard
+                  title={title}
+                  imageUrl={thumb}
+                  imageMobileUrl={thumb}
+                  imageDesktopUrl={thumb}
+                  description={description}
+                  owner={owner}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  );
 };

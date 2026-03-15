@@ -1,4 +1,5 @@
 import { PathInfo } from '@/shared/ui/PathInfo.jsx';
+import { PopularRecipes } from '@/widgets/layout/ui/PopularRecipes/PopularRecipes.jsx';
 
 export const RecipePage = () => {
   const pathItems = [
@@ -10,6 +11,7 @@ export const RecipePage = () => {
   return (
     <div className="container">
       <PathInfo items={pathItems} />
+      <PopularRecipes />
     </div>
   );
 };
