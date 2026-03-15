@@ -40,10 +40,10 @@ export const RecipeCard = ({
   const avatarSrc = owner?.avatarURL ?? null;
 
   return (
-    <article className="flex w-full flex-col gap-4">
+    <article className="flex h-full w-full flex-col gap-4">
       {imageBlock}
 
-      <div className="flex flex-col gap-2">
+      <div className="tablet:gap-3.5 flex h-full flex-col justify-between gap-2">
         <div className="flex flex-col gap-2">
           <h4 className="h4 line-clamp-1 text-ellipsis">{title}</h4>
           <p className="main-text line-clamp-2 text-ellipsis">{description}</p>
