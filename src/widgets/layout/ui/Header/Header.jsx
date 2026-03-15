@@ -1,13 +1,13 @@
-import { useUserStore } from '@/entities/user/model/use-user-store.js';
 import { Logo } from '@/shared/ui/Logo.jsx';
 import { Nav } from '@/widgets/layout/ui/Header/components/Nav.jsx';
 import { AuthBar } from '@/widgets/layout/ui/Header/components/AuthBar.jsx';
 import { UserBar } from '@/widgets/layout/ui/Header/components/UserBar.jsx';
 import { useLocation } from 'react-router-dom';
 import { cn } from '@/shared/lib/clsx/index.js';
+import { useCurrentUser } from '@/queries/user';
 
 export const Header = () => {
-  const { isAuth, user } = useUserStore();
+  const { user, isLoading } = useCurrentUser();
   const { pathname } = useLocation();
 
   const isDark = pathname === '/' || pathname.startsWith('/recipes');
@@ -15,19 +15,25 @@ export const Header = () => {
   return (
     <header
       className={cn(
-        "container pt-2 tablet:pt-4 desktop:pt-5",
-        isDark && "px-2 tablet:px-4 desktop:px-5 "
+        'tablet:pt-4 desktop:pt-5 container pt-2',
+        isDark && 'tablet:px-4 desktop:px-5 px-2'
       )}
     >
-      <div className={cn(
-        'rounded-t-[20px] tablet:rounded-t-[30px] flex items-center justify-between py-4 tablet:py-5',
-        isDark ? 'bg-main px-4 tablet:px-8 desktop:px-15' : 'bg-white/80',
-      )}>
+      <div
+        className={cn(
+          'tablet:rounded-t-[30px] tablet:py-5 flex items-center justify-between rounded-t-[20px] py-4',
+          isDark ? 'bg-main tablet:px-8 desktop:px-15 px-4' : 'bg-white/80'
+        )}
+      >
         <Logo isDarkType={!isDark} />
 
         <Nav isDarkType={isDark} />
 
-        {isAuth ? <UserBar user={user} path={isDark} /> : <AuthBar />}
+        {user || isLoading ? (
+          <UserBar loading={isLoading} user={user} isDark={isDark} />
+        ) : (
+          <AuthBar />
+        )}
       </div>
     </header>
   );

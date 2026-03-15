@@ -39,7 +39,7 @@ export const useRecipesFilters = ({ categoryKey } = {}) => {
 
   const recipesQuery = useRecipesQuery(queryParams);
 
-  useToastOnError(recipesQuery.isError, recipesQuery.error, 'Server error');
+  useToastOnError(recipesQuery.isError, recipesQuery.error, 'Failed to load recipes');
   useToastOnError(ingredientsQuery.isError, ingredientsQuery.error, 'Failed to load ingredients');
   useToastOnError(areasQuery.isError, areasQuery.error, 'Failed to load areas');
 
