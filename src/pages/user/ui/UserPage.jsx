@@ -2,11 +2,18 @@ import { TabsList } from '@/widgets/layout/ui/TabsList/TabsList.jsx';
 import { MainTitle } from '@/shared/ui/MainTitle.jsx';
 import { Subtitle } from '@/shared/ui/Subtitle.jsx';
 import { Button } from '@/shared/ui/Button.jsx';
+import { PathInfo } from '@/shared/ui/PathInfo.jsx';
+
+const pathItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Profile' },
+]
 
 export const UserPage = () => {
   return (
     <section className="container">
-      <MainTitle className="mt-8 tablet:mt-10 mb-4 tablet:mb-5">Profile</MainTitle>
+      <PathInfo items={pathItems} />
+      <MainTitle className="tablet:mt-10 mb-4 tablet:mb-5">Profile</MainTitle>
       <Subtitle className="mb-8 tablet:mb-10 max-w-[443px]">
         Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces with us.
       </Subtitle>
