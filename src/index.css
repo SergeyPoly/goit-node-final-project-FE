@@ -68,6 +68,10 @@
   @apply text-main tablet:text-xl tablet:leading-[1.2] text-lg leading-[1.33333] font-extrabold uppercase;
 }
 
+html {
+  @apply scroll-smooth;
+}
+
 body {
   @apply text-main tracking-[-0.02em];
 }
