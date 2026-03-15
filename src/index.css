@@ -77,7 +77,7 @@ a {
   @apply cursor-pointer transition-colors duration-300 ease-in-out;
 }
 
-p {
+p, span {
   @apply cursor-default;
 }
 

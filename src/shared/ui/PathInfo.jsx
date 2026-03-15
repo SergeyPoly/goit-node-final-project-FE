@@ -7,9 +7,9 @@ export const PathInfo = ({ items, className }) => {
   return (
     <nav
       aria-label="Breadcrumb"
-      className={cn("mb-8 tablet:mb-10 pt-12 desktop:pt-[64px]", className)}
+      className={cn("mb-8 tablet:mb-10 pt-12 desktop:pt-16", className)}
     >
-      <ul className="flex items-center gap-2 text-xs font-bold uppercase text-dark/60">
+      <ul className="flex items-center gap-2 text-xs leading-normal font-bold uppercase text-grey">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
 
@@ -17,7 +17,7 @@ export const PathInfo = ({ items, className }) => {
             <li key={item.href || index} className="flex items-center gap-2">
               {isLast ? (
                 <span
-                  className="text-dark"
+                  className="text-main"
                   aria-current="page"
                 >
                   {item.label}
@@ -26,7 +26,7 @@ export const PathInfo = ({ items, className }) => {
                 <>
                   <Link
                     to={item.href}
-                    className="hover:text-[var(--color-main)] transition-colors"
+                    className="hover:text-main transition-colors"
                   >
                     {item.label}
                   </Link>
