@@ -1,78 +1,84 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-    --gray-500: #6b7280;
-    --text-900: #0f172a;
-    --purple-500: #c084fc;
-    --bg-white: #ffffff;
-    --dot-inactive: #d1d5db;
+  --gray-500: #6b7280;
+  --text-900: #0f172a;
+  --purple-500: #c084fc;
+  --bg-white: #ffffff;
+  --dot-inactive: #d1d5db;
 }
 
 @theme {
-    --font-sans: "Mulish", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans:
+    'Mulish', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 
-    --breakpoint-mobile: 375px;
-    --breakpoint-tablet: 768px;
-    --breakpoint-desktop: 1440px;
+  --breakpoint-mobile: 375px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1440px;
 
-    --color-main: oklch(0.1149 0 0);
-    --color-dark: oklch(0.2178 0 0);
-    --color-grey: oklch(0.8023 0.0011 17.18);
-    --color-error: oklch(0.4715 0.193475 29.2339);
+  --color-main: oklch(0.1149 0 0);
+  --color-dark: oklch(0.2178 0 0);
+  --color-grey: oklch(0.8023 0.0011 17.18);
+  --color-error: oklch(0.4715 0.193475 29.2339);
 
-    --shadow-border-white: inset 0 0 1px 1px var(--color-white);
-    --shadow-border-main: inset 0 0 1px 1px var(--color-main);
-    --shadow-border-dark: inset 0 0 1px 1px var(--color-dark);
-    --shadow-border-grey: inset 0 0 1px 1px var(--color-grey);
+  --shadow-border-white: inset 0 0 1px 1px var(--color-white);
+  --shadow-border-main: inset 0 0 1px 1px var(--color-main);
+  --shadow-border-dark: inset 0 0 1px 1px var(--color-dark);
+  --shadow-border-grey: inset 0 0 1px 1px var(--color-grey);
 
-    --grid-template-columns-15: repeat(15, minmax(0, 1fr));
-    --grid-template-columns-25: repeat(25, minmax(0, 1fr));
-    --grid-column-span-18: span 18 / span 18;
-    --grid-column-span-7: span 7 / span 7;
-    --grid-column-span-4: span 4 / span 4;
-
+  --grid-template-columns-15: repeat(15, minmax(0, 1fr));
+  --grid-template-columns-25: repeat(25, minmax(0, 1fr));
+  --grid-column-span-18: span 18 / span 18;
+  --grid-column-span-7: span 7 / span 7;
+  --grid-column-span-4: span 4 / span 4;
 }
 
 @utility container {
-    margin-inline: auto;
-    width: 100%;
-    padding-inline: 16px;
+  margin-inline: auto;
+  width: 100%;
+  padding-inline: 16px;
 
-    @variant mobile {
-        max-width: 375px;
-    }
-    @variant tablet {
-        max-width: 768px;
-        padding-inline: 32px;
-    }
-    @variant desktop {
-        max-width: 1440px;
-        padding-inline: 80px;
-    }
+  @variant mobile {
+    max-width: 375px;
+  }
+  @variant tablet {
+    max-width: 768px;
+    padding-inline: 32px;
+  }
+  @variant desktop {
+    max-width: 1440px;
+    padding-inline: 80px;
+  }
 }
 
 @utility main-text {
-    @apply text-dark text-sm tablet:text-base font-medium;
+  @apply text-dark tablet:text-base text-sm font-medium;
+}
+
+@utility h1 {
+  @apply text-main tablet:text-[4.375rem] desktop:text-[5.625rem] leading-none text-[2.5rem] font-extrabold uppercase;
 }
 
 @utility h2 {
-    @apply tablet:text-[2.5rem] tablet:leading-[1.1] text-main text-[1.75rem] leading-[1.142857] font-extrabold uppercase;
+  @apply tablet:text-[2.5rem] tablet:leading-[1.1] text-main text-[1.75rem] leading-[1.142857] font-extrabold uppercase;
 }
 
 @utility h4 {
-    @apply text-main text-lg leading-[1.33333] tablet:text-xl tablet:leading-[1.2] font-extrabold uppercase;
+  @apply text-main tablet:text-xl tablet:leading-[1.2] text-lg leading-[1.33333] font-extrabold uppercase;
 }
 
 body {
-    @apply tracking-[-0.02em] text-main;
+  @apply text-main tracking-[-0.02em];
 }
 
-button, a {
-    @apply cursor-pointer transition-colors duration-300 ease-in-out;
+button,
+a {
+  @apply cursor-pointer transition-colors duration-300 ease-in-out;
 }
 
 p {
-    @apply cursor-default;
+  @apply cursor-default;
 }
 
 .loader {
@@ -81,8 +87,8 @@ p {
   border-radius: 50%;
   border: 8px solid #d1914b;
   box-sizing: border-box;
-  --c:no-repeat radial-gradient(farthest-side, #d64123 94%,#0000);
-  --b:no-repeat radial-gradient(farthest-side, #000 94%,#0000);
+  --c: no-repeat radial-gradient(farthest-side, #d64123 94%, #0000);
+  --b: no-repeat radial-gradient(farthest-side, #000 94%, #0000);
   background:
     var(--c) 11px 15px,
     var(--b) 6px 15px,
@@ -95,21 +101,37 @@ p {
     var(--c) 47px 43px,
     var(--b) 31px 48px,
     #f6d353;
-  background-size: 15px 15px,6px 6px;
+  background-size:
+    15px 15px,
+    6px 6px;
   animation: l4 3s infinite;
 }
 @keyframes l4 {
-  0%     {-webkit-mask:conic-gradient(#0000 0     ,#000 0)}
-  16.67% {-webkit-mask:conic-gradient(#0000 60deg ,#000 0)}
-  33.33% {-webkit-mask:conic-gradient(#0000 120deg,#000 0)}
-  50%    {-webkit-mask:conic-gradient(#0000 180deg,#000 0)}
-  66.67% {-webkit-mask:conic-gradient(#0000 240deg,#000 0)}
-  83.33% {-webkit-mask:conic-gradient(#0000 300deg,#000 0)}
-  100%   {-webkit-mask:conic-gradient(#0000 360deg,#000 0)}
+  0% {
+    -webkit-mask: conic-gradient(#0000 0, #000 0);
+  }
+  16.67% {
+    -webkit-mask: conic-gradient(#0000 60deg, #000 0);
+  }
+  33.33% {
+    -webkit-mask: conic-gradient(#0000 120deg, #000 0);
+  }
+  50% {
+    -webkit-mask: conic-gradient(#0000 180deg, #000 0);
+  }
+  66.67% {
+    -webkit-mask: conic-gradient(#0000 240deg, #000 0);
+  }
+  83.33% {
+    -webkit-mask: conic-gradient(#0000 300deg, #000 0);
+  }
+  100% {
+    -webkit-mask: conic-gradient(#0000 360deg, #000 0);
+  }
 }
 
 .swiper-pagination {
-    position: relative !important;
+  position: relative !important;
 }
 
 .swiper-pagination-bullet {
