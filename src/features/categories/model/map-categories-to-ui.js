@@ -8,8 +8,7 @@ export const mapCategoriesToUi = (categories) => {
 
       return {
         id: c.id,
-        title: ui.title,
-        href: ui.href,
+        title: c.name,
         image: ui.image,
       };
     })

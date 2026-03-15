@@ -3,98 +3,88 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 export const RecipeCard = ({
-    title,
-    imageUrl,
-    imageMobileUrl,
-    imageDesktopUrl,
-    description = '',
-    owner = {},
-    href,
+  title,
+  imageMobileUrl,
+  imageDesktopUrl,
+  description = '',
+  owner = {},
 }) => {
-    const [favorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState(false);
 
-    const fallback = imageDesktopUrl ?? imageMobileUrl ?? imageUrl ?? null;
-    const ownerName = owner?.name || "Owner";
-    const ownerLink = `/user/${owner?.id}`;
+  const mobileSrc = imageMobileUrl ?? null;
+  const desktopSrc = imageDesktopUrl ?? null;
+  const fallback = mobileSrc ?? desktopSrc;
 
-    const toggleFavorite = () => {
-        setFavorite(prev => !prev);
-    };
+  const ownerName = owner?.name ?? 'Owner';
+  const ownerLink = `/user/${owner?.id}`;
 
-    const imageBlock = fallback && (
-        <picture>
-            {imageDesktopUrl && (
-                <source media="(min-width: 768px)" srcSet={imageDesktopUrl} />
-            )}
+  // TODO: implement real favorite logic (e.g. API call, user auth check, etc.)
+  const toggleFavorite = () => {
+    setFavorite((prev) => !prev);
+  };
 
-            {imageMobileUrl && (
-                <source media="(max-width: 767px)" srcSet={imageMobileUrl} />
-            )}
+  const imageBlock = fallback && (
+    <picture>
+      {desktopSrc && <source media="(min-width: 768px)" srcSet={desktopSrc} />}
+      {mobileSrc && <source media="(max-width: 767px)" srcSet={mobileSrc} />}
 
-            <img
-                src={fallback}
-                alt={title}
-                className="mb-2 h-56 tablet:69 w-full object-cover overflow-hidden rounded-[1.875rem]"
-                loading="lazy"
-            />
-        </picture>
-    );
+      <img
+        src={fallback}
+        alt={title}
+        className="tablet:h-68.75 tablet:rounded-[1.875rem] h-57.5 w-full overflow-hidden rounded-[1.25rem] object-cover"
+        loading="lazy"
+      />
+    </picture>
+  );
 
-    return (
-        <div className='w-85.75 tablet:w-85.5 desktop:w-76.25'>
-            <div className='mb-4'>
-                {imageBlock}
-                <p className='uppercase font-extrabold text-lg tablet:text-xl mb-2'>
-                    {title}
-                </p>
-                <p className='font-base text-sm line-clamp-2 text-ellipsis h-10'>
-                    {description}
-                </p>
-            </div>
+  const avatarSrc = owner?.avatarURL ?? null;
 
-            <div className='flex justify-between'>
+  return (
+    <article className="flex w-full flex-col gap-4">
+      {imageBlock}
 
-                <div className='flex items-center gap-2'>
-                    <div className="block h-8 w-8 rounded-full bg-black">
-                        {owner.avatar && (
-                            <img
-                                src={owner.avatar}
-                                alt={title}
-                                className="h-full w-full object-cover"
-                                loading="lazy"
-                            />
-                        )}
-                    </div>
-                    <Link
-                        to={ownerLink}
-                        className="mobile:text-xs mr-[6px] font-bold text-black uppercase"
-                    >
-                        {ownerName}
-                    </Link>
-                </div>
-
-                <div className='flex gap-1'>
-                    <Button
-                        variant="icon"
-                        iconName="heart-icon"
-                        iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
-                        isActive={favorite}
-                        onClick={toggleFavorite}
-                        iconVisualHiddenText="Add to Favorites"
-                    />
-
-                    <Button
-                        variant="icon"
-                        className="tablet:w-11 tablet:h-11 shadow-border-grey h-9 w-9 text-black"
-                        iconName="arrow-up-right-icon"
-                        iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
-                        href={href}
-                    />
-                </div>
-            </div>
-
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
+          <h4 className="h4 line-clamp-1 text-ellipsis">{title}</h4>
+          <p className="main-text line-clamp-2 text-ellipsis">{description}</p>
         </div>
-    );
+
+        <div className="flex justify-between">
+          <div className="flex items-center gap-2">
+            <div className="tablet:w-10 tablet:h-10 bg-grey block h-8 w-8 overflow-hidden rounded-full">
+              {avatarSrc && (
+                <img
+                  src={avatarSrc}
+                  alt={ownerName}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              )}
+            </div>
+            <Link to={ownerLink} className="tablet:text-base text-dark text-sm font-bold">
+              {ownerName}
+            </Link>
+          </div>
+
+          <div className="flex gap-1">
+            <Button
+              variant="icon"
+              iconName="heart-icon"
+              iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
+              isActive={favorite}
+              onClick={toggleFavorite}
+              iconVisualHiddenText="Add to Favorites"
+            />
+
+            <Button
+              variant="icon"
+              iconName="arrow-up-right-icon"
+              iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
+              iconVisualHiddenText={`Open ${title} recipe`}
+            />
+          </div>
+        </div>
+      </div>
+    </article>
+  );
 };
-
-

@@ -4,9 +4,9 @@ import { Copyright } from '@/shared/ui/Copyright.jsx';
 
 export const Footer = () => {
   return (
-    <footer className="py-12">
-      <div className=" border-be border-b-(--color-grey)">
-        <div className="container flex items-center justify-between pb-[40px] md:pb-[46px]">
+    <footer className="pb-12 mt-20 tablet:mt-25 desktop:mt-30">
+      <div className=" border-be border-b-grey">
+        <div className="container flex items-center justify-between pb-10 md:pb-11.5">
           <Logo />
           <NetworkLinks />
         </div>

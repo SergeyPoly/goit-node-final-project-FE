@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+:root {
+    --gray-500: #6b7280;
+    --text-900: #0f172a;
+    --purple-500: #c084fc;
+    --bg-white: #ffffff;
+    --dot-inactive: #d1d5db;
+}
+
 @theme {
     --font-sans: "Mulish", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
@@ -18,6 +26,8 @@
     --shadow-border-grey: inset 0 0 1px 1px var(--color-grey);
 
     --grid-template-columns-15: repeat(15, minmax(0, 1fr));
+    --grid-template-columns-25: repeat(25, minmax(0, 1fr));
+    --grid-column-span-18: span 18 / span 18;
     --grid-column-span-7: span 7 / span 7;
     --grid-column-span-4: span 4 / span 4;
 
@@ -39,6 +49,18 @@
         max-width: 1440px;
         padding-inline: 80px;
     }
+}
+
+@utility main-text {
+    @apply text-dark text-sm tablet:text-base font-medium;
+}
+
+@utility h2 {
+    @apply tablet:text-[2.5rem] tablet:leading-[1.1] text-main text-[1.75rem] leading-[1.142857] font-extrabold uppercase;
+}
+
+@utility h4 {
+    @apply text-main text-lg leading-[1.33333] tablet:text-xl tablet:leading-[1.2] font-extrabold uppercase;
 }
 
 body {
@@ -63,16 +85,16 @@ p {
   --b:no-repeat radial-gradient(farthest-side, #000 94%,#0000);
   background:
     var(--c) 11px 15px,
-    var(--b) 6px 15px,    
+    var(--b) 6px 15px,
     var(--c) 35px 23px,
-    var(--b) 29px 15px,    
+    var(--b) 29px 15px,
     var(--c) 11px 46px,
-    var(--b) 11px 34px,    
+    var(--b) 11px 34px,
     var(--c) 36px 0px,
     var(--b) 50px 31px,
     var(--c) 47px 43px,
-    var(--b) 31px 48px,    
-    #f6d353; 
+    var(--b) 31px 48px,
+    #f6d353;
   background-size: 15px 15px,6px 6px;
   animation: l4 3s infinite;
 }
@@ -84,4 +106,27 @@ p {
   66.67% {-webkit-mask:conic-gradient(#0000 240deg,#000 0)}
   83.33% {-webkit-mask:conic-gradient(#0000 300deg,#000 0)}
   100%   {-webkit-mask:conic-gradient(#0000 360deg,#000 0)}
+}
+
+.swiper-pagination {
+    position: relative !important;
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: var(--dot-inactive);
+  opacity: 1;
+  border-radius: 9999px;
+  margin: 0 6px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #000 !important;
+}
+
+@media (max-width: 900px) {
+  .swiper-pagination-bullet {
+    top: 60px !important;
+  }
 }
