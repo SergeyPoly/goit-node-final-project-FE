@@ -20,9 +20,12 @@ export const RecipeCard = ({
   const placeholderMob = '/images/placeholder/No-Image-Placeholder-mob.webp';
   const placeholderDesk = '/images/placeholder/No-Image-Placeholder-desk.webp';
 
+  const safeTitle = title || 'Recipe';
+
   const ownerName = owner?.name ?? 'Owner';
-  const ownerLink = `/user/${owner?.id}`;
-  const recipeLink = id ? `/recipe/${id}` : undefined;
+  const ownerId = owner?.id;
+  const ownerLink = ownerId ? `/user/${ownerId}` : null;
+  const recipeLink = id ? `/recipe/${id}` : null;
 
   const toggleFavorite = () => {
     if (!id) return;
@@ -45,7 +48,7 @@ export const RecipeCard = ({
               : placeholderDesk
             : (imageMobileUrl ?? imageDesktopUrl)
         }
-        alt={title}
+        alt={safeTitle}
         onError={() => setIsImgError(true)}
         className="tablet:h-68.75 tablet:rounded-[1.875rem] h-57.5 w-full overflow-hidden rounded-[1.25rem] object-cover"
         loading="lazy"
@@ -61,7 +64,7 @@ export const RecipeCard = ({
 
       <div className="tablet:gap-3.5 flex h-full flex-col justify-between gap-2">
         <div className="flex flex-col gap-2">
-          <h4 className="h4 line-clamp-1 text-ellipsis">{title}</h4>
+          <h4 className="h4 line-clamp-1 text-ellipsis">{safeTitle}</h4>
           <p className="main-text line-clamp-2 text-ellipsis">{description}</p>
         </div>
 
@@ -75,9 +78,14 @@ export const RecipeCard = ({
                 loading="lazy"
               />
             </div>
-            <Link to={ownerLink} className="tablet:text-base text-dark text-sm font-bold">
-              {ownerName}
-            </Link>
+
+            {ownerLink ? (
+              <Link to={ownerLink} className="tablet:text-base text-dark text-sm font-bold">
+                {ownerName}
+              </Link>
+            ) : (
+              <span className="tablet:text-base text-dark text-sm font-bold">{ownerName}</span>
+            )}
           </div>
 
           <div className="flex gap-1">
@@ -87,7 +95,7 @@ export const RecipeCard = ({
               iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
               isActive={isFavorite}
               onClick={toggleFavorite}
-              disabled={isToggleFavoriteDisabled}
+              disabled={isToggleFavoriteDisabled || !id}
               iconVisualHiddenText={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
             />
 
@@ -95,8 +103,9 @@ export const RecipeCard = ({
               variant="icon"
               iconName="arrow-up-right-icon"
               iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
-              href={recipeLink}
-              iconVisualHiddenText={`Open ${title} recipe`}
+              href={recipeLink ?? undefined}
+              disabled={!recipeLink}
+              iconVisualHiddenText={`Open ${safeTitle} recipe`}
             />
           </div>
         </div>

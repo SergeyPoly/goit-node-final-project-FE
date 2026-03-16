@@ -1,18 +1,13 @@
-import { useMemo } from 'react';
+import { useId } from 'react';
 import { RecipeCard } from '@/shared/ui/RecipeCard';
-import { useCurrentUser, useFavoriteRecipe } from '@/queries/user';
-import { getFavoriteIdsSet } from '@/shared/lib/favorites/getFavoriteIdsSet.js';
+import { RecipeCardSkeleton } from '@/shared/ui/RecipeCardSkeleton.jsx';
+import { useFavorites } from '@/queries/user';
 
-export const RecipeList = ({ recipes = [] }) => {
-  const { user } = useCurrentUser();
-  const { toggleFavorite, isPending } = useFavoriteRecipe();
+export const RecipeList = ({ recipes = [], isLoading = false, skeletonCount = 8 }) => {
+  const { isFavorite, toggleFavorite, isPending } = useFavorites();
+  const skeletonKeyPrefix = useId();
 
-  const favoriteIds = useMemo(
-    () => getFavoriteIdsSet(user?.favoriteRecipes),
-    [user?.favoriteRecipes]
-  );
-
-  if (!recipes?.length) {
+  if (!isLoading && !recipes?.length) {
     return (
       <div className="flex h-96 items-center justify-center">
         <p className="main-text font-bold">No recipes found.</p>
@@ -22,35 +17,39 @@ export const RecipeList = ({ recipes = [] }) => {
 
   return (
     <ul className="tablet:gap-x-5 tablet:gap-y-10 tablet:grid-cols-2 desktop:grid-cols-3 grid grid-cols-1 gap-8">
-      {recipes.map((recipe) => {
-        const id = recipe?.id;
-        const title = recipe?.title ?? 'Untitled recipe';
-        const description = recipe?.description ?? '';
-        const owner = recipe?.owner ?? {};
+      {isLoading
+        ? Array.from({ length: skeletonCount }).map((_, idx) => (
+            <li key={`${skeletonKeyPrefix}-skeleton-${idx}`}>
+              <RecipeCardSkeleton />
+            </li>
+          ))
+        : recipes.map((recipe, idx) => {
+            const id = recipe?.id;
+            const title = recipe?.title ?? 'Untitled recipe';
+            const description = recipe?.description ?? '';
+            const owner = recipe?.owner ?? {};
 
-        const imageMobileUrl = recipe?.thumb;
-        const imageDesktopUrl = recipe?.preview ?? recipe?.thumb;
+            const imageMobileUrl = recipe?.thumb;
+            const imageDesktopUrl = recipe?.preview ?? recipe?.thumb;
 
-        const isFavorite = id ? favoriteIds.has(id) : false;
-
-        return (
-          <li key={id}>
-            <RecipeCard
-              id={id}
-              title={title}
-              description={description}
-              owner={owner}
-              imageMobileUrl={imageMobileUrl}
-              imageDesktopUrl={imageDesktopUrl}
-              isFavorite={isFavorite}
-              isToggleFavoriteDisabled={isPending}
-              onToggleFavorite={(recipeId, currentIsFavorite) =>
-                toggleFavorite({ recipeId, isFavorite: currentIsFavorite })
-              }
-            />
-          </li>
-        );
-      })}
+            return (
+              <li key={id ?? `${skeletonKeyPrefix}-recipe-${idx}`}>
+                <RecipeCard
+                  id={id}
+                  title={title}
+                  description={description}
+                  owner={owner}
+                  imageMobileUrl={imageMobileUrl}
+                  imageDesktopUrl={imageDesktopUrl}
+                  isFavorite={isFavorite(id)}
+                  isToggleFavoriteDisabled={isPending}
+                  onToggleFavorite={(recipeId, currentIsFavorite) =>
+                    toggleFavorite({ recipeId, isFavorite: currentIsFavorite })
+                  }
+                />
+              </li>
+            );
+          })}
     </ul>
   );
 };
