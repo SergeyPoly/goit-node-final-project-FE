@@ -1,6 +1,6 @@
 import { cn } from '@/shared/lib/clsx';
 import { CategoryCard } from '@/features/categories/ui/CategoryCard';
-import { useBreakpoint } from '@/shared/lib/hooks/useBreakpoint';
+import { useBreakpoint } from '@/shared/lib/hooks/use-breakpoint';
 import { mapCategoriesToUi } from '../model/map-categories-to-ui';
 
 export const CategoryList = ({ categories = [] }) => {
@@ -46,7 +46,7 @@ export const CategoryList = ({ categories = [] }) => {
         );
       })}
 
-      <li className="w-full desktop:col-span-4 ">
+      <li className="desktop:col-span-4 w-full">
         <CategoryCard isAllCategories title="All categories" />
       </li>
     </ul>

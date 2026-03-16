@@ -1,7 +1,7 @@
 import { Button } from '@/shared/ui/Button';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { useBreakpoint } from '@/shared/lib/hooks/useBreakpoint';
+import { useBreakpoint } from '@/shared/lib/hooks/use-breakpoint';
 
 export const RecipeCard = ({
   title,
