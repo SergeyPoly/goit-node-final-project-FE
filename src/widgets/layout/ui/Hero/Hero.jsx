@@ -24,14 +24,14 @@ export const Hero = () => {
           <picture>
             <source
               media="(min-width: 768px)"
-              srcSet="/hero/hero-small-desk.webp 1x, /hero/hero-small-desk@2x.webp 2x"
+              srcSet="/images/hero/hero-small-desk.webp 1x, /images/hero/hero-small-desk@2x.webp 2x"
             />
             <source
               media="(max-width: 767px)"
-              srcSet="/hero/hero-small-mob.webp 1x, /hero/hero-small-mob@2x.webp 2x"
+              srcSet="/images/hero/hero-small-mob.webp 1x, /images/hero/hero-small-mob@2x.webp 2x"
             />
             <img
-              src="/hero/hero-small-desk.webp"
+              src="/images/hero/hero-small-desk.webp"
               alt="Small dessert plate"
               className="tablet:w-32 tablet:mt-[7.59375rem] mt-20.25 w-19.25 rotate-11 rounded-[0.9375rem] object-cover"
             />
@@ -40,14 +40,14 @@ export const Hero = () => {
           <picture>
             <source
               media="(min-width: 768px)"
-              srcSet="/hero/hero-main-desk.webp 1x, /hero/hero-main-desk@2x.webp 2x"
+              srcSet="/images/hero/hero-main-desk.webp 1x, /images/hero/hero-main-desk@2x.webp 2x"
             />
             <source
               media="(max-width: 767px)"
-              srcSet="/hero/hero-main-mob.webp 1x, /hero/hero-main-mob@2x.webp 2x"
+              srcSet="/images/hero/hero-main-mob.webp 1x, /images/hero/hero-main-mob@2x.webp 2x"
             />
             <img
-              src="/hero/hero-main-desk.webp"
+              src="/images/hero/hero-main-desk.webp"
               alt="Main meat dish"
               className="tablet:w-75.5 w-47.5 -rotate-12 rounded-[1.875rem] object-cover"
             />

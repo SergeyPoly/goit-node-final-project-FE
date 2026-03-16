@@ -35,6 +35,7 @@ export const Recipes = () => {
     handleIngredientChange,
     handleAreaChange,
     recipesQuery,
+    limit,
   } = useRecipesFilters({ categoryKey });
 
   const handleBack = () => {
@@ -72,26 +73,24 @@ export const Recipes = () => {
           </Subtitle>
         </div>
 
-        {recipesQuery.isLoading ? (
-          <div className="flex h-96 items-center justify-center">
-            <div className="loader" />
-          </div>
-        ) : (
-          <div className="desktop:grid desktop:grid-cols-25 tablet:gap-10 flex flex-col gap-8">
-            <RecipeFilters
-              className="tablet:grid tablet:grid-cols-2 desktop:col-span-7 desktop:grid desktop:grid-cols-1 desktop:h-fit desktop:sticky desktop:top-8 grid grid-cols-1 gap-3.5"
-              ingredient={ingredient}
-              area={area}
-              onIngredientChange={handleIngredientChange}
-              onAreaChange={handleAreaChange}
-            />
+        <div className="desktop:grid desktop:grid-cols-25 tablet:gap-10 flex flex-col gap-8">
+          <RecipeFilters
+            className="tablet:grid tablet:grid-cols-2 desktop:col-span-7 desktop:grid desktop:grid-cols-1 desktop:h-fit desktop:sticky desktop:top-8 grid grid-cols-1 gap-3.5"
+            ingredient={ingredient}
+            area={area}
+            onIngredientChange={handleIngredientChange}
+            onAreaChange={handleAreaChange}
+          />
 
-            <div className="desktop:col-span-18 tablet:gap-15 flex flex-col gap-8">
-              <RecipeList recipes={recipesQuery.data?.recipes ?? []} />
-              <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
-            </div>
+          <div className="desktop:col-span-18 tablet:gap-15 flex flex-col gap-8">
+            <RecipeList
+              recipes={recipesQuery.data?.recipes ?? []}
+              isLoading={recipesQuery.isLoading}
+              skeletonCount={limit}
+            />
+            <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

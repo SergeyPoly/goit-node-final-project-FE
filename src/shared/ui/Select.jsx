@@ -99,7 +99,7 @@ export const Select = ({
   const handleClear = (e) => {
     e?.preventDefault?.();
     e?.stopPropagation?.();
-    
+
     onChange?.(null);
     setIsOpen(false);
     setQuery('');

@@ -3,7 +3,7 @@ import { useMemo, useCallback, useEffect } from 'react';
 import { useRecipesQuery } from '@/features/recipes/model/use-recipes-query';
 import { useToastOnError } from '@/shared/lib/hooks/use-toast-on-error';
 import { useQueryParam } from '@/shared/lib/hooks/use-query-param';
-import { useBreakpoint } from '@/shared/lib/hooks/useBreakpoint';
+import { useBreakpoint } from '@/shared/lib/hooks/use-breakpoint';
 
 import { useIngredientsStoreSync } from '@/features/ingredients/model/use-ingredients-store-sync';
 import { useAreasStoreSync } from '@/features/areas/model/use-areas-store-sync';

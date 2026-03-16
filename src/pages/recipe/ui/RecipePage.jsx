@@ -6,7 +6,7 @@ export const RecipePage = () => {
     { label: 'Home', href: '/' },
     // TODO dynamic depends on recipe name
     { label: 'xxx' },
-  ]
+  ];
 
   return (
     <div className="container">

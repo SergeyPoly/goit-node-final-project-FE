@@ -57,7 +57,7 @@
 }
 
 @utility h1 {
-  @apply text-main tablet:text-[4.375rem] desktop:text-[5.625rem] leading-none text-[2.5rem] font-extrabold uppercase;
+  @apply text-main tablet:text-[4.375rem] desktop:text-[5.625rem] text-[2.5rem] leading-none font-extrabold uppercase;
 }
 
 @utility h2 {
@@ -81,7 +81,8 @@ a {
   @apply cursor-pointer transition-colors duration-300 ease-in-out;
 }
 
-p, span {
+p,
+span {
   @apply cursor-default;
 }
 
@@ -131,6 +132,15 @@ p, span {
   }
   100% {
     -webkit-mask: conic-gradient(#0000 360deg, #000 0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }
 

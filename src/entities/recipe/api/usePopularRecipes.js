@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/shared/api/base';
 
-
 export const usePopularRecipes = () => {
   return useQuery({
     queryKey: ['popular-recipes'],

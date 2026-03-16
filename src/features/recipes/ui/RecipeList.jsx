@@ -1,7 +1,13 @@
+import { useId } from 'react';
 import { RecipeCard } from '@/shared/ui/RecipeCard';
+import { RecipeCardSkeleton } from '@/shared/ui/RecipeCardSkeleton.jsx';
+import { useFavorites } from '@/queries/user';
 
-export const RecipeList = ({ recipes = [] }) => {
-  if (!recipes?.length) {
+export const RecipeList = ({ recipes = [], isLoading = false, skeletonCount = 8 }) => {
+  const { isFavorite, toggleFavorite, isPending } = useFavorites();
+  const skeletonKeyPrefix = useId();
+
+  if (!isLoading && !recipes?.length) {
     return (
       <div className="flex h-96 items-center justify-center">
         <p className="main-text font-bold">No recipes found.</p>
@@ -10,28 +16,40 @@ export const RecipeList = ({ recipes = [] }) => {
   }
 
   return (
-    <ul className="grid grid-cols-1 gap-8 tablet:gap-x-5 tablet:gap-y-10 tablet:grid-cols-2 desktop:grid-cols-3">
-      {recipes.map((recipe) => {
-        const id = recipe?._id ?? recipe?.id;
-        const title = recipe?.title ?? 'Untitled recipe';
-        const description = recipe?.description ?? '';
-        const owner = recipe?.owner ?? {};
+    <ul className="tablet:gap-x-5 tablet:gap-y-10 tablet:grid-cols-2 desktop:grid-cols-3 grid grid-cols-1 gap-8">
+      {isLoading
+        ? Array.from({ length: skeletonCount }).map((_, idx) => (
+            <li key={`${skeletonKeyPrefix}-skeleton-${idx}`}>
+              <RecipeCardSkeleton />
+            </li>
+          ))
+        : recipes.map((recipe, idx) => {
+            const id = recipe?.id;
+            const title = recipe?.title ?? 'Untitled recipe';
+            const description = recipe?.description ?? '';
+            const owner = recipe?.owner ?? {};
 
-        const imageMobileUrl = recipe?.thumb;
-        const imageDesktopUrl = recipe?.preview;
+            const imageMobileUrl = recipe?.thumb;
+            const imageDesktopUrl = recipe?.preview ?? recipe?.thumb;
 
-        return (
-          <li key={id ?? title}>
-            <RecipeCard
-              title={title}
-              description={description}
-              owner={owner}
-              imageMobileUrl={imageMobileUrl}
-              imageDesktopUrl={imageDesktopUrl}
-            />
-          </li>
-        );
-      })}
+            return (
+              <li key={id ?? `${skeletonKeyPrefix}-recipe-${idx}`}>
+                <RecipeCard
+                  id={id}
+                  title={title}
+                  description={description}
+                  owner={owner}
+                  imageMobileUrl={imageMobileUrl}
+                  imageDesktopUrl={imageDesktopUrl}
+                  isFavorite={isFavorite(id)}
+                  isToggleFavoriteDisabled={isPending}
+                  onToggleFavorite={(recipeId, currentIsFavorite) =>
+                    toggleFavorite({ recipeId, isFavorite: currentIsFavorite })
+                  }
+                />
+              </li>
+            );
+          })}
     </ul>
   );
 };

@@ -9,24 +9,21 @@ export const Testimonials = () => {
   const { data = [], isLoading } = useTestimonials();
 
   if (isLoading) {
-    return <div className="py-10 text-center text-main">Loading...</div>;
+    return <div className="text-main py-10 text-center">Loading...</div>;
   }
 
-	return (
-    <section
-      className="container mt-16 tablet:mt-25 desktop:mt-30"
-      aria-label="Testimonials"
-    >
-      <p className="text-center text-sm tablet:text-base font-medium tracking-[-0.02em] mb-4 text-dark">
+  return (
+    <section className="tablet:mt-25 desktop:mt-30 container mt-16" aria-label="Testimonials">
+      <p className="tablet:text-base text-dark mb-4 text-center text-sm font-medium tracking-[-0.02em]">
         What our customers say
       </p>
 
-      <h2 className="text-center text-3xl tablet:text-[40px] tablet:leading-11 font-extrabold mb-3 tablet:-mb-2">
+      <h2 className="tablet:text-[40px] tablet:leading-11 tablet:-mb-2 mb-3 text-center text-3xl font-extrabold">
         TESTIMONIALS
       </h2>
 
-      <div className="max-w-205.5 mx-auto">
-        <div className="mb-5 tablet:mb-10 pl-2 tablet:pl-10 text-grey">
+      <div className="mx-auto max-w-205.5">
+        <div className="tablet:mb-10 tablet:pl-10 text-grey mb-5 pl-2">
           <svg width="59" height="48" aria-hidden>
             <use href="/icons.svg#quote-icon" />
           </svg>
@@ -45,16 +42,12 @@ export const Testimonials = () => {
           }}
           pagination={{ clickable: true }}
         >
-
           {data.map(({ testimonial, id, owner: { name } }) => (
-            <SwiperSlide
-              key={id}
-              className="text-center"
-            >
-              <p className="text-lg tablet:text-2xl mb-16 tablet:mb-20 font-medium">
+            <SwiperSlide key={id} className="text-center">
+              <p className="tablet:text-2xl tablet:mb-20 mb-16 text-lg font-medium">
                 {testimonial}
               </p>
-              <p className="uppercase tablet:text-xl font-bold mb-10">{name}</p>
+              <p className="tablet:text-xl mb-10 font-bold uppercase">{name}</p>
             </SwiperSlide>
           ))}
         </Swiper>

@@ -34,13 +34,7 @@ export const Categories = () => {
           </Subtitle>
         </div>
 
-        {showLoader ? (
-          <div className="flex h-96 items-center justify-center">
-            <div className="loader" />
-          </div>
-        ) : (
-          <CategoryList categories={categories} />
-        )}
+        <CategoryList categories={categories} isLoading={showLoader} />
       </div>
     </section>
   );
