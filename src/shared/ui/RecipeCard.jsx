@@ -4,14 +4,17 @@ import { useState } from 'react';
 import { useBreakpoint } from '@/shared/lib/hooks/use-breakpoint';
 
 export const RecipeCard = ({
+  id,
   title,
   imageMobileUrl,
   imageDesktopUrl,
   description = '',
   owner = {},
+  isFavorite = false,
+  onToggleFavorite,
+  isToggleFavoriteDisabled = false,
 }) => {
   const { isMobile } = useBreakpoint();
-  const [favorite, setFavorite] = useState(false);
   const [isImgError, setIsImgError] = useState(false);
 
   const placeholderMob = '/images/placeholder/No-Image-Placeholder-mob.webp';
@@ -19,9 +22,11 @@ export const RecipeCard = ({
 
   const ownerName = owner?.name ?? 'Owner';
   const ownerLink = `/user/${owner?.id}`;
+  const recipeLink = id ? `/recipe/${id}` : undefined;
 
   const toggleFavorite = () => {
-    setFavorite((prev) => !prev);
+    if (!id) return;
+    onToggleFavorite?.(id, isFavorite);
   };
 
   const imageBlock = (
@@ -80,15 +85,17 @@ export const RecipeCard = ({
               variant="icon"
               iconName="heart-icon"
               iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
-              isActive={favorite}
+              isActive={isFavorite}
               onClick={toggleFavorite}
-              iconVisualHiddenText="Add to Favorites"
+              disabled={isToggleFavoriteDisabled}
+              iconVisualHiddenText={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
             />
 
             <Button
               variant="icon"
               iconName="arrow-up-right-icon"
               iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
+              href={recipeLink}
               iconVisualHiddenText={`Open ${title} recipe`}
             />
           </div>
