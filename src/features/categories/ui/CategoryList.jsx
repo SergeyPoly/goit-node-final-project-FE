@@ -3,7 +3,7 @@ import { CategoryCard } from '@/features/categories/ui/CategoryCard';
 import { CategoryCardSkeleton } from '@/features/categories/ui/CategoryCardSkeleton.jsx';
 import { useBreakpoint } from '@/shared/lib/hooks/use-breakpoint';
 import { mapCategoriesToUi } from '../model/map-categories-to-ui';
-import { useId } from 'react';
+import { useId, useState } from 'react';
 
 const getCategoryItemLayoutClasses = (idx) => {
   const itemIndex = idx + 1;
@@ -30,10 +30,12 @@ const getCategoryItemLayoutClasses = (idx) => {
 export const CategoryList = ({ categories = [], isLoading = false }) => {
   const { isMobile } = useBreakpoint();
   const skeletonKeyPrefix = useId();
+  const [showAll, setShowAll] = useState(false);
 
   const categoriesForUi = mapCategoriesToUi(categories);
 
-  const limit = isMobile ? 8 : 11;
+  const initialLimit = isMobile ? 8 : 11;
+  const limit = showAll ? categoriesForUi.length : initialLimit;
   const visibleCategories = categoriesForUi.slice(0, limit);
 
   const renderCategoryItem = (idx, child, key) => (
@@ -45,7 +47,7 @@ export const CategoryList = ({ categories = [], isLoading = false }) => {
   return (
     <ul className="tablet:grid-cols-2 desktop:grid-cols-15 tablet:gap-5 grid grid-cols-1 gap-4">
       {isLoading
-        ? Array.from({ length: limit }).map((_, idx) =>
+        ? Array.from({ length: initialLimit }).map((_, idx) =>
             renderCategoryItem(
               idx,
               <CategoryCardSkeleton />,
@@ -64,13 +66,23 @@ export const CategoryList = ({ categories = [], isLoading = false }) => {
             )
           )}
 
-      <li className="desktop:col-span-4 w-full">
-        {isLoading ? (
-          <CategoryCardSkeleton isAllCategories />
-        ) : (
-          <CategoryCard isAllCategories title="All categories" />
-        )}
-      </li>
+      {!showAll ? (
+        <li className="desktop:col-span-4 w-full">
+          {isLoading ? (
+            <CategoryCardSkeleton isAllCategories />
+          ) : (
+            <button
+              type="button"
+              className={cn(
+                'bg-main tablet:h-92.25 tablet:text-xl tablet:leading-[1.2] flex h-62.5 w-full cursor-pointer items-center justify-center overflow-hidden rounded-[1.875rem] text-base font-extrabold text-white uppercase'
+              )}
+              onClick={() => setShowAll(true)}
+            >
+              All categories
+            </button>
+          )}
+        </li>
+      ) : null}
     </ul>
   );
 };

@@ -8,7 +8,6 @@ import { recipesKeys } from '@/features/recipes/model/use-recipes-query';
 import { categoryKeyToSlug } from '@/shared/lib/routing/category-slug';
 
 export const CategoryCard = ({
-  isAllCategories = false,
   title,
   imageUrl,
   imageMobileUrl,
@@ -26,35 +25,19 @@ export const CategoryCard = ({
       const categoryName = title ? String(title).trim() : '';
       const categorySlug = categoryKeyToSlug(categoryName);
 
-      const category = isAllCategories ? null : categoryName;
+      const category = categoryName;
       const params = { category, page: 1, limit: 10 };
 
       const data = await mutateAsync(params);
 
       queryClient.setQueryData(recipesKeys.search(params), data);
 
-      navigate(isAllCategories ? '/recipes' : `/recipes/${encodeURIComponent(categorySlug)}`);
+      navigate(`/recipes/${encodeURIComponent(categorySlug)}`);
     } catch (e) {
       const serverMessage = e?.response?.data?.message || e?.response?.data?.error;
       toast.error(serverMessage || 'Server error');
     }
   };
-
-  if (isAllCategories) {
-    return (
-      <button
-        type="button"
-        className={cn(
-          'bg-main tablet:h-92.25 tablet:text-xl tablet:leading-[1.2] flex h-62.5 w-full cursor-pointer items-center justify-center overflow-hidden rounded-[1.875rem] text-base font-extrabold text-white uppercase',
-          className
-        )}
-        onClick={handleOpen}
-        disabled={isPending}
-      >
-        {title}
-      </button>
-    );
-  }
 
   return (
     <div
