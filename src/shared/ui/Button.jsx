@@ -24,12 +24,12 @@ const STATE_CLASSES = {
     active: 'bg-dark hover:bg-main text-white shadow-border-grey',
   },
   favorite: {
-    inactive: 'bg-transparent text-main hover:bg-main/5',
+    inactive: 'bg-transparent text-main',
     active: 'bg-main text-white',
   },
   icon: {
     inactive:
-      'bg-transparent hover:bg-main/10 text-main shadow-border-grey hover:shadow-none',
+      'bg-transparent hover:bg-main text-main hover:text-white shadow-border-grey hover:shadow-none',
     active: 'bg-main text-white',
   },
   'dark-hover-circle': {
