@@ -3,7 +3,7 @@ import { PathInfo } from '@/shared/ui/PathInfo.jsx';
 import { PopularRecipes } from '@/widgets/layout/ui/PopularRecipes/PopularRecipes.jsx';
 import { useParams } from 'react-router-dom';
 import { useRecipe } from '@/entities/recipe/api/useRecipe';
-import { RecipeDetails } from './RecipeDetails.jsx';
+import { RecipeDetails } from '../../../features/recipe-details/ui/RecipeDetails.jsx';
 import { RecipeCardSkeleton } from '@/shared/ui/RecipeCardSkeleton.jsx';
 import { useFavorites } from '@/queries/user';
 
@@ -19,16 +19,11 @@ export const RecipePage = () => {
 
   const title = recipe?.title || 'Loading...';
 
-  const pathItems = [
-    { label: 'Home', href: '/' },
-    { label: title },
-  ];
+  const pathItems = [{ label: 'Home', href: '/' }, { label: title }];
 
   return (
-    <div className="container flex flex-col gap-10 lg:gap-[6.25rem]">
-      <div className="mb-4">
-        <PathInfo items={pathItems} />
-      </div>
+    <div className="container">
+      <PathInfo items={pathItems} />
 
       <div className="w-full">
         {isLoading ? (
@@ -43,7 +38,7 @@ export const RecipePage = () => {
             }
           />
         ) : (
-          <p className="text-center text-[#05050580] my-20">Recipe not found.</p>
+          <p className="my-20 text-center text-[#05050580]">Recipe not found.</p>
         )}
       </div>
 

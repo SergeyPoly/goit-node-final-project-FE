@@ -1,11 +1,16 @@
-import { Button } from '@/shared/ui/Button';
-import { useModalStore } from '@/entities/modal/store/use-modal-store';
-import { MODAL_NAMES } from '@/entities/modal/constants';
+import { Button } from '@/shared/ui/Button.jsx';
+import { useModalStore } from '@/entities/modal/store/use-modal-store.js';
+import { MODAL_NAMES } from '@/entities/modal/constants.js';
 import { useNavigate } from 'react-router-dom';
-import { useCurrentUser } from '@/queries/user/use-current-user';
-import { IngredientItem } from './IngredientItem';
+import { useCurrentUser } from '@/queries/user/use-current-user.js';
+import { IngredientChip } from '@/shared/ui/IngredientChip.jsx';
 
-export const RecipeDetails = ({ recipe, isFavorite, onToggleFavorite, isToggleFavoriteDisabled }) => {
+export const RecipeDetails = ({
+  recipe,
+  isFavorite,
+  onToggleFavorite,
+  isToggleFavoriteDisabled,
+}) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useCurrentUser();
   const { setCurrentModal } = useModalStore();
@@ -44,30 +49,30 @@ export const RecipeDetails = ({ recipe, isFavorite, onToggleFavorite, isToggleFa
   };
 
   return (
-    <article className="flex flex-col lg:flex-row gap-8 lg:gap-20 items-start">
+    <article className="flex flex-col items-start gap-8 lg:flex-row lg:gap-20">
       {/* Left Column: Image */}
-      <div className="w-full lg:w-[48%] shrink-0">
+      <div className="w-full shrink-0 lg:w-[48%]">
         <img
           src={imageUrl}
           alt={title}
-          className="w-full h-auto aspect-4/3 object-cover rounded-[1.25rem] tablet:rounded-[1.875rem] lg:rounded-[2.5rem]"
+          className="tablet:rounded-[1.875rem] aspect-4/3 h-auto w-full rounded-[1.25rem] object-cover lg:rounded-[2.5rem]"
           loading="lazy"
         />
       </div>
 
       {/* Right Column: Content */}
-      <div className="flex flex-col gap-8 w-full lg:flex-1">
+      <div className="flex w-full flex-col gap-8 lg:flex-1">
         {/* Header Block */}
         <div className="flex flex-col gap-4">
           <h1 className="h2 leading-tight">{title}</h1>
           <div className="flex gap-2">
             {category && (
-              <span className="px-4 py-1.5 border border-main/20 rounded-full text-sm font-medium text-main/50">
+              <span className="border-main/20 text-main/50 rounded-full border px-4 py-1.5 text-sm font-medium">
                 {category}
               </span>
             )}
             {time && (
-              <span className="px-4 py-1.5 border border-main/20 rounded-full text-sm font-medium text-main/50">
+              <span className="border-main/20 text-main/50 rounded-full border px-4 py-1.5 text-sm font-medium">
                 {time} min
               </span>
             )}
@@ -80,19 +85,21 @@ export const RecipeDetails = ({ recipe, isFavorite, onToggleFavorite, isToggleFa
           <button
             type="button"
             onClick={handleAuthorClick}
-            className="flex items-center gap-4 text-left hover:opacity-80 transition-opacity w-fit"
+            className="flex w-fit items-center gap-4 text-left transition-opacity hover:opacity-80"
           >
-            <div className="w-11 h-11 bg-grey rounded-full overflow-hidden shrink-0">
+            <div className="bg-grey h-11 w-11 shrink-0 overflow-hidden rounded-full">
               <img
                 src={owner.avatarURL ?? '/images/placeholder/No-Image-Placeholder-small.webp'}
                 alt={owner.name ?? 'Author'}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
                 loading="lazy"
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-xs text-main/50">Created by:</span>
-              <span className="text-sm font-bold text-dark leading-tight">{owner.name ?? 'Guest'}</span>
+              <span className="text-main/50 text-xs">Created by:</span>
+              <span className="text-dark text-sm leading-tight font-bold">
+                {owner.name ?? 'Guest'}
+              </span>
             </div>
           </button>
         )}
@@ -101,13 +108,13 @@ export const RecipeDetails = ({ recipe, isFavorite, onToggleFavorite, isToggleFa
         {ingredients && ingredients.length > 0 && (
           <div className="flex flex-col gap-6">
             <h2 className="h4 uppercase">Ingredients</h2>
-            <ul className="grid grid-cols-2 gap-x-4 tablet:gap-x-8 gap-y-4">
+            <ul className="tablet:gap-x-8 grid grid-cols-2 gap-x-4 gap-y-4">
               {ingredients.map((ing) => (
-                <IngredientItem
+                <IngredientChip
                   key={ing.id}
                   name={ing.name}
-                  img={ing.img}
                   measure={ing.recipe_ingredients?.measure}
+                  image={ing.img}
                 />
               ))}
             </ul>
@@ -118,20 +125,20 @@ export const RecipeDetails = ({ recipe, isFavorite, onToggleFavorite, isToggleFa
         {instructions && (
           <div className="flex flex-col gap-6">
             <h2 className="h4 uppercase">Recipe Preparation</h2>
-            <div className="main-text whitespace-pre-wrap !text-base !font-normal leading-relaxed text-dark">
+            <div className="main-text text-dark !text-base leading-relaxed !font-normal whitespace-pre-wrap">
               {instructions}
             </div>
           </div>
         )}
 
         {/* Favorite Button */}
-        <div className="pt-4 lg:pt-8 uppercase">
+        <div className="pt-4 uppercase lg:pt-8">
           <Button
             variant="favorite"
             isActive={isFavorite}
             onClick={handleFavoriteClick}
             disabled={isToggleFavoriteDisabled}
-            className="w-full tablet:w-auto"
+            className="tablet:w-auto w-full"
           >
             {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
           </Button>
