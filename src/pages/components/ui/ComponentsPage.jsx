@@ -183,14 +183,12 @@ export const ComponentsPage = () => {
         <h2 className="text-lg font-bold">IngredientChip</h2>
 
         <div className="flex flex-wrap gap-4">
-          {/* Відображення інгредієнта (без можливості видалення) */}
           <IngredientChip
             name="Salmon"
             measure="400 g"
             image="https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_rp_progressive&w=740&q=80"
           />
 
-          {/* Доданий інгредієнт на форму (згідно Figma) — з можливістю видалення */}
           <IngredientChip
             name="Salmon"
             measure="400 g"

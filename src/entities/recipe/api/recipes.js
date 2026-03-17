@@ -16,7 +16,7 @@ export const searchRecipes = async (query = {}) => {
   return data;
 };
 
-// POST /recipes — Create recipe (multipart/form-data)
+// POST /recipes — Create recipe
 export const createRecipe = async (formData) => {
   const { data } = await api.post('/recipes', formData, {
     headers: { 'Content-Type': undefined },
