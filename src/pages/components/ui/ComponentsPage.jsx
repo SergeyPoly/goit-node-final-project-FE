@@ -3,6 +3,7 @@ import { Button } from '@/shared/ui/Button';
 import { FormField } from '@/shared/ui/FormField';
 import { ImageManager } from '@/shared/ui/ImageManager';
 import { Icon } from '@/shared/ui/Icon';
+import { IngredientChip } from '@/shared/ui/IngredientChip';
 import { Modal } from '@/shared/ui/Modal';
 import { Select } from '@/shared/ui/Select';
 import { TextField } from '@/shared/ui/TextField';
@@ -176,6 +177,25 @@ export const ComponentsPage = () => {
         <h2 className="text-lg font-bold">Select</h2>
 
         <Select options={CATEGORIES} value={category} onChange={(opt) => setCategory(opt.value)} />
+      </div>
+
+      <div className="flex flex-col gap-4">
+        <h2 className="text-lg font-bold">IngredientChip</h2>
+
+        <div className="flex flex-wrap gap-4">
+          <IngredientChip
+            name="Salmon"
+            measure="400 g"
+            image="https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_rp_progressive&w=740&q=80"
+          />
+
+          <IngredientChip
+            name="Salmon"
+            measure="400 g"
+            image="https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_rp_progressive&w=740&q=80"
+            onRemove={() => console.log('Remove ingredient')}
+          />
+        </div>
       </div>
 
       <div className="flex flex-col gap-4">

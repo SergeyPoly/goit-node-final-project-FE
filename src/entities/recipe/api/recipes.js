@@ -15,3 +15,11 @@ export const searchRecipes = async (query = {}) => {
   const { data } = await api.get('/recipes/search', { params });
   return data;
 };
+
+// POST /recipes — Create recipe
+export const createRecipe = async (formData) => {
+  const { data } = await api.post('/recipes', formData, {
+    headers: { 'Content-Type': undefined },
+  });
+  return data;
+};
