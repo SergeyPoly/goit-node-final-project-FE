@@ -35,19 +35,21 @@ export const IngredientChip = ({ name, measure, image, onRemove, className = '' 
       </div>
 
       {/* Опціональна кнопка видалення — Figma: 16×16 */}
-      {showRemoveButton && (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            onRemove();
-          }}
-          className="focus-visible:ring-main -m-1 flex h-8 w-8 shrink-0 items-center justify-center rounded transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-          aria-label={`Видалити інгредієнт ${name}`}
-        >
-          <Icon name="x-icon" className="text-main h-4 w-4" />
-        </button>
-      )}
+      <div className="h-full">
+        {showRemoveButton && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              onRemove();
+            }}
+            className="focus-visible:ring-main -m-1 flex h-8 w-8 shrink-0 items-center justify-center rounded transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            aria-label={`Видалити інгредієнт ${name}`}
+          >
+            <Icon name="x-icon" className="text-main h-4 w-4" />
+          </button>
+        )}
+      </div>
     </div>
   );
 };
