@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { cn } from '@/shared/lib/clsx';
 
 const VARIANTS = {
+  primary:
+    'inline-flex h-[44px] w-[116px] shrink-0 items-center justify-center gap-2 rounded-[30px] bg-white px-6 py-2.5 text-center text-xs font-bold uppercase text-main shadow-border-grey',
   default:
     'w-fit px-4 tablet:px-7 py-2.5 tablet:py-3.5 text-xs font-bold rounded-[1.875rem] uppercase',
   favorite:
@@ -19,6 +21,10 @@ const VARIANTS = {
 };
 
 const STATE_CLASSES = {
+  primary: {
+    inactive: 'hover:bg-main hover:text-white hover:shadow-none',
+    active: 'bg-main text-white shadow-none',
+  },
   default: {
     inactive: 'bg-white text-main',
     active: 'bg-dark hover:bg-main text-white shadow-border-grey',

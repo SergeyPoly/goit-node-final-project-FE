@@ -1,5 +1,6 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { cn } from '@/shared/lib/clsx';
+import { UserList } from '../UserList/UserList';
 
 const PROFILE_TABS = [
   { value: 'my-recipes', label: 'My recipes' },
@@ -35,11 +36,11 @@ export const TabsList = () => {
       </Tabs.Content>
 
       <Tabs.Content value="followers" className="outline-none">
-        <p className="text-gray-500">People who follow you...</p>
+        <UserList variant="followers" />
       </Tabs.Content>
 
       <Tabs.Content value="following" className="outline-none">
-        <p className="text-gray-500">People you follow...</p>
+        <UserList variant="following" />
       </Tabs.Content>
     </Tabs.Root>
   );
