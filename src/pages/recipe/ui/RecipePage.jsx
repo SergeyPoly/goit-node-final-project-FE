@@ -3,7 +3,7 @@ import { PathInfo } from '@/shared/ui/PathInfo.jsx';
 import { PopularRecipes } from '@/widgets/layout/ui/PopularRecipes/PopularRecipes.jsx';
 import { useParams } from 'react-router-dom';
 import { useRecipe } from '@/entities/recipe/api/useRecipe';
-import { RecipeDetails } from '../../../features/recipe-details/ui/RecipeDetails.jsx';
+import { RecipeDetails } from '@/features/recipe-details/ui/RecipeDetails.jsx';
 import { RecipeCardSkeleton } from '@/shared/ui/RecipeCardSkeleton.jsx';
 import { useFavorites } from '@/queries/user';
 

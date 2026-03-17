@@ -49,19 +49,19 @@ export const RecipeDetails = ({
   };
 
   return (
-    <article className="flex flex-col items-start gap-8 lg:flex-row lg:gap-20">
+    <article className="desktop:flex-row desktop:gap-20 flex flex-col items-start gap-8">
       {/* Left Column: Image */}
-      <div className="w-full shrink-0 lg:w-[48%]">
+      <div className="desktop:w-[48%] w-full shrink-0">
         <img
           src={imageUrl}
           alt={title}
-          className="tablet:rounded-[1.875rem] aspect-4/3 h-auto w-full rounded-[1.25rem] object-cover lg:rounded-[2.5rem]"
+          className="tablet:rounded-[1.875rem] desktop:rounded-[2.5rem] aspect-4/3 h-auto w-full rounded-[1.25rem] object-cover"
           loading="lazy"
         />
       </div>
 
       {/* Right Column: Content */}
-      <div className="flex w-full flex-col gap-8 lg:flex-1">
+      <div className="desktop:flex-1 flex w-full flex-col gap-8">
         {/* Header Block */}
         <div className="flex flex-col gap-4">
           <h1 className="h2 leading-tight">{title}</h1>
@@ -132,7 +132,7 @@ export const RecipeDetails = ({
         )}
 
         {/* Favorite Button */}
-        <div className="pt-4 uppercase lg:pt-8">
+        <div className="desktop:pt-8 pt-4 uppercase">
           <Button
             variant="favorite"
             isActive={isFavorite}
