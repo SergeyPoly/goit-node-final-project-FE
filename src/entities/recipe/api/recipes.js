@@ -16,6 +16,12 @@ export const searchRecipes = async (query = {}) => {
   return data;
 };
 
+// GET /recipes/:id
+export const getRecipe = async (id) => {
+  const { data } = await api.get(`/recipes/${id}`);
+  return data;
+};
+
 // POST /recipes — Create recipe
 export const createRecipe = async (formData) => {
   const { data } = await api.post('/recipes', formData, {
