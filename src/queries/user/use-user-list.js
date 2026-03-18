@@ -11,17 +11,15 @@ const CONFIG = {
   followers: {
     queryKey: QUERY_KEYS.FOLLOWERS_USER,
     queryFn: getUserFollowers,
-    needsUserId: true,
   },
   following: {
     queryKey: QUERY_KEYS.FOLLOWING_USER,
     queryFn: getUserFollowing,
-    needsUserId: false,
   },
 };
 
 export const useUserList = (variant) => {
-  const { queryKey, queryFn, needsUserId } = CONFIG[variant];
+  const { queryKey, queryFn } = CONFIG[variant];
   const { id: userId } = useParams();
   const { token } = useTokenStore();
   const { isMobile } = useBreakpoint();
@@ -35,10 +33,10 @@ export const useUserList = (variant) => {
   const queryParams = useMemo(() => ({ page, limit }), [page, limit]);
 
   const query = useQuery({
-    queryKey: needsUserId ? [queryKey, userId, queryParams] : [queryKey, queryParams],
-    queryFn: needsUserId ? () => queryFn(userId, queryParams) : () => queryFn(queryParams),
-    fetchOnMount: false,
-    enabled: needsUserId ? !!token && !!userId : !!token,
+    queryKey: [queryKey, userId, queryParams],
+    queryFn: () => queryFn(userId, queryParams),
+    enabled: !!token && !!userId,
+    staleTime: 0,
   });
 
   useEffect(() => {

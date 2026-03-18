@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Button } from './Button';
 import { Icon } from './Icon';
 import { Skeleton } from './Skeleton';
@@ -105,15 +106,13 @@ export const FollowingCard = ({
             ))}
           </ul>
         </div>
-        <button
-          type="button"
-          onClick={() => onToggleFollow?.(id, isFollowed)}
-          disabled={isToggling}
-          className="text-main shadow-border-grey hover:bg-main tablet:size-[42px] flex size-[36px] shrink-0 items-center justify-center gap-2.5 rounded-[30px] p-3 transition-colors hover:text-white hover:shadow-none disabled:pointer-events-none disabled:opacity-50"
-          aria-label={isFollowed ? 'Unfollow' : 'View profile'}
+        <Link
+          to={`/user/${id}`}
+          className="text-main shadow-border-grey hover:bg-main tablet:size-[42px] flex size-[36px] shrink-0 items-center justify-center gap-2.5 rounded-[30px] p-3 transition-colors hover:text-white hover:shadow-none"
+          aria-label={`View ${name}'s profile`}
         >
           <Icon name="arrow-up-right-icon" className="size-[18px] text-inherit" />
-        </button>
+        </Link>
       </div>
     </div>
   );

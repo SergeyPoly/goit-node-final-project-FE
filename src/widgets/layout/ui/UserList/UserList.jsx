@@ -1,8 +1,6 @@
-import { useMemo } from 'react';
 import { useUserList } from '@/queries/user/use-user-list';
 import { useFollowUser } from '@/queries/user/use-follow-user';
 import { useUnfollowUser } from '@/queries/user/use-unfollow-user';
-import { useCurrentUser } from '@/queries/user/use-current-user';
 import { Pagination } from '@/shared/ui/Pagination';
 import { FollowingCard, FollowingCardSkeleton } from '@/shared/ui/FollowingCard';
 import { useToastOnError } from '@/shared/lib/hooks/use-toast-on-error';
@@ -21,7 +19,6 @@ const pickOwnRecipesCount = (item) =>
 
 export const UserList = ({ variant = 'followers' }) => {
   const { page, setPage, query } = useUserList(variant);
-  const { user } = useCurrentUser();
   const { mutate: follow, isPending: isFollowPending, variables: followTarget } = useFollowUser();
   const {
     mutate: unfollow,
@@ -29,12 +26,6 @@ export const UserList = ({ variant = 'followers' }) => {
     variables: unfollowTarget,
   } = useUnfollowUser();
   useToastOnError(query.isError, query.error, `Failed to load ${variant}`);
-
-  const followingIds = useMemo(
-    () =>
-      new Set(user?.following?.map((u) => (typeof u === 'string' ? u : (u?.id ?? u?._id))) ?? []),
-    [user?.following]
-  );
 
   const totalPages = query.data?.totalPages ?? 1;
   const list = query?.data?.data ?? [];
@@ -48,8 +39,6 @@ export const UserList = ({ variant = 'followers' }) => {
       follow(userId);
     }
   };
-
-  const getIsFollowed = (id) => (variant === 'following' ? true : followingIds.has(id));
 
   return (
     <div className="tablet:gap-8 flex flex-col gap-6">
@@ -70,8 +59,7 @@ export const UserList = ({ variant = 'followers' }) => {
       {!isLoading && list.length > 0 && (
         <ul className="flex flex-col">
           {list.map((item, index) => {
-            const { id, name, avatarURL, recipeImageUrls } = item;
-            const isFollowed = getIsFollowed(id);
+            const { id, name, avatarURL, recipeImageUrls, isFollowing: isFollowed } = item;
             const isToggling =
               (isFollowPending && followTarget === id) ||
               (isUnfollowPending && unfollowTarget === id);

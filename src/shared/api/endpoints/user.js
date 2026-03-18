@@ -15,8 +15,8 @@ export const getUserFollowers = async (id, params = {}) => {
   return data;
 };
 
-export const getUserFollowing = async (params = {}) => {
-  const { data } = await api.get(`/users/following`, { params });
+export const getUserFollowing = async (id, params = {}) => {
+  const { data } = await api.get(`/users/${id}/following`, { params });
   return data;
 };
 
