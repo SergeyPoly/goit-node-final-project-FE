@@ -1,5 +1,7 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { cn } from '@/shared/lib/clsx';
+import { MyRecipeList } from '../../../../features/recipes/ui/MyRecipeList';
+import { getAllOwnRecipe } from '@/features/categories/model/get-own-recipes';
 
 const PROFILE_TABS = [
   { value: 'my-recipes', label: 'My recipes' },
@@ -9,13 +11,15 @@ const PROFILE_TABS = [
 ];
 
 export const TabsList = () => {
+  const ownRecipesQuery = getAllOwnRecipe();
+
   const triggerStyles = cn(
     'pb-[14px] font-extrabold text-lg tablet:text-xl uppercase -tracking-[0.02rem] whitespace-nowrap transition-all duration-200',
     'border-b-3 border-transparent text-grey',
     'hover:text-main',
     'data-[state=active]:border-main data-[state=active]:text-main'
   );
-
+  
   return (
     <Tabs.Root defaultValue="my-recipes" className="w-full">
       <Tabs.List className="border-grey scrollbar-hide mb-8 tablet:mb-10 flex gap-[30px] tablet:gap-10 overflow-x-auto border-b">
@@ -27,7 +31,7 @@ export const TabsList = () => {
       </Tabs.List>
 
       <Tabs.Content value="my-recipes" className="outline-none">
-        <p className="text-gray-500">List of your own recipes will be here...</p>
+        <MyRecipeList ownRecipes={ownRecipesQuery.data ?? []} />
       </Tabs.Content>
 
       <Tabs.Content value="favorites" className="outline-none">
@@ -44,3 +48,4 @@ export const TabsList = () => {
     </Tabs.Root>
   );
 };
+

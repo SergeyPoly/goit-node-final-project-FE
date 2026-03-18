@@ -6,6 +6,8 @@
     --purple-500: #c084fc;
     --bg-white: #ffffff;
     --dot-inactive: #d1d5db;
+    --text-secondary: #BFBEBE;
+    --text-secondary-dark: #1A1A1A;
 }
 
 @theme {
