@@ -3,7 +3,7 @@ import { cn } from '@/shared/lib/clsx';
 
 const VARIANTS = {
   primary:
-    'inline-flex h-[44px] w-[116px] shrink-0 items-center justify-center gap-2 rounded-[30px] bg-white px-6 py-2.5 text-center text-xs font-bold uppercase text-main shadow-border-grey',
+    'inline-flex tablet:h-[44px] h-[36px] w-[116px] shrink-0 items-center justify-center gap-2 rounded-[30px] bg-white px-6 py-2.5 text-center text-xs font-bold uppercase text-main shadow-border-grey',
   default:
     'w-fit px-4 tablet:px-7 py-2.5 tablet:py-3.5 text-xs font-bold rounded-[1.875rem] uppercase',
   favorite:

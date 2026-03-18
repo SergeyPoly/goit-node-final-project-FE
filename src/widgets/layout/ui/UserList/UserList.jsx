@@ -68,13 +68,14 @@ export const UserList = ({ variant = 'followers' }) => {
       )}
 
       {!isLoading && list.length > 0 && (
-        <ul className="tablet:gap-5 flex flex-col gap-4">
-          {list.map((item) => {
+        <ul className="flex flex-col">
+          {list.map((item, index) => {
             const { id, name, avatarURL, recipeImageUrls } = item;
             const isFollowed = getIsFollowed(id);
             const isToggling =
               (isFollowPending && followTarget === id) ||
               (isUnfollowPending && unfollowTarget === id);
+            const isLast = index === list.length - 1;
             return (
               <li key={id}>
                 <FollowingCard
@@ -87,6 +88,9 @@ export const UserList = ({ variant = 'followers' }) => {
                   onToggleFollow={handleToggleFollow}
                   isToggling={isToggling}
                 />
+                {!isLast && (
+                  <hr className="border-grey tablet:mt-[40px] tablet:mb-[40px] mt-[20px] mb-[20px] w-full border-0 border-t" />
+                )}
               </li>
             );
           })}
