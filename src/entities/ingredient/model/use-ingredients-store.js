@@ -5,8 +5,7 @@ export const useIngredientsStore = create(
   devtools(
     (set) => ({
       ingredients: null,
-      setIngredients: (ingredients) =>
-        set({ ingredients }, false, 'ingredients/setIngredients'),
+      setIngredients: (ingredients) => set({ ingredients }, false, 'ingredients/setIngredients'),
     }),
     { name: 'ingredients-store' }
   )

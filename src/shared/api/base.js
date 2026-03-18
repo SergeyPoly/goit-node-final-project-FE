@@ -1,4 +1,8 @@
 import axios from 'axios';
+import { clearSession } from './session/clearSession';
+import { ApiError } from './apiError';
+import { getToken } from '@/entities/token';
+import { checkShouldClearSession } from './session/checkShouldClearSession';
 
 export const api = axios.create({
   baseURL: 'https://goit-nodejs-final-project.onrender.com/api',
@@ -10,7 +14,7 @@ export const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = getToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -22,9 +26,14 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    if (checkShouldClearSession(error.response)) {
       console.error('Session expired');
+      clearSession();
     }
-    return Promise.reject(error);
+
+    const { status = 500, data } = error.response || {};
+    const message = data?.message || data?.error || 'Server error';
+
+    return Promise.reject(new ApiError(status, message));
   }
 );

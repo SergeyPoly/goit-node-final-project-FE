@@ -22,7 +22,7 @@ export const TabsList = () => {
   
   return (
     <Tabs.Root defaultValue="my-recipes" className="w-full">
-      <Tabs.List className="border-grey scrollbar-hide mb-8 tablet:mb-10 flex gap-[30px] tablet:gap-10 overflow-x-auto border-b">
+      <Tabs.List className="border-grey scrollbar-hide tablet:mb-10 tablet:gap-10 mb-8 flex gap-[30px] overflow-x-auto border-b">
         {PROFILE_TABS.map((tab) => (
           <Tabs.Trigger key={tab.value} value={tab.value} className={triggerStyles}>
             {tab.label}

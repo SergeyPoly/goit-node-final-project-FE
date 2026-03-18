@@ -10,6 +10,7 @@ export const Select = ({
   className = '',
   name = '',
   required = false,
+  error = false,
   searchable = false,
   noOptionsText = 'No matches',
   clearable = true,
@@ -99,7 +100,7 @@ export const Select = ({
   const handleClear = (e) => {
     e?.preventDefault?.();
     e?.stopPropagation?.();
-    
+
     onChange?.(null);
     setIsOpen(false);
     setQuery('');
@@ -200,7 +201,8 @@ export const Select = ({
         id={`${name}-select-button`}
         onClick={toggleDropdown}
         className={cn(
-          'shadow-border-grey tablet:px-4.5 tablet:py-4 tablet:text-base focus:shadow-border-main flex w-full items-center justify-between rounded-[1.875rem] bg-transparent p-3.5 text-sm font-medium transition-all outline-none'
+          'shadow-border-grey tablet:px-4.5 tablet:py-4 tablet:text-base focus:shadow-border-main flex w-full items-center justify-between rounded-[1.875rem] bg-transparent p-3.5 text-sm font-medium transition-all outline-none',
+          error && '!shadow-[inset_0_0_0_2px_var(--color-error)]'
         )}
       >
         <span className={cn(value ? 'text-main' : 'text-grey')}>
