@@ -15,7 +15,7 @@ export const Hero = () => {
             tastes of various cuisines.
           </Subtitle>
 
-          <Button variant="light-hover" className="text-white">
+          <Button variant="light-hover" className="text-white" href="/recipe/add">
             Add recipe
           </Button>
         </div>
