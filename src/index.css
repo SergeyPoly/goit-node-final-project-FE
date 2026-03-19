@@ -66,6 +66,10 @@
   @apply tablet:text-[2.5rem] tablet:leading-[1.1] text-main text-[1.75rem] leading-[1.142857] font-extrabold uppercase;
 }
 
+@utility h3 {
+  @apply tablet:text-2xl tablet:leading-[1.166666] text-main text-lg leading-[1.333334] font-extrabold uppercase;
+}
+
 @utility h4 {
   @apply text-main tablet:text-xl tablet:leading-[1.2] text-lg leading-[1.33333] font-extrabold uppercase;
 }

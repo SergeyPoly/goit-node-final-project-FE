@@ -5,7 +5,7 @@ import { getToken } from '@/entities/token';
 import { checkShouldClearSession } from './session/checkShouldClearSession';
 
 export const api = axios.create({
-  baseURL: 'https://goit-nodejs-final-project.onrender.com/api',
+  baseURL: import.meta.env.VITE_API_URL ?? 'https://goit-nodejs-final-project.onrender.com/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
