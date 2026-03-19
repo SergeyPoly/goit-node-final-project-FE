@@ -10,7 +10,7 @@ export const PopularRecipes = () => {
   const skeletonKeyPrefix = useId();
 
   return (
-    <section>
+    <section className="tablet:mt-25 desktop:mt-30 mt-16">
       <div>
         <h3 className="tablet:text-2xl tablet:mb-10 mb-8 text-lg font-extrabold uppercase">
           Popular Recipes
