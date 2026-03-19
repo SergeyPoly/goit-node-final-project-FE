@@ -6,26 +6,26 @@ import { PathInfo } from '@/shared/ui/PathInfo.jsx';
 import { Button } from '@/shared/ui/Button.jsx';
 import { useLogoutUser, useFollowUser, useCurrentUser } from '@/queries/user/index.js';
 import { useParams } from 'react-router-dom';
-import { useFollowing } from '@/queries/user/use-following.js';
 import { useUploadAvatar } from '@/queries/user/use-upload-avatar.js';
 
 const pathItems = [{ label: 'Home', href: '/' }, { label: 'Profile' }];
 
 export const UserPage = () => {
   const { logout, isPending: isPendingLogout } = useLogoutUser();
-  const { follow, isPending: isPendingFollow } = useFollowUser();
+  const { mutate: follow, isPending: isPendingFollow } = useFollowUser();
   const { uploadAvatar, isPending: isPendingAvatarUpload } = useUploadAvatar();
   const { isAuthenticated, user } = useCurrentUser();
   const { id: userId } = useParams();
   const isOwnProfile = isAuthenticated && user?.id === userId;
-  const { data: followingList, isLoading: isPendingFollowing } = useFollowing();
-  const isAlreadyFollowing = followingList?.some((u) => u.id === userId);
+  const isAlreadyFollowing = user?.following?.some(
+    (u) => (typeof u === 'string' ? u : (u?.id ?? u?._id)) === userId
+  );
 
   const handleAction = () => {
     if (isOwnProfile) {
       logout();
     } else {
-      follow({ targetUserId: userId });
+      follow(userId);
     }
   };
 
@@ -54,11 +54,7 @@ export const UserPage = () => {
 
           <Button
             disabled={
-              isPendingLogout |
-              isPendingFollow |
-              isPendingFollowing |
-              isAlreadyFollowing |
-              isPendingAvatarUpload
+              isPendingLogout || isPendingFollow || isAlreadyFollowing || isPendingAvatarUpload
             }
             variant={isAlreadyFollowing ? 'outline' : 'dark'}
             className="mt-8 w-full max-w-none rounded-4xl py-4 text-base font-bold tracking-wide uppercase shadow-sm"
