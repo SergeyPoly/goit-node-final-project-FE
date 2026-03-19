@@ -18,11 +18,7 @@ export const MyFavoriteList = ({ favoriteRecipes = [] }) => {
         const id = recipe?._id ?? recipe?.id;
         const title = recipe?.title ?? 'Untitled recipe';
         const description = recipe?.description ?? '';
-
-        let img = recipe?.thumb || '';
-        if (img.startsWith('recipes')) {
-          img = 'https://goit-nodejs-final-project.onrender.com/' + img;
-        }
+        const img = recipe?.thumb || '';
 
         return (
           <li key={id ?? title}>
