@@ -1,21 +1,20 @@
 import { RecipePreview } from '../../../shared/ui/RecipePreview';
-import { useDeleteOwnRecipe } from '../../categories/model/use-delete-own-recipe';
-import { Pagination } from '@/shared/ui/Pagination';
+import { useDeleteFavoriteRecipe } from '../model/use-delete-favorite-recipe';
 
-export const MyRecipeList = ({ ownRecipes = [] }) => {
-  const { mutate: onRemove } = useDeleteOwnRecipe();
+export const MyFavoriteList = ({ favoriteRecipes = [] }) => {
+  const { mutate: onRemove } = useDeleteFavoriteRecipe();
 
-  if (!ownRecipes?.length) {
+  if (!favoriteRecipes?.length) {
     return (
       <div className="flex h-96 items-center justify-center">
-        <p className="main-text font-bold">No recipes found.</p>
+        <p className="main-text font-bold">No favorite recipes found.</p>
       </div>
     );
   }
 
   return (
     <ul className='flex flex-col gap-10'>
-      {ownRecipes.map((recipe) => {
+      {favoriteRecipes.map((recipe) => {
         const id = recipe?._id ?? recipe?.id;
         const title = recipe?.title ?? 'Untitled recipe';
         const description = recipe?.description ?? '';

@@ -13,7 +13,7 @@ export const RecipePreview = ({
     <article className="flex w-full flex-row gap-[10px] tablet:gap-4">
       <img className="size-[75px] rounded-[15px] flex-none object-cover tablet:size-[100px]" src={img} alt={title} />
       <div className="flex flex-row gap-4 tablet:gap-8">
-        <div className="flex flex-col gap-2 tablet:gap-[10px]">
+        <div className="flex flex-col w-[166px] gap-2 tablet:gap-[10px] tablet:w-[468px] desktop:w-[610px]">
           <h4 className="line-clamp-1 text-base font-extrabold uppercase tablet:text-xl">{title}</h4>
           <Subtitle className="line-clamp-2 text-sm font-medium text-(--text-secondary) leading-6 tablet:text-base tablet:text-(--text-secondary-dark)">
             {description}

@@ -13,8 +13,8 @@ export const searchRecipes = async (query = {}) => {
   };
 
   const { data } = await api.get('/recipes/search', { params });
-  return data;
-};
+return data;
+}
 
 // GET /recipes/:id
 export const getRecipe = async (id) => {
@@ -43,3 +43,17 @@ export const getOwnRecipes = async(query = {}) => {
   
   return data;
 }
+
+// GET /users/favorites
+export const getUserFavorites = async (query = {}) => {
+  const { page = 1, limit = 9 } = query;
+  const params = { page, limit };
+  const { data } = await api.get('/users/favorites', { params });
+  return data;
+};
+
+// DELETE /recipes/:id
+export const deleteOwnRecipe = async (id) => {
+  const { data } = await api.delete(`/recipes/${id}`);
+  return data;
+};
