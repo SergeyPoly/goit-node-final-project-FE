@@ -21,7 +21,7 @@ export const RecipePreview = ({
         </div>
         <div className="flex flex-row gap-1">
           <Button
-            href="/category"
+            href={"/recipe/" + id}
             iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
             iconName="arrow-up-right-icon"
             iconVisualHiddenText="Link to Category"
