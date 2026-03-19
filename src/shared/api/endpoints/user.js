@@ -5,11 +5,6 @@ export const getCurrentUser = async () => {
   return data;
 };
 
-export const getUserById = async (id) => {
-  const { data } = await api.get(`/users/${id}`);
-  return data;
-};
-
 export const uploadUserAvatar = async (file) => {
   const formData = new FormData();
   formData.append('avatar', file);
