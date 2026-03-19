@@ -1,7 +1,10 @@
 import { Button } from '@/shared/ui/Button';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useBreakpoint } from '@/shared/lib/hooks/use-breakpoint';
+import { useCurrentUser } from '@/queries/user/use-current-user';
+import { useModalStore } from '@/entities/modal/store/use-modal-store';
+import { MODAL_NAMES } from '@/entities/modal/constants';
 
 export const RecipeCard = ({
   id,
@@ -15,6 +18,10 @@ export const RecipeCard = ({
   isToggleFavoriteDisabled = false,
 }) => {
   const { isMobile } = useBreakpoint();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useCurrentUser();
+  const { setCurrentModal } = useModalStore();
+
   const [isImgError, setIsImgError] = useState(false);
 
   const placeholderMob = '/images/placeholder/No-Image-Placeholder-mob.webp';
@@ -27,9 +34,27 @@ export const RecipeCard = ({
   const ownerLink = ownerId ? `/user/${ownerId}` : null;
   const recipeLink = id ? `/recipe/${id}` : null;
 
+  const handleOwnerClick = () => {
+    if (!isAuthenticated) {
+      setCurrentModal(MODAL_NAMES.LOGIN);
+    } else if (ownerLink) {
+      navigate(ownerLink);
+    }
+  };
+
   const toggleFavorite = () => {
+    if (!isAuthenticated) {
+      setCurrentModal(MODAL_NAMES.LOGIN);
+      return;
+    }
     if (!id) return;
     onToggleFavorite?.(id, isFavorite);
+  };
+
+  const handleArrowClick = () => {
+    if (recipeLink) {
+      navigate(recipeLink);
+    }
   };
 
   const imageBlock = (
@@ -69,7 +94,11 @@ export const RecipeCard = ({
         </div>
 
         <div className="flex justify-between">
-          <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={handleOwnerClick}
+            className="flex items-center gap-2 text-left transition-opacity hover:opacity-80"
+          >
             <div className="tablet:w-10 tablet:h-10 bg-grey block h-8 w-8 overflow-hidden rounded-full">
               <img
                 src={avatarSrc ?? '/images/placeholder/No-Image-Placeholder-small.webp'}
@@ -79,14 +108,8 @@ export const RecipeCard = ({
               />
             </div>
 
-            {ownerLink ? (
-              <Link to={ownerLink} className="tablet:text-base text-dark text-sm font-bold">
-                {ownerName}
-              </Link>
-            ) : (
-              <span className="tablet:text-base text-dark text-sm font-bold">{ownerName}</span>
-            )}
-          </div>
+            <span className="tablet:text-base text-dark text-sm font-bold">{ownerName}</span>
+          </button>
 
           <div className="flex gap-1">
             <Button
@@ -100,10 +123,11 @@ export const RecipeCard = ({
             />
 
             <Button
+              type="button"
               variant="icon"
               iconName="arrow-up-right-icon"
               iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
-              href={recipeLink ?? undefined}
+              onClick={handleArrowClick}
               disabled={!recipeLink}
               iconVisualHiddenText={`Open ${safeTitle} recipe`}
             />

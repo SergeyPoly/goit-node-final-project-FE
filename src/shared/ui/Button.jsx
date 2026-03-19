@@ -10,7 +10,7 @@ const VARIANTS = {
     'w-fit px-4 tablet:px-7 py-2.5 tablet:py-3.5 text-sm tablet:text-base font-bold rounded-[1.875rem] shadow-border-grey uppercase',
   dark: 'w-fit px-4 tablet:px-7 py-2.5 tablet:py-3.5 text-sm tablet:text-base font-bold rounded-[1.875rem] bg-dark hover:bg-main disabled:bg-grey text-white uppercase shadow-border-dark disabled:shadow-none',
   'dark-hover':
-    'w-fit px-4 tablet:px-7 py-2.5 tablet:py-3.5 text-sm tablet:text-base font-bold rounded-[1.875rem] bg-transparent hover:bg-main text-dark hover:text-white uppercase shadow-border-dark',
+    'w-fit px-4 tablet:px-7 py-2.5 tablet:py-3.5 text-sm tablet:text-base font-bold rounded-[1.875rem] bg-transparent hover:bg-main text-dark hover:text-white uppercase shadow-border-dark disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent',
   'dark-hover-circle':
     'w-10 h-10 text-sm font-normal rounded-full bg-transparent hover:bg-main text-dark hover:text-white shadow-border-grey flex justify-center items-center hover:shadow-none',
   'light-hover':

@@ -10,6 +10,19 @@ export const getUserById = async (id) => {
   return data;
 };
 
+export const uploadUserAvatar = async (file) => {
+  const formData = new FormData();
+  formData.append('avatar', file);
+
+  const { data } = await api.patch('/users/avatar', formData, {
+    headers: {
+      'Content-Type': undefined,
+    },
+  });
+
+  return data;
+};
+
 export const getUserFollowers = async (id, params = {}) => {
   const { data } = await api.get(`/users/${id}/subscribers`, { params });
   return data;

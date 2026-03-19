@@ -35,15 +35,18 @@ export const ImageManager = ({ variant = 'recipe', image = null, onChange, readO
   const handleImageChange = (e) => {
     if (effectiveReadOnly) return;
     const file = e.target.files?.[0];
+    if (!file) return;
 
-    if (file) {
+    // For profile avatar we show a new image only after successful upload
+    if (!isProfile) {
       if (preview && typeof preview === 'string' && preview.startsWith('blob:')) {
         URL.revokeObjectURL(preview);
       }
       const objectUrl = URL.createObjectURL(file);
       setPreview(objectUrl);
-      onChange?.(file);
     }
+
+    onChange?.(file);
   };
 
   const ContainerTag = effectiveReadOnly ? 'div' : 'label';
