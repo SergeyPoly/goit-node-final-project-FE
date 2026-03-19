@@ -53,42 +53,44 @@ export const FollowingCard = ({
 
   return (
     <div>
-      <div className="flex flex-row items-start justify-between gap-[75px]">
-        <div className="flex h-[100px] flex-row gap-4">
+      <div className="desktop:gap-[61px] flex justify-between gap-[46px]">
+        <div className="flex h-[100px] w-[240px] shrink-0 flex-row gap-4">
           <img
             className="size-[85px] shrink-0 rounded-full object-cover"
             src={avatarSrc}
             alt={name}
             onError={() => setAvatarError(true)}
           />
-          <div className="flex flex-1 flex-col justify-between">
-            <div>
+          <div className="flex min-w-0 flex-1 flex-col justify-between">
+            <div className="min-w-0">
               <h2
                 className={cn(
-                  'm-0 min-w-0',
-                  'flex h-6 items-center',
-                  'font-sans text-[20px] leading-[24px] font-extrabold tracking-[-0.02em] whitespace-nowrap text-[#050505] uppercase'
+                  'm-0 block h-6 truncate',
+                  'font-sans text-[20px] leading-6 font-extrabold tracking-[-0.02em] text-[#050505] uppercase'
                 )}
+                title={name}
               >
                 {name}
               </h2>
-              <p className="tablet:leading-[20px] m-0 font-sans text-[14px] leading-[18px] font-medium tracking-[-0.02em] whitespace-nowrap text-[#BFBEBE]">
+              <p className="tablet:leading-[20px] m-0 truncate font-sans text-[14px] leading-[18px] font-medium tracking-[-0.02em] text-[#BFBEBE]">
                 Own recipes: {ownRecipesCount}
               </p>
             </div>
+
             {onToggleFollow && (
               <Button
                 variant="primary"
                 onClick={() => onToggleFollow(id, isFollowed)}
                 disabled={isToggling}
+                className="w-full"
               >
                 {isFollowed ? 'Unfollow' : 'Follow'}
               </Button>
             )}
           </div>
         </div>
-        <div className="tablet:block hidden">
-          <ul className="flex flex-row gap-3">
+        <div className="tablet:block hidden flex-grow">
+          <ul className="flex gap-3">
             {(hasRecipes
               ? recipeURLs.slice(0, THUMB_COUNT_DESKTOP)
               : Array.from({ length: THUMB_COUNT_DESKTOP }, () => null)
