@@ -7,13 +7,13 @@ export const MyFavoriteList = ({ favoriteRecipes = [] }) => {
   if (!favoriteRecipes?.length) {
     return (
       <div className="flex h-96 items-center justify-center">
-        <p className="main-text font-bold">No favorite recipes found.</p>
+        <p className="main-text font-medium">No favorite recipes found.</p>
       </div>
     );
   }
 
   return (
-    <ul className='flex flex-col gap-10'>
+    <ul className="flex flex-col gap-10">
       {favoriteRecipes.map((recipe) => {
         const id = recipe?._id ?? recipe?.id;
         const title = recipe?.title ?? 'Untitled recipe';
@@ -22,16 +22,10 @@ export const MyFavoriteList = ({ favoriteRecipes = [] }) => {
 
         return (
           <li key={id ?? title}>
-            <RecipePreview
-              id={id}
-              img={img}
-              description={description}
-              onRemove={onRemove}
-            />
+            <RecipePreview id={id} img={img} description={description} onRemove={onRemove} />
           </li>
         );
       })}
     </ul>
   );
 };
-

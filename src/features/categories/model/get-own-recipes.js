@@ -1,10 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { getOwnRecipes } from '@/entities/recipe/api/recipes';
+import { useToastOnError } from '@/shared/lib/hooks/use-toast-on-error';
 
-export const getAllOwnRecipe = (page = 1, limit = 9) => {
-  return useQuery({
-    queryKey: ['recipes', 'own', { page, limit }], 
+export const useOwnRecipesQuery = (page = 1, limit = 9) => {
+  const query = useQuery({
+    queryKey: ['recipes', 'own', { page, limit }],
     queryFn: () => getOwnRecipes({ page, limit }),
-    placeholderData: (previousData) => previousData, 
-  })
-}
+    placeholderData: (previousData) => previousData,
+  });
+
+  useToastOnError(query.isError, query.error, 'Failed to load own recipes');
+
+  return query;
+};

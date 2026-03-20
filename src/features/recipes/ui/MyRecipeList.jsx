@@ -8,13 +8,13 @@ export const MyRecipeList = ({ ownRecipes = [] }) => {
   if (!ownRecipes?.length) {
     return (
       <div className="flex h-96 items-center justify-center">
-        <p className="main-text font-bold">No recipes found.</p>
+        <p className="main-text font-medium">No recipes found.</p>
       </div>
     );
   }
 
   return (
-    <ul className='flex flex-col gap-10'>
+    <ul className="flex flex-col gap-10">
       {ownRecipes.map((recipe) => {
         const id = recipe?._id ?? recipe?.id;
         const title = recipe?.title ?? 'Untitled recipe';
@@ -27,16 +27,10 @@ export const MyRecipeList = ({ ownRecipes = [] }) => {
 
         return (
           <li key={id ?? title}>
-            <RecipePreview
-              id={id}
-              img={img}
-              description={description}
-              onRemove={onRemove}
-            />
+            <RecipePreview id={id} img={img} description={description} onRemove={onRemove} />
           </li>
         );
       })}
     </ul>
   );
 };
-
