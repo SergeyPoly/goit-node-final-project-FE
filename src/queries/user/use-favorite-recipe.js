@@ -9,7 +9,8 @@ export const useFavoriteRecipe = () => {
   const addMutation = useMutation({
     mutationFn: addFavoriteRecipe,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CURRENT_USER] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CURRENT_USER], exact: false });
+      queryClient.invalidateQueries({ queryKey: ['user-favorites'], exact: false });
     },
     onError: () => toast.error('Failed to add to favorites'),
   });
@@ -17,7 +18,8 @@ export const useFavoriteRecipe = () => {
   const removeMutation = useMutation({
     mutationFn: removeFavoriteRecipe,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CURRENT_USER] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CURRENT_USER], exact: false });
+      queryClient.invalidateQueries({ queryKey: ['user-favorites'], exact: false });
     },
     onError: () => toast.error('Failed to remove from favorites'),
   });

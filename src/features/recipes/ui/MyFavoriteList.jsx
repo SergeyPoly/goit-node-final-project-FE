@@ -1,4 +1,4 @@
-import { RecipePreview } from '../../../shared/ui/RecipePreview';
+import { RecipePreview } from '@/shared/ui/RecipePreview';
 import { useDeleteFavoriteRecipe } from '../model/use-delete-favorite-recipe';
 
 export const MyFavoriteList = ({ favoriteRecipes = [] }) => {
@@ -18,11 +18,17 @@ export const MyFavoriteList = ({ favoriteRecipes = [] }) => {
         const id = recipe?._id ?? recipe?.id;
         const title = recipe?.title ?? 'Untitled recipe';
         const description = recipe?.description ?? '';
-        const img = recipe?.thumb || '';
+        const img = recipe?.thumb;
 
         return (
-          <li key={id ?? title}>
-            <RecipePreview id={id} title={title} img={img} description={description} onRemove={onRemove} />
+          <li key={id}>
+            <RecipePreview
+              id={id}
+              title={title}
+              img={img}
+              description={description}
+              onRemove={onRemove}
+            />
           </li>
         );
       })}

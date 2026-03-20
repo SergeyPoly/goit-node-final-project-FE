@@ -1,30 +1,24 @@
-import { useEffect } from 'react';
-import { useQueryParam } from '@/shared/lib/hooks/use-query-param';
 import { useOwnRecipesQuery } from '@/features/categories/model/get-own-recipes';
 import { MyRecipeList } from '@/features/recipes/ui/MyRecipeList';
 import { Pagination } from '@/shared/ui/Pagination';
 import { RecipePreviewSkeleton } from './RecipePreviewSkeleton';
-import { useUserDetails } from '@/entities/user/api/use-user-details';
+import { useState } from 'react';
+import { useUserRecipesQuery } from '@/features/recipes/model/use-user-recipes-query';
 
 export const MyRecipesTab = ({ userId } = {}) => {
-  const { get, setParam } = useQueryParam();
-  const pageFromUrl = Number(get('page', '1'));
-  const page = Number.isFinite(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
+  // NOTE: we don't sync pagination with URL here (Tabs doesn't manage active tab in URL)
+  // We rely on `key` in the parent (Tabs.Content) to remount this tab when profile changes.
+  const [page, setPage] = useState(1);
 
-  const ownQuery = useOwnRecipesQuery(page, 9);
-  const userDetailsQuery = useUserDetails(userId);
+  const limit = 9;
 
-  const query = userId ? userDetailsQuery : ownQuery;
+  const ownQuery = useOwnRecipesQuery(page, limit);
+  const userRecipesQuery = useUserRecipesQuery(userId, page, limit);
 
-  useEffect(() => {
-    const serverPage = query.data?.currentPage;
-    if (Number.isFinite(serverPage) && serverPage > 0 && serverPage !== pageFromUrl) {
-      setParam('page', String(serverPage), { resetPage: false });
-    }
-  }, [pageFromUrl, query.data, setParam]);
+  const query = userId ? userRecipesQuery : ownQuery;
 
-  const recipes = userId ? (query.data?.recipes ?? []) : (query.data?.recipes ?? []);
-  const totalPages = userId ? 1 : (query.data?.totalPages ?? 1);
+  const recipes = query.data?.recipes ?? [];
+  const totalPages = query.data?.totalPages ?? 1;
 
   if (query.isLoading) {
     return (
@@ -40,12 +34,12 @@ export const MyRecipesTab = ({ userId } = {}) => {
 
   return (
     <div className="flex flex-col gap-6">
-      <MyRecipeList ownRecipes={recipes} />
-      {!userId && totalPages > 1 && (
+      <MyRecipeList ownRecipes={recipes} canRemove={!userId} />
+      {totalPages > 1 && (
         <Pagination
           page={query.data?.currentPage ?? page}
           totalPages={totalPages}
-          onPageChange={(p) => setParam('page', String(p || 1), { resetPage: false })}
+          onPageChange={(p) => setPage(p || 1)}
         />
       )}
     </div>

@@ -13,8 +13,8 @@ export const searchRecipes = async (query = {}) => {
   };
 
   const { data } = await api.get('/recipes/search', { params });
-return data;
-}
+  return data;
+};
 
 // GET /recipes/:id
 export const getRecipe = async (id) => {
@@ -30,19 +30,18 @@ export const createRecipe = async (formData) => {
   return data;
 };
 
-
 // GET /recipes/own
-export const getOwnRecipes = async(query = {}) => {
-  const {page = 1, limit = 9} = query;
+export const getOwnRecipes = async (query = {}) => {
+  const { page = 1, limit = 9 } = query;
   const params = {
     page,
     limit,
-  }
+  };
 
-  const { data } = await api.get('/recipes/own', {params});
-  
+  const { data } = await api.get('/recipes/own', { params });
+
   return data;
-}
+};
 
 // GET /users/favorites
 export const getUserFavorites = async (query = {}) => {
@@ -55,5 +54,14 @@ export const getUserFavorites = async (query = {}) => {
 // DELETE /recipes/:id
 export const deleteOwnRecipe = async (id) => {
   const { data } = await api.delete(`/recipes/${id}`);
+  return data;
+};
+
+// GET /recipes/users/:id
+export const getUserRecipes = async (userId, query = {}) => {
+  const { page = 1, limit = 9 } = query;
+  const params = { page, limit };
+
+  const { data } = await api.get(`/recipes/users/${userId}`, { params });
   return data;
 };

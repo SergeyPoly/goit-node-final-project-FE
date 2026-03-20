@@ -1,39 +1,42 @@
 import { Button } from '@/shared/ui/Button';
 import { Subtitle } from './Subtitle';
 
-export const RecipePreview = ({
-  id,
-  img,
-  title = 'Lorem ipsum dolor sit amet.',
-  description = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, voluptatibus.',
-  onRemove,
-}) => {
+export const RecipePreview = ({ id, img, title, description = '', onRemove, canRemove = true }) => {
+  const showRemoveButton = canRemove && typeof onRemove === 'function';
 
   return (
-    <article className="flex w-full flex-row gap-[10px] tablet:gap-4">
-      <img className="size-[75px] rounded-[15px] flex-none object-cover tablet:size-[100px]" src={img} alt={title} />
-      <div className="flex flex-row gap-4 tablet:gap-8">
-        <div className="flex flex-col w-[166px] gap-2 tablet:gap-[10px] tablet:w-[468px] desktop:w-[610px]">
-          <h4 className="line-clamp-1 text-base font-extrabold uppercase tablet:text-xl">{title}</h4>
-          <Subtitle className="line-clamp-2 text-sm font-medium text-(--text-secondary) leading-6 tablet:text-base tablet:text-(--text-secondary-dark)">
+    <article className="tablet:gap-4 flex w-full flex-row gap-2.5">
+      <img
+        className="tablet:size-25 size-18.75 flex-none rounded-[15px] object-cover"
+        src={img}
+        alt={title}
+      />
+      <div className="tablet:gap-8 flex w-full flex-row gap-4">
+        <div className="tablet:gap-2.5 tablet:w-117 desktop:w-152.5 flex w-41.5 flex-col gap-2">
+          <h4 className="tablet:text-xl line-clamp-1 text-base font-extrabold uppercase">
+            {title}
+          </h4>
+          <Subtitle className="tablet:text-base tablet:text-(--text-secondary-dark) line-clamp-2 text-sm leading-6 font-medium text-(--text-secondary)">
             {description}
           </Subtitle>
         </div>
-        <div className="flex flex-row gap-1">
+        <div className="flex w-full flex-row justify-end gap-1">
           <Button
-            href={"/recipe/" + id}
+            href={'/recipe/' + id}
             iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
             iconName="arrow-up-right-icon"
             iconVisualHiddenText="Link to Category"
             variant="icon"
           />
-          <Button
-            iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
-            iconName="trash-icon"
-            iconVisualHiddenText="Delete item"
-            variant="icon"
-            onClick={() => onRemove(id)}
-          />
+          {showRemoveButton && (
+            <Button
+              iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
+              iconName="trash-icon"
+              iconVisualHiddenText="Delete item"
+              variant="icon"
+              onClick={() => onRemove(id)}
+            />
+          )}
         </div>
       </div>
     </article>

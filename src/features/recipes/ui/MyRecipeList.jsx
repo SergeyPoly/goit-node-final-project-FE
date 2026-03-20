@@ -1,8 +1,8 @@
-import { RecipePreview } from '../../../shared/ui/RecipePreview';
+import { RecipePreview } from '@/shared/ui/RecipePreview';
 import { useDeleteOwnRecipe } from '../../categories/model/use-delete-own-recipe';
 import { Pagination } from '@/shared/ui/Pagination';
 
-export const MyRecipeList = ({ ownRecipes = [] }) => {
+export const MyRecipeList = ({ ownRecipes = [], canRemove = true }) => {
   const { mutate: onRemove } = useDeleteOwnRecipe();
 
   if (!ownRecipes?.length) {
@@ -19,15 +19,18 @@ export const MyRecipeList = ({ ownRecipes = [] }) => {
         const id = recipe?._id ?? recipe?.id;
         const title = recipe?.title ?? 'Untitled recipe';
         const description = recipe?.description ?? '';
-
-        let img = recipe?.thumb || '';
-        if (img.startsWith('recipes')) {
-          img = 'https://goit-nodejs-final-project.onrender.com/' + img;
-        }
+        const img = recipe?.thumb;
 
         return (
-          <li key={id ?? title}>
-            <RecipePreview id={id} title={title} img={img} description={description} onRemove={onRemove} />
+          <li key={id}>
+            <RecipePreview
+              id={id}
+              img={img}
+              title={title}
+              description={description}
+              onRemove={onRemove}
+              canRemove={canRemove}
+            />
           </li>
         );
       })}
