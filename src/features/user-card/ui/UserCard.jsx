@@ -1,0 +1,68 @@
+import { ProfileCard } from '@/shared/ui/ProfileCard.jsx';
+import { Button } from '@/shared/ui/Button.jsx';
+import { useLogoutUser, useFollowUser, useCurrentUser } from '@/queries/user/index.js';
+import { useParams } from 'react-router-dom';
+import { useUploadAvatar } from '@/queries/user/use-upload-avatar.js';
+import { useUserDetails } from '@/entities/user/api/use-user-details.js';
+import { useUserSubscribers } from '@/entities/user/api/use-user-subscribers.js';
+import { useUnfollowUser } from '@/queries/user/use-unfollow-user.js';
+import { useCallback, useMemo } from 'react';
+
+export const UserCard = () => {
+  const { id: userId } = useParams();
+  const { data: userDetails } = useUserDetails(userId);
+  const { data: subscribers = [], refetch, isRefetching } = useUserSubscribers(userId); // TODO temporary solution to check subscription
+
+  const { logout, isPending: isPendingLogout } = useLogoutUser();
+  const { mutateAsync: follow, isPending: isPendingFollow } = useFollowUser();
+  const { mutateAsync: unfollow, isPending: isPendingUnfollow } = useUnfollowUser();
+  const { uploadAvatar, isPending: isPendingAvatarUpload } = useUploadAvatar();
+  const { isAuthenticated, user } = useCurrentUser();
+
+  const isOwnProfile = isAuthenticated && user?.id === userId;
+  const isAlreadyFollowing = useMemo(
+    () => subscribers.some((subscriber) => subscriber.id === user?.id),
+    [subscribers, user]
+  );
+
+  const handleAction = useCallback(async () => {
+    if (isOwnProfile) {
+      logout();
+    } else {
+      isAlreadyFollowing ? await unfollow(userId) : await follow(userId);
+      refetch();
+    }
+  }, [isAlreadyFollowing, isOwnProfile]);
+
+  const handleUploadAvatar = async (file) => {
+    if (!file) return;
+    await uploadAvatar(file);
+  };
+
+  const buttonText = isOwnProfile ? 'LOG OUT' : isAlreadyFollowing ? 'UNFOLLOW' : 'FOLLOW';
+
+  return (
+    <div className="tablet:w-98.5 mx-auto flex shrink-0 flex-col items-stretch">
+      <ProfileCard
+        {...userDetails}
+        isOwnProfile={isOwnProfile}
+        onUploadAvatar={handleUploadAvatar}
+      />
+
+      <Button
+        disabled={
+          isPendingLogout ||
+          isPendingFollow ||
+          isPendingUnfollow ||
+          isPendingAvatarUpload ||
+          isRefetching
+        }
+        variant="dark"
+        className="mt-8 w-full max-w-none rounded-4xl py-4 text-base font-bold tracking-wide uppercase shadow-sm"
+        onClick={handleAction}
+      >
+        {buttonText}
+      </Button>
+    </div>
+  );
+};

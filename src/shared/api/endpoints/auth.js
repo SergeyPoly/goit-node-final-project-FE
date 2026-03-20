@@ -13,12 +13,3 @@ export const registerUser = async (name, email, password) => {
 export const logoutUser = async () => {
   await api.post('/auth/logout');
 };
-
-export const followUser = async ({ targetUserId }) => {
-  const { data } = await api.patch(`/users/follow`, { targetUserId });
-  return data;
-};
-
-export const getFollowing = async () => {
-  return await api.get('/users/following');
-};
