@@ -6,19 +6,20 @@ import { useState } from 'react';
 import { useUserRecipesQuery } from '@/features/recipes/model/use-user-recipes-query';
 
 export const MyRecipesTab = ({ userId } = {}) => {
-  // NOTE: we don't sync pagination with URL here (Tabs doesn't manage active tab in URL)
-  // We rely on `key` in the parent (Tabs.Content) to remount this tab when profile changes.
   const [page, setPage] = useState(1);
 
   const limit = 9;
 
-  const ownQuery = useOwnRecipesQuery(page, limit);
-  const userRecipesQuery = useUserRecipesQuery(userId, page, limit);
+  const effectivePage = Math.max(page, 1);
+
+  const ownQuery = useOwnRecipesQuery(effectivePage, limit);
+  const userRecipesQuery = useUserRecipesQuery(userId, effectivePage, limit);
 
   const query = userId ? userRecipesQuery : ownQuery;
 
   const recipes = query.data?.recipes ?? [];
   const totalPages = query.data?.totalPages ?? 1;
+  const clampedPage = Math.min(effectivePage, totalPages);
 
   if (query.isLoading) {
     return (
@@ -37,7 +38,7 @@ export const MyRecipesTab = ({ userId } = {}) => {
       <MyRecipeList ownRecipes={recipes} canRemove={!userId} />
       {totalPages > 1 && (
         <Pagination
-          page={query.data?.currentPage ?? page}
+          page={query.data?.currentPage ?? clampedPage}
           totalPages={totalPages}
           onPageChange={(p) => setPage(p || 1)}
         />

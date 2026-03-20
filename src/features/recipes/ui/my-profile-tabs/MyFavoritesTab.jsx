@@ -1,25 +1,15 @@
-import { useEffect } from 'react';
-import { useQueryParam } from '@/shared/lib/hooks/use-query-param';
+import { useState } from 'react';
 import { useUserFavoritesQuery } from '@/features/recipes/model/use-user-favorites';
 import { MyFavoriteList } from '@/features/recipes/ui/MyFavoriteList';
 import { Pagination } from '@/shared/ui/Pagination';
 import { RecipePreviewSkeleton } from './RecipePreviewSkeleton';
 
 export const MyFavoritesTab = () => {
-  const { get, setParam } = useQueryParam();
-  const pageFromUrl = Number(get('page', '1'));
-  const page = Number.isFinite(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
+  const [page, setPage] = useState(1);
 
   const query = useUserFavoritesQuery(page, 9);
-
-  useEffect(() => {
-    const serverPage = query.data?.currentPage;
-    if (Number.isFinite(serverPage) && serverPage > 0 && serverPage !== pageFromUrl) {
-      setParam('page', String(serverPage), { resetPage: false });
-    }
-  }, [pageFromUrl, query.data, setParam]);
-
   const totalPages = query.data?.totalPages ?? 1;
+  const effectivePage = Math.min(Math.max(page, 1), totalPages);
 
   if (query.isLoading) {
     return (
@@ -38,9 +28,9 @@ export const MyFavoritesTab = () => {
       <MyFavoriteList favoriteRecipes={query.data?.favoriteRecipes ?? []} />
       {totalPages > 1 && (
         <Pagination
-          page={query.data?.currentPage ?? page}
+          page={query.data?.currentPage ?? effectivePage}
           totalPages={totalPages}
-          onPageChange={(p) => setParam('page', String(p || 1), { resetPage: false })}
+          onPageChange={(p) => setPage(p || 1)}
         />
       )}
     </div>
