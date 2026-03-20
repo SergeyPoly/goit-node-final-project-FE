@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import clsx from 'clsx';
+import { cn } from '@/shared/lib/clsx';
+
+const baseStyle =
+  'box-border font-bold text-xs uppercase p-[14px] rounded-3xl border transition-all duration-200';
 
 export const Nav = ({ isDarkType = true }) => {
-  const baseStyle =
-    'box-border font-bold text-xs uppercase p-[14px] rounded-3xl border transition-all duration-200';
-
   const getNavLinkStyle = ({ isActive }) =>
-    clsx(
+    cn(
       baseStyle,
       isDarkType ? 'text-white' : 'text-gray-900',
       isActive ? (isDarkType ? 'border-white' : 'border-gray-900') : 'border-transparent',
