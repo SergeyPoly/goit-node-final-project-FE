@@ -8,31 +8,27 @@ import { useState } from 'react';
 const THUMB_COUNT_TABLET = 3;
 const THUMB_COUNT_DESKTOP = 4;
 const AVATAR_PLACEHOLDER = '/images/placeholder/No-Image-Placeholder-small.webp';
-const RECIPE_PLACEHOLDER = '/images/placeholder/No-Image-Placeholder-mob.webp';
 
 export const FollowingCardSkeleton = () => (
   <div>
-    <div className="flex flex-row items-start justify-between gap-[75px]">
+    <div className="flex flex-row items-start justify-between gap-18.75">
       <div className="flex flex-row gap-4">
-        <Skeleton variant="circle" className="size-[85px]" />
+        <Skeleton variant="circle" className="size-21.25" />
         <div className="flex flex-col gap-2">
           <Skeleton className="h-6 w-24" />
           <Skeleton className="h-5 w-28" />
-          <Skeleton className="h-[44px] w-[116px] rounded-[30px]" />
+          <Skeleton className="h-11 w-29 rounded-[30px]" />
         </div>
       </div>
       <div className="tablet:flex hidden flex-row gap-3">
         {Array.from({ length: THUMB_COUNT_DESKTOP }).map((_, i) => (
           <Skeleton
             key={i}
-            className={cn(
-              'size-[100px] rounded-lg',
-              i >= THUMB_COUNT_TABLET && 'desktop:block hidden'
-            )}
+            className={cn('size-25 rounded-lg', i >= THUMB_COUNT_TABLET && 'desktop:block hidden')}
           />
         ))}
       </div>
-      <Skeleton variant="circle" className="size-[42px]" />
+      <Skeleton variant="circle" className="size-10.5" />
     </div>
   </div>
 );
@@ -53,10 +49,10 @@ export const FollowingCard = ({
 
   return (
     <div>
-      <div className="desktop:gap-[61px] flex justify-between gap-[46px]">
-        <div className="flex h-[100px] w-[240px] shrink-0 flex-row gap-4">
+      <div className="desktop:gap-15.25 flex justify-between gap-11.5">
+        <div className="flex h-25 w-60 shrink-0 flex-row gap-4">
           <img
-            className="size-[85px] shrink-0 rounded-full object-cover"
+            className="size-21.25 shrink-0 rounded-full object-cover"
             src={avatarSrc}
             alt={name}
             onError={() => setAvatarError(true)}
@@ -72,7 +68,7 @@ export const FollowingCard = ({
               >
                 {name}
               </h2>
-              <p className="tablet:leading-[20px] m-0 truncate font-sans text-[14px] leading-[18px] font-medium tracking-[-0.02em] text-[#BFBEBE]">
+              <p className="tablet:leading-5 m-0 truncate font-sans text-[14px] leading-4.5 font-medium tracking-[-0.02em] text-[#BFBEBE]">
                 Own recipes: {ownRecipesCount}
               </p>
             </div>
@@ -89,31 +85,25 @@ export const FollowingCard = ({
             )}
           </div>
         </div>
-        <div className="tablet:block hidden flex-grow">
-          <ul className="flex gap-3">
-            {(hasRecipes
-              ? recipeURLs.slice(0, THUMB_COUNT_DESKTOP)
-              : Array.from({ length: THUMB_COUNT_DESKTOP }, () => null)
-            ).map((url, i) => (
-              <li key={i} className={cn(i >= THUMB_COUNT_TABLET && 'desktop:list-item hidden')}>
-                <img
-                  className="size-[100px] rounded-lg object-cover"
-                  src={url || RECIPE_PLACEHOLDER}
-                  alt=""
-                  onError={(e) => {
-                    e.currentTarget.src = RECIPE_PLACEHOLDER;
-                  }}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
+
+        {hasRecipes && (
+          <div className="tablet:block hidden grow">
+            <ul className="flex gap-3">
+              {recipeURLs.slice(0, THUMB_COUNT_DESKTOP).map((url, i) => (
+                <li key={i} className={cn(i >= THUMB_COUNT_TABLET && 'desktop:list-item hidden')}>
+                  <img className="size-25 rounded-lg object-cover" src={url} alt="" />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <Link
           to={`/user/${id}`}
-          className="text-main shadow-border-grey hover:bg-main tablet:size-[42px] flex size-[36px] shrink-0 items-center justify-center gap-2.5 rounded-[30px] p-3 transition-colors hover:text-white hover:shadow-none"
+          className="text-main shadow-border-grey hover:bg-main tablet:size-10.5 flex size-9 shrink-0 items-center justify-center gap-2.5 rounded-[30px] p-3 transition-colors hover:text-white hover:shadow-none"
           aria-label={`View ${name}'s profile`}
         >
-          <Icon name="arrow-up-right-icon" className="size-[18px] text-inherit" />
+          <Icon name="arrow-up-right-icon" className="size-4.5 text-inherit" />
         </Link>
       </div>
     </div>

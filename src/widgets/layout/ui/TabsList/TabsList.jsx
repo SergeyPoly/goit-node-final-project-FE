@@ -4,6 +4,8 @@ import { UserList } from '../UserList/UserList';
 import { useCurrentUser } from '@/queries/user/index.js';
 import { useParams } from 'react-router-dom';
 import { useMemo } from 'react';
+import { MyRecipesTab } from '@/features/recipes/ui/my-profile-tabs/MyRecipesTab';
+import { MyFavoritesTab } from '@/features/recipes/ui/my-profile-tabs/MyFavoritesTab';
 
 export const TabsList = () => {
   const { id: userId } = useParams();
@@ -21,8 +23,8 @@ export const TabsList = () => {
     }
 
     return [
-      { value: 'my-recipes', label: 'recipes' },
-      { value: 'followers', label: 'followers' },
+      { value: 'my-recipes', label: 'Recipes' },
+      { value: 'followers', label: 'Followers' },
     ];
   }, [isOwnProfile]);
 
@@ -32,10 +34,9 @@ export const TabsList = () => {
     'hover:text-main',
     'data-[state=active]:border-main data-[state=active]:text-main'
   );
-
   return (
     <Tabs.Root key={userId} defaultValue="my-recipes" className="w-full">
-      <Tabs.List className="border-grey scrollbar-hide tablet:mb-10 tablet:gap-10 mb-8 flex gap-[30px] overflow-x-auto border-b">
+      <Tabs.List className="border-grey scrollbar-hide tablet:mb-10 tablet:gap-10 mb-8 flex gap-7.5 overflow-x-auto border-b">
         {PROFILE_TABS.map((tab) => (
           <Tabs.Trigger key={tab.value} value={tab.value} className={triggerStyles}>
             {tab.label}
@@ -43,13 +44,15 @@ export const TabsList = () => {
         ))}
       </Tabs.List>
 
-      <Tabs.Content value="my-recipes" className="outline-none">
-        <p className="text-gray-500">List of your own recipes will be here...</p>
+      <Tabs.Content value="my-recipes" className="outline-none" key={userId}>
+        <MyRecipesTab userId={isOwnProfile ? undefined : userId} />
       </Tabs.Content>
 
-      <Tabs.Content value="favorites" className="outline-none">
-        <p className="text-gray-500">Your favorite recipes...</p>
-      </Tabs.Content>
+      {isOwnProfile && (
+        <Tabs.Content value="favorites" className="outline-none">
+          <MyFavoritesTab />
+        </Tabs.Content>
+      )}
 
       <Tabs.Content value="followers" className="outline-none">
         <UserList variant="followers" />

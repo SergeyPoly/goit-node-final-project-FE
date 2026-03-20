@@ -1,11 +1,13 @@
 @import 'tailwindcss';
 
 :root {
-  --gray-500: #6b7280;
-  --text-900: #0f172a;
-  --purple-500: #c084fc;
-  --bg-white: #ffffff;
-  --dot-inactive: #d1d5db;
+    --gray-500: #6b7280;
+    --text-900: #0f172a;
+    --purple-500: #c084fc;
+    --bg-white: #ffffff;
+    --dot-inactive: #d1d5db;
+    --text-secondary: #BFBEBE;
+    --text-secondary-dark: #1A1A1A;
 }
 
 @theme {

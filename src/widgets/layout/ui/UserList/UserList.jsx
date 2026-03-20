@@ -4,6 +4,7 @@ import { useUnfollowUser } from '@/queries/user/use-unfollow-user';
 import { Pagination } from '@/shared/ui/Pagination';
 import { FollowingCard, FollowingCardSkeleton } from '@/shared/ui/FollowingCard';
 import { useToastOnError } from '@/shared/lib/hooks/use-toast-on-error';
+import { useCurrentUser } from '@/queries/user/use-current-user';
 
 const EMPTY_MESSAGES = {
   followers:
@@ -21,6 +22,7 @@ const pickOwnRecipesCount = (item) =>
 
 export const UserList = ({ variant = 'followers' }) => {
   const { page, setPage, query } = useUserList(variant);
+  const { user: currentUser, isAuthenticated } = useCurrentUser();
   const { mutate: follow, isPending: isFollowPending, variables: followTarget } = useFollowUser();
   const {
     mutate: unfollow,
@@ -55,7 +57,7 @@ export const UserList = ({ variant = 'followers' }) => {
       )}
 
       {isEmpty && (
-        <p className="tablet:pt-[60px] desktop:pt-[100px] text-grey tablet:text-main tablet:w-[610px] mx-auto pt-[48px] text-center text-sm font-medium">
+        <p className="tablet:pt-15 desktop:pt-25 text-grey tablet:text-main tablet:w-152.5 mx-auto pt-12 text-center text-sm font-medium">
           {EMPTY_MESSAGES[variant]}
         </p>
       )}
@@ -68,6 +70,9 @@ export const UserList = ({ variant = 'followers' }) => {
               (isFollowPending && followTarget === id) ||
               (isUnfollowPending && unfollowTarget === id);
             const isLast = index === list.length - 1;
+
+            const isSelf = isAuthenticated && currentUser?.id === id;
+
             return (
               <li key={id}>
                 <FollowingCard
@@ -77,11 +82,11 @@ export const UserList = ({ variant = 'followers' }) => {
                   recipeURLs={recipeImageUrls}
                   ownRecipesCount={pickOwnRecipesCount(item)}
                   isFollowed={isFollowed}
-                  onToggleFollow={handleToggleFollow}
+                  onToggleFollow={isSelf ? undefined : handleToggleFollow}
                   isToggling={isToggling}
                 />
                 {!isLast && (
-                  <hr className="border-grey tablet:mt-[40px] tablet:mb-[40px] mt-[20px] mb-[20px] w-full border-0 border-t" />
+                  <hr className="border-grey tablet:mt-10 tablet:mb-10 mt-5 mb-5 w-full border-0 border-t" />
                 )}
               </li>
             );

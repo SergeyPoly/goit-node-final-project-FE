@@ -10,7 +10,7 @@ export const RecipeList = ({ recipes = [], isLoading = false, skeletonCount = 8 
   if (!isLoading && !recipes?.length) {
     return (
       <div className="flex h-96 items-center justify-center">
-        <p className="main-text font-bold">No recipes found.</p>
+        <p className="main-text font-medium">No recipes found.</p>
       </div>
     );
   }

@@ -10,8 +10,8 @@ import { useCallback, useMemo } from 'react';
 
 export const UserCard = () => {
   const { id: userId } = useParams();
-  const { data: userDetails } = useUserDetails(userId);
-  const { data: subscribers = [], refetch, isRefetching } = useUserSubscribers(userId); // TODO temporary solution to check subscription
+  const { data: userDetails, refetch: refetchUserDetails } = useUserDetails(userId);
+  const { data: subscribers = [], refetch, isRefetching } = useUserSubscribers(userId);
 
   const { logout, isPending: isPendingLogout } = useLogoutUser();
   const { mutateAsync: follow, isPending: isPendingFollow } = useFollowUser();
@@ -20,6 +20,11 @@ export const UserCard = () => {
   const { isAuthenticated, user } = useCurrentUser();
 
   const isOwnProfile = isAuthenticated && user?.id === userId;
+
+  const profileData = useMemo(() => {
+    return isOwnProfile ? user : userDetails;
+  }, [isOwnProfile, user, userDetails]);
+
   const isAlreadyFollowing = useMemo(
     () => subscribers.some((subscriber) => subscriber.id === user?.id),
     [subscribers, user]
@@ -30,9 +35,18 @@ export const UserCard = () => {
       logout();
     } else {
       isAlreadyFollowing ? await unfollow(userId) : await follow(userId);
-      refetch();
+      await Promise.all([refetch(), refetchUserDetails()]);
     }
-  }, [isAlreadyFollowing, isOwnProfile]);
+  }, [
+    isOwnProfile,
+    isAlreadyFollowing,
+    logout,
+    unfollow,
+    follow,
+    userId,
+    refetch,
+    refetchUserDetails,
+  ]);
 
   const handleUploadAvatar = async (file) => {
     if (!file) return;
@@ -42,9 +56,9 @@ export const UserCard = () => {
   const buttonText = isOwnProfile ? 'LOG OUT' : isAlreadyFollowing ? 'UNFOLLOW' : 'FOLLOW';
 
   return (
-    <div className="tablet:w-98.5 mx-auto flex shrink-0 flex-col items-stretch">
+    <div className="tablet:w-98.5 mx-auto flex w-full shrink-0 flex-col items-stretch">
       <ProfileCard
-        {...userDetails}
+        {...profileData}
         isOwnProfile={isOwnProfile}
         onUploadAvatar={handleUploadAvatar}
       />

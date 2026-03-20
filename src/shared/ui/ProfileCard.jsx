@@ -99,7 +99,7 @@ export const ProfileCard = (props) => {
   );
 
   return (
-    <div className="tablet:gap-5 border-grey tablet:px-20 tablet:py-10 mx-auto flex w-98.5 flex-col items-center gap-4 rounded-[1.875rem] border px-13.5 py-7.5">
+    <div className="tablet:gap-5 border-grey tablet:px-20 tablet:py-10 mx-auto flex w-full flex-col items-center gap-4 rounded-[1.875rem] border px-13.5 py-7.5">
       <ImageManager
         variant="profile"
         image={avatarURL}
