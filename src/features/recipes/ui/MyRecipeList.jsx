@@ -27,7 +27,7 @@ export const MyRecipeList = ({ ownRecipes = [] }) => {
 
         return (
           <li key={id ?? title}>
-            <RecipePreview id={id} img={img} description={description} onRemove={onRemove} />
+            <RecipePreview id={id} title={title} img={img} description={description} onRemove={onRemove} />
           </li>
         );
       })}
