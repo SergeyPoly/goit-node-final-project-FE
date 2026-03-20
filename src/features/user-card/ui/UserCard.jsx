@@ -56,7 +56,7 @@ export const UserCard = () => {
   const buttonText = isOwnProfile ? 'LOG OUT' : isAlreadyFollowing ? 'UNFOLLOW' : 'FOLLOW';
 
   return (
-    <div className="tablet:w-98.5 mx-auto flex shrink-0 flex-col items-stretch">
+    <div className="tablet:w-98.5 mx-auto flex w-full shrink-0 flex-col items-stretch">
       <ProfileCard
         {...profileData}
         isOwnProfile={isOwnProfile}

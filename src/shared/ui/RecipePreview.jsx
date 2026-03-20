@@ -11,8 +11,8 @@ export const RecipePreview = ({ id, img, title, description = '', onRemove, canR
         src={img}
         alt={title}
       />
-      <div className="tablet:gap-8 flex w-full flex-row gap-4">
-        <div className="tablet:gap-2.5 tablet:w-117 desktop:w-152.5 flex w-41.5 flex-col gap-2">
+      <div className="tablet:gap-8 flex w-full flex-row justify-between gap-4">
+        <div className="tablet:gap-2.5 desktop:max-w-152.5 flex w-fit flex-col gap-2">
           <h4 className="tablet:text-xl line-clamp-1 text-base font-extrabold uppercase">
             {title}
           </h4>
@@ -20,7 +20,7 @@ export const RecipePreview = ({ id, img, title, description = '', onRemove, canR
             {description}
           </Subtitle>
         </div>
-        <div className="flex w-full flex-row justify-end gap-1">
+        <div className="flex w-fit flex-row justify-end gap-1">
           <Button
             href={'/recipe/' + id}
             iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
