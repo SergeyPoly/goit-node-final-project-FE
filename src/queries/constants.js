@@ -5,4 +5,6 @@ export const QUERY_KEYS = {
   REGISTER_USER: 'registerUser',
   FOLLOW_USER: 'followUser',
   FOLLOWING_LIST: 'followingList',
+  FOLLOWERS_USER: 'followersUser',
+  FOLLOWING_USER: 'followingUser',
 };

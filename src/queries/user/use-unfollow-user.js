@@ -1,18 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { followUser } from '@/shared/api/endpoints/user';
+import { unfollowUser } from '@/shared/api/endpoints/user';
 import { QUERY_KEYS } from '../constants';
 
-export const useFollowUser = () => {
+export const useUnfollowUser = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: followUser,
+  return useMutation({
+    mutationFn: unfollowUser,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.FOLLOWING_USER] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.FOLLOWERS_USER] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CURRENT_USER] });
     },
   });
-
-  return mutation;
 };

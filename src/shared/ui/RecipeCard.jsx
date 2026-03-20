@@ -97,7 +97,7 @@ export const RecipeCard = ({
           <button
             type="button"
             onClick={handleOwnerClick}
-            className="flex items-center gap-2 text-left hover:opacity-80 transition-opacity"
+            className="flex items-center gap-2 text-left transition-opacity hover:opacity-80"
           >
             <div className="tablet:w-10 tablet:h-10 bg-grey block h-8 w-8 overflow-hidden rounded-full">
               <img
@@ -137,4 +137,3 @@ export const RecipeCard = ({
     </article>
   );
 };
-

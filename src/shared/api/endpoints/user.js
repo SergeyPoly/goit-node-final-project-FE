@@ -5,11 +5,6 @@ export const getCurrentUser = async () => {
   return data;
 };
 
-export const getUserById = async (id) => {
-  const { data } = await api.get(`/users/${id}`);
-  return data;
-};
-
 export const uploadUserAvatar = async (file) => {
   const formData = new FormData();
   formData.append('avatar', file);
@@ -20,5 +15,25 @@ export const uploadUserAvatar = async (file) => {
     },
   });
 
+  return data;
+};
+
+export const getUserFollowers = async (id, params = {}) => {
+  const { data } = await api.get(`/users/${id}/subscribers`, { params });
+  return data;
+};
+
+export const getUserFollowing = async (id, params = {}) => {
+  const { data } = await api.get(`/users/${id}/following`, { params });
+  return data;
+};
+
+export const followUser = async (targetUserId) => {
+  const { data } = await api.patch('/users/follow', { targetUserId });
+  return data;
+};
+
+export const unfollowUser = async (userId) => {
+  const { data } = await api.delete(`/users/${userId}/follow`);
   return data;
 };
