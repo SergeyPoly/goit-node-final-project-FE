@@ -1,16 +1,28 @@
-import { Logo } from '@/shared/ui/Logo.jsx';
-import { Nav } from '@/widgets/layout/ui/Header/components/Nav.jsx';
-import { AuthBar } from '@/widgets/layout/ui/Header/components/AuthBar.jsx';
-import { UserBar } from '@/widgets/layout/ui/Header/components/UserBar.jsx';
 import { useLocation } from 'react-router-dom';
-import { cn } from '@/shared/lib/clsx/index.js';
+import { Logo } from '@/shared/ui/Logo';
+import { Nav } from '@/widgets/layout/ui/Header/components/Nav';
+import { AuthBar } from '@/widgets/layout/ui/Header/components/AuthBar';
+import { UserBar } from '@/widgets/layout/ui/Header/components/UserBar';
+import { cn } from '@/shared/lib/clsx';
 import { useCurrentUser } from '@/queries/user';
+import { UserBarSkeleton } from './components/UserBarSkeleton';
 
 export const Header = () => {
   const { user, isLoading } = useCurrentUser();
   const { pathname } = useLocation();
 
   const isDark = pathname === '/' || pathname.startsWith('/recipes');
+
+  const renderUserBar = () => {
+    if (isLoading) {
+      return <UserBarSkeleton />;
+    }
+    if (user) {
+      return <UserBar user={user} isDark={isDark} />;
+    }
+
+    return <AuthBar />;
+  };
 
   return (
     <header
@@ -29,11 +41,7 @@ export const Header = () => {
 
         <Nav isDarkType={isDark} />
 
-        {user || isLoading ? (
-          <UserBar loading={isLoading} user={user} isDark={isDark} />
-        ) : (
-          <AuthBar />
-        )}
+        {renderUserBar()}
       </div>
     </header>
   );
