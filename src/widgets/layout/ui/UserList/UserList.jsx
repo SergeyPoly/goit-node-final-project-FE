@@ -6,8 +6,10 @@ import { FollowingCard, FollowingCardSkeleton } from '@/shared/ui/FollowingCard'
 import { useToastOnError } from '@/shared/lib/hooks/use-toast-on-error';
 
 const EMPTY_MESSAGES = {
-  followers: 'People who follow you...',
-  following: 'People you follow...',
+  followers:
+    'There are currently no followers on your account. Please engage our visitors with interesting content and draw their attention to your profile.',
+  following:
+    'Your account currently has no subscriptions to other users. Learn more about our users and select those whose content interests you.',
 };
 
 const pickOwnRecipesCount = (item) =>
@@ -53,7 +55,9 @@ export const UserList = ({ variant = 'followers' }) => {
       )}
 
       {isEmpty && (
-        <p className="text-grey text-center text-base font-medium">{EMPTY_MESSAGES[variant]}</p>
+        <p className="tablet:pt-[60px] desktop:pt-[100px] text-grey tablet:text-main tablet:w-[610px] mx-auto pt-[48px] text-center text-sm font-medium">
+          {EMPTY_MESSAGES[variant]}
+        </p>
       )}
 
       {!isLoading && list.length > 0 && (
