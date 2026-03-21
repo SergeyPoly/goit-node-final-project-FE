@@ -56,7 +56,11 @@ export const LoginModal = () => {
 
       <p className="mt-4 text-center text-sm text-[#BFBFBE]">
         Don&apos;t have an account?{' '}
-        <button type="button" onClick={handleSwitchToRegister} className="text-main">
+        <button
+          type="button"
+          onClick={handleSwitchToRegister}
+          className="text-main hover:underline"
+        >
           Create an account
         </button>
       </p>

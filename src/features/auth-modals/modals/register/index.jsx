@@ -61,7 +61,7 @@ export const RegisterModal = () => {
 
       <p className="mt-4 text-center text-sm text-[#BFBFBE]">
         I already have an account?{' '}
-        <button type="button" onClick={handleSwitchToLogin} className="text-main">
+        <button type="button" onClick={handleSwitchToLogin} className="text-main hover:underline">
           Sign in
         </button>
       </p>

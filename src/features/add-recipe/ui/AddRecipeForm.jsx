@@ -18,7 +18,6 @@ import { useAreasStoreSync } from '@/features/areas/model/use-areas-store-sync';
 import { useIngredientsStore } from '@/entities/ingredient/model/use-ingredients-store';
 import { useAreasStore } from '@/entities/area/model/use-areas-store';
 import { createRecipe } from '@/entities/recipe/api/recipes';
-import { FormField } from '@/shared/ui/FormField.jsx';
 
 const COOK_TIME_STEP = 1;
 const COOK_TIME_MIN = 1;
