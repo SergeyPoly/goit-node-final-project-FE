@@ -4,7 +4,7 @@ import { clearSession } from '@/shared/api/session/clearSession';
 import { useMutation } from '@tanstack/react-query';
 import { QUERY_KEYS } from '../constants';
 
-export const useLogoutUser = ({ onSuccess }) => {
+export const useLogoutUser = ({ onSuccess } = {}) => {
   const { mutate, isPending } = useMutation({
     mutationKey: [QUERY_KEYS.LOGOUT_USER],
     mutationFn: logoutUser,
