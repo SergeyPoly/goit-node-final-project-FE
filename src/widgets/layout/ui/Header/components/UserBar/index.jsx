@@ -3,9 +3,11 @@ import { useState } from 'react';
 import { PROFILE_CLASSNAME, UserDropdown } from './UserDropdown';
 import { cn } from '@/shared/lib/clsx';
 import { classNames } from './classNames';
+import { MODAL_NAMES, useModalStore } from '@/entities/modal';
 
 export const UserBar = ({ user, isDark }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const { setCurrentModal } = useModalStore();
 
   return (
     <div className="relative flex items-center gap-1">
@@ -33,7 +35,12 @@ export const UserBar = ({ user, isDark }) => {
         )}
       </div>
 
-      <button className={cn(isDark ? 'text-white' : 'text-dark', 'tablet:hidden')}>
+      <button
+        type="button"
+        className={cn(isDark ? 'text-white' : 'text-dark', 'tablet:hidden')}
+        onClick={() => setCurrentModal(MODAL_NAMES.MOBILE_MENU, { isDark })}
+        aria-label="Open menu"
+      >
         <svg className="h-7 w-7">
           <use href="/icons.svg#menu-icon" />
         </svg>
