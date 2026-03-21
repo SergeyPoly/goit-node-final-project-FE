@@ -1,8 +1,8 @@
-import { useLogoutUser } from '@/queries/user';
+import { Link } from 'react-router-dom';
+import { MODAL_NAMES, useModalStore } from '@/entities/modal';
 import { cn } from '@/shared/lib/clsx';
 import { useClosableElement } from '@/shared/lib/hooks/dom';
 import { Button } from '@/shared/ui/Button';
-import { Link } from 'react-router-dom';
 
 export const PROFILE_CLASSNAME = 'headerDropdown';
 const PROFILE_LINK_CLASS_NAME = 'profileLink';
@@ -11,7 +11,7 @@ const whiteListClassNames = [PROFILE_CLASSNAME];
 const closableChildrenClassNames = [PROFILE_LINK_CLASS_NAME];
 
 export const UserDropdown = ({ userId, onClose }) => {
-  const { logout, isPending } = useLogoutUser();
+  const { setCurrentModal } = useModalStore();
 
   const ref = useClosableElement({
     onClose,
@@ -20,6 +20,8 @@ export const UserDropdown = ({ userId, onClose }) => {
     whiteListClassNames,
     closableChildrenClassNames,
   });
+
+  const showLogoutConfirmation = () => setCurrentModal(MODAL_NAMES.LOGOUT_CONFIRMATION);
 
   return (
     <div
@@ -37,19 +39,12 @@ export const UserDropdown = ({ userId, onClose }) => {
       </Link>
       <button
         className="flex w-full gap-[2px] text-xs font-bold text-white uppercase hover:underline disabled:pointer-events-none disabled:opacity-60"
-        onClick={logout}
-        disabled={isPending}
+        onClick={showLogoutConfirmation}
       >
-        {isPending ? (
-          <span className="text-left whitespace-nowrap">Logging out...</span>
-        ) : (
-          <>
-            Log out
-            <svg className="h-4 w-4 text-white">
-              <use href="/icons.svg#arrow-up-right-icon"></use>
-            </svg>
-          </>
-        )}
+        Log out
+        <svg className="h-4 w-4 text-white">
+          <use href="/icons.svg#arrow-up-right-icon" />
+        </svg>
       </button>
     </div>
   );
