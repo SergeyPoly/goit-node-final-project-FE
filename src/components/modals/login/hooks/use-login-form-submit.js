@@ -1,16 +1,22 @@
 import { useLoginUser } from '@/queries/user';
 import { useCloseAuthModalOnSuccess } from '@/shared/lib/hooks/use-close-auth-modal-on-success';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 export const useLoginFormSubmit = () => {
-  const { login, isPending } = useLoginUser();
+  const [isPending, setIsPending] = useState(false);
+  const { login } = useLoginUser();
 
   useCloseAuthModalOnSuccess();
 
   const handleLoginFormSubmit = async (values, { setFieldError }) => {
     try {
+      setIsPending(true);
+
       await login(values);
     } catch (error) {
+      setIsPending(false);
+
       if (error.status === 400) {
         if (error.message.includes('email')) {
           setFieldError('email', error.message);

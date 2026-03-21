@@ -1,29 +1,32 @@
-import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Button } from '@/shared/ui/Button.jsx';
+import { useClosableElement } from '../lib/hooks/dom';
+import { MODAL_NAMES } from '@/entities/modal';
+import { useEffect } from 'react';
 
 const modalRoot = document.getElementById('modal-root');
 
-export const Modal = ({ isOpen, onClose, children, variant = 'default' }) => {
-  useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
+export const Modal = ({ isOpen, onClose, children, name }) => {
+  const visible = isOpen && modalRoot;
 
-    if (isOpen) {
-      window.addEventListener('keydown', handleEsc);
+  useEffect(() => {
+    if (visible) {
       document.body.style.overflow = 'hidden';
     }
 
     return () => {
-      window.removeEventListener('keydown', handleEsc);
       document.body.style.overflow = '';
     };
-  }, [isOpen, onClose]);
+  }, [visible]);
 
-  if (!isOpen || !modalRoot) return null;
+  const containerRef = useClosableElement({
+    onClose,
+    name,
+    visible,
+    closeOnClickOutside: false,
+  });
+
+  if (!visible) return null;
 
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -31,9 +34,9 @@ export const Modal = ({ isOpen, onClose, children, variant = 'default' }) => {
     }
   };
 
-  if (variant === 'mobile-menu') {
+  if (name === MODAL_NAMES.MOBILE_MENU) {
     return createPortal(
-      <div onClick={handleBackdropClick} className="fixed inset-0 z-50">
+      <div ref={containerRef} onClick={handleBackdropClick} className="fixed inset-0 z-50">
         <div className="bg-main relative h-full w-full">{children}</div>
       </div>,
       modalRoot
@@ -42,6 +45,7 @@ export const Modal = ({ isOpen, onClose, children, variant = 'default' }) => {
 
   return createPortal(
     <div
+      ref={containerRef}
       onClick={handleBackdropClick}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
     >
@@ -50,7 +54,7 @@ export const Modal = ({ isOpen, onClose, children, variant = 'default' }) => {
           type="button"
           variant="modal-icon"
           onClick={onClose}
-          className="absolute top-5 right-5"
+          className="absolute top-5 right-5 hover:opacity-70"
           iconName="x-icon"
           iconClass="w-6 h-6"
           iconVisualHiddenText="Close Modal"
