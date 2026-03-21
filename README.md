@@ -72,7 +72,7 @@ src/
 
 - Node.js (v18 or higher)
 - npm or yarn
-- Backend API server running
+- [Backend API server](https://github.com/pilotocheg/goit-nodejs-final-project) running
 
 ### Installation
 
