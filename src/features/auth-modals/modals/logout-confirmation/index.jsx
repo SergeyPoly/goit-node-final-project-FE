@@ -1,5 +1,3 @@
-import * as Yup from 'yup';
-
 import { useModalStore } from '@/entities/modal/store/use-modal-store.js';
 import { Button } from '@/shared/ui/Button.jsx';
 import { useLogoutUser } from '@/entities/user/api/index.js';
@@ -31,6 +29,7 @@ export const LogoutConfirmationModal = () => {
         variant="default"
         className="border-main w-full border text-base hover:opacity-70"
         disabled={isPending}
+        onClick={closeCurrentModal}
       >
         Cancel
       </Button>
