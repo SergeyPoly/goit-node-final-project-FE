@@ -31,7 +31,6 @@ export const Testimonials = () => {
 
         <Swiper
           modules={[Autoplay, Pagination]}
-          autoHeight={true}
           spaceBetween={0}
           slidesPerView={1}
           loop={true}

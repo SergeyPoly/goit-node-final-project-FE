@@ -18,6 +18,7 @@ import { useAreasStoreSync } from '@/features/areas/model/use-areas-store-sync';
 import { useIngredientsStore } from '@/entities/ingredient/model/use-ingredients-store';
 import { useAreasStore } from '@/entities/area/model/use-areas-store';
 import { createRecipe } from '@/entities/recipe/api/recipes';
+import { FormField } from '@/shared/ui/FormField.jsx';
 
 const COOK_TIME_STEP = 1;
 const COOK_TIME_MIN = 1;
@@ -174,45 +175,59 @@ export const AddRecipeForm = () => {
                 image={recipeImagePreview}
                 onChange={(file) => setFieldValue('recipeImage', file)}
               />
+              {touched.recipeImage && errors.recipeImage && (
+                <p className="mt-1 text-sm text-red-600">{errors.recipeImage}</p>
+              )}
             </div>
 
             <div className="desktop:min-w-0 desktop:max-w-[649px] desktop:flex-1 flex flex-col gap-20">
               <div className="tablet:gap-10 flex flex-col gap-8">
                 {/* Name + Description */}
                 <section className="tablet:gap-10 flex flex-col gap-8">
-                  <div
-                    className={cn(
-                      'flex flex-col gap-1 border-b pb-4 transition-colors',
-                      touched.recipeName && errors.recipeName ? 'border-error' : 'border-grey'
-                    )}
-                  >
-                    <input
-                      id="recipeName"
-                      name="recipeName"
-                      type="text"
-                      placeholder="The name of the recipe"
-                      value={values.recipeName}
-                      onChange={(e) => setFieldValue('recipeName', e.target.value)}
-                      onBlur={() => setFieldTouched('recipeName')}
-                      aria-label="Recipe name"
+                  <div>
+                    <div
                       className={cn(
-                        'tablet:text-base placeholder:text-grey w-full bg-transparent text-sm font-medium transition-colors outline-none placeholder:text-lg placeholder:leading-6 placeholder:font-bold placeholder:uppercase',
-                        values.recipeName ? 'text-main' : 'text-grey',
-                        touched.recipeName && errors.recipeName && 'text-error'
+                        'flex flex-col gap-1 border-b pb-4 transition-colors',
+                        touched.recipeName && errors.recipeName ? 'border-error' : 'border-grey'
                       )}
-                    />
+                    >
+                      <input
+                        id="recipeName"
+                        name="recipeName"
+                        type="text"
+                        placeholder="The name of the recipe"
+                        value={values.recipeName}
+                        onChange={(e) => setFieldValue('recipeName', e.target.value)}
+                        onBlur={() => setFieldTouched('recipeName')}
+                        aria-label="Recipe name"
+                        className={cn(
+                          'tablet:text-base placeholder:text-grey w-full bg-transparent text-sm font-medium transition-colors outline-none placeholder:text-lg placeholder:leading-6 placeholder:font-bold placeholder:uppercase',
+                          values.recipeName ? 'text-main' : 'text-grey',
+                          touched.recipeName && errors.recipeName && 'text-error'
+                        )}
+                      />
+                    </div>
+                    {touched.recipeName && errors.recipeName && (
+                      <p className="mt-1 text-sm text-red-600">{errors.recipeName}</p>
+                    )}
                   </div>
-                  <div className="flex flex-col gap-4">
-                    <TextField
-                      id="description"
-                      name="description"
-                      placeholder="Enter a description of the dish"
-                      value={values.description}
-                      onChange={(v) => setFieldValue('description', v)}
-                      onBlur={() => setFieldTouched('description')}
-                      maxLength={200}
-                      error={!!(touched.description && errors.description)}
-                    />
+
+                  <div>
+                    <div className="flex flex-col gap-4">
+                      <TextField
+                        id="description"
+                        name="description"
+                        placeholder="Enter a description of the dish"
+                        value={values.description}
+                        onChange={(v) => setFieldValue('description', v)}
+                        onBlur={() => setFieldTouched('description')}
+                        maxLength={200}
+                        error={!!(touched.description && errors.description)}
+                      />
+                    </div>
+                    {touched.description && errors.description && (
+                      <p className="mt-1 text-sm text-red-600">{errors.description}</p>
+                    )}
                   </div>
                 </section>
 
@@ -242,6 +257,9 @@ export const AddRecipeForm = () => {
                         placeholder="Select category"
                         error={!!(touched.category && errors.category)}
                       />
+                      {touched.category && errors.category && (
+                        <p className="mt-1 text-sm text-red-600">{errors.category}</p>
+                      )}
                     </div>
 
                     <div className="tablet:max-w-[194px] flex min-w-0 flex-shrink-0 flex-col gap-2">
@@ -316,6 +334,9 @@ export const AddRecipeForm = () => {
                       placeholder="Select area"
                       error={!!(touched.area && errors.area)}
                     />
+                    {touched.area && errors.area && (
+                      <p className="mt-1 text-sm text-red-600">{errors.area}</p>
+                    )}
                   </div>
 
                   <div className="tablet:gap-10 flex flex-col gap-10">
@@ -384,26 +405,31 @@ export const AddRecipeForm = () => {
                 </section>
 
                 {/* Recipe Preparation */}
-                <section
-                  className="tablet:gap-10 mt-10 flex flex-col gap-8"
-                  aria-labelledby="preparation-heading"
-                >
-                  <h2
-                    id="preparation-heading"
-                    className="text-main text-lg font-extrabold uppercase"
+                <section>
+                  <div
+                    className="tablet:gap-10 mt-10 flex flex-col gap-8"
+                    aria-labelledby="preparation-heading"
                   >
-                    Recipe Preparation
-                  </h2>
-                  <TextField
-                    name="recipePreparation"
-                    placeholder="Enter recipe"
-                    value={values.recipePreparation}
-                    onChange={(v) => setFieldValue('recipePreparation', v)}
-                    onBlur={() => setFieldTouched('recipePreparation')}
-                    maxLength={1000}
-                    multiline
-                    error={!!(touched.recipePreparation && errors.recipePreparation)}
-                  />
+                    <h2
+                      id="preparation-heading"
+                      className="text-main text-lg font-extrabold uppercase"
+                    >
+                      Recipe Preparation
+                    </h2>
+                    <TextField
+                      name="recipePreparation"
+                      placeholder="Enter recipe"
+                      value={values.recipePreparation}
+                      onChange={(v) => setFieldValue('recipePreparation', v)}
+                      onBlur={() => setFieldTouched('recipePreparation')}
+                      maxLength={1000}
+                      multiline
+                      error={!!(touched.recipePreparation && errors.recipePreparation)}
+                    />
+                  </div>
+                  {touched.recipePreparation && errors.recipePreparation && (
+                    <p className="mt-1 text-sm text-red-600">{errors.recipePreparation}</p>
+                  )}
                 </section>
 
                 {/* Actions */}
