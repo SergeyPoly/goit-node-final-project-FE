@@ -42,7 +42,7 @@ const validationSchema = Yup.object({
   category: Yup.string().required('Category is required'),
   cookTime: Yup.number().required().min(1),
   area: Yup.string().required('Area is required'),
-  recipePreparation: Yup.string().required('Preparation is required').max(1000),
+  recipePreparation: Yup.string().required('Preparation is required').min(10, 'Min 10 symbols').max(1000),
   ingredientsList: Yup.array().min(1, 'Add at least one ingredient'),
   recipeImage: Yup.mixed().required('Recipe photo is required'),
 });
@@ -94,7 +94,9 @@ export const AddRecipeForm = () => {
       toast.success('Recipe created!');
       navigate(`/recipe/${recipe?.id}`);
     } catch (err) {
-      toast.error(err?.response?.data?.message || 'Error');
+      const errorMsg =
+        err?.response?.data?.message || err?.response?.data?.error || err?.message || 'Error';
+      toast.error(errorMsg);
     }
   };
 
