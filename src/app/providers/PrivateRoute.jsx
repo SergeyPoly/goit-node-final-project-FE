@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { MODAL_NAMES } from '@/entities/modal/constants';
 import { useModalStore } from '@/entities/modal/store';
-import { useCurrentUser } from '@/queries/user';
+import { useCurrentUser } from '@/entities/user/api/index.js';
 import { PageLoader } from '@/shared/ui/PageLoader';
 
 export const PrivateRoute = ({ children }) => {

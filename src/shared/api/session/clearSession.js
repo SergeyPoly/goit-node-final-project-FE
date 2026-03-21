@@ -1,6 +1,6 @@
-import { queryClient } from '@/queries/queryClient';
+import { queryClient } from '@/entities/user/queryClient.js';
 import { clearToken } from '@/entities/token';
-import { QUERY_KEYS } from '@/queries/constants';
+import { QUERY_KEYS } from '@/entities/user/constants.js';
 
 export const clearSession = () => {
   clearToken();

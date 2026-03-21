@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { unfollowUser } from '@/shared/api/endpoints/user';
-import { QUERY_KEYS } from '../constants';
+import { unfollowUser } from '@/shared/api/endpoints/user.js';
+import { QUERY_KEYS } from '../constants.js';
 
 export const useUnfollowUser = () => {
   const queryClient = useQueryClient();

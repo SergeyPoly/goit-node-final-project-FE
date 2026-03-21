@@ -4,7 +4,7 @@ import { Nav } from '@/widgets/layout/ui/Header/components/Nav';
 import { AuthBar } from '@/widgets/layout/ui/Header/components/AuthBar';
 import { UserBar } from '@/widgets/layout/ui/Header/components/UserBar';
 import { cn } from '@/shared/lib/clsx';
-import { useCurrentUser } from '@/queries/user';
+import { useCurrentUser } from '@/entities/user/api/index.js';
 import { UserBarSkeleton } from './components/UserBarSkeleton';
 
 export const Header = () => {

@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { ModalRoot } from '@/components/ModalRoot';
+import { ModalRoot } from '@/features/auth-modals/ModalRoot.jsx';
 import { Header } from './Header/Header';
 import { Footer } from './Footer/Footer';
 

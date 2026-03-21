@@ -1,45 +1,40 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useModalStore } from '@/entities/modal/store/use-modal-store';
-import { FormField } from '@/shared/ui/FormField';
-import { Button } from '@/shared/ui/Button';
-import { MODAL_NAMES } from '@/entities/modal/constants';
+import { useModalStore } from '@/entities/modal/store/use-modal-store.js';
+import { FormField } from '@/shared/ui/FormField.jsx';
+import { Button } from '@/shared/ui/Button.jsx';
+import { MODAL_NAMES } from '@/entities/modal/constants.js';
 
-import { initialValues, validationSchema } from './form';
-import { useRegisterFormSubmit } from './hooks';
+import { initialValues, validationSchema } from './form.js';
+import { useLoginFormSubmit } from './hooks/index.js';
 
-export const RegisterModal = () => {
+export const LoginModal = () => {
   const { setCurrentModal, currentModal } = useModalStore();
-  const { handleRegisterFormSubmit, isPending } = useRegisterFormSubmit();
+  const { handleLoginFormSubmit, isPending } = useLoginFormSubmit();
 
   const { handleSubmit, errors, touched, isValid, dirty, getFieldProps } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: handleRegisterFormSubmit,
+    onSubmit: handleLoginFormSubmit,
   });
 
-  const handleSwitchToLogin = () => {
-    setCurrentModal(MODAL_NAMES.LOGIN, currentModal?.data);
+  const handleSwitchToRegister = () => {
+    setCurrentModal(MODAL_NAMES.REGISTER, currentModal?.data);
   };
 
   return (
     <>
       <h2 className="text-dark mb-10 text-2xl font-extrabold uppercase md:text-3xl lg:text-4xl">
-        Sign Up
+        Sign In
       </h2>
 
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <FormField
-          {...getFieldProps('name')}
-          placeholder="Name*"
-          error={touched.name && errors.name}
-        />
-        <FormField
           {...getFieldProps('email')}
           placeholder="Email*"
-          type="email"
           error={touched.email && errors.email}
         />
+
         <FormField
           {...getFieldProps('password')}
           placeholder="Password"
@@ -52,17 +47,17 @@ export const RegisterModal = () => {
         <Button
           type="submit"
           variant="dark"
-          className="w-full"
+          className="w-full disabled:cursor-default!"
           disabled={isPending || !isValid || !dirty}
         >
-          {isPending ? 'creating...' : 'create'}
+          {isPending ? 'Signing in...' : 'Sign in'}
         </Button>
       </form>
 
       <p className="mt-4 text-center text-sm text-[#BFBFBE]">
-        I already have an account?{' '}
-        <button type="button" onClick={handleSwitchToLogin} className="text-main">
-          Sign in
+        Don&apos;t have an account?{' '}
+        <button type="button" onClick={handleSwitchToRegister} className="text-main">
+          Create an account
         </button>
       </p>
     </>

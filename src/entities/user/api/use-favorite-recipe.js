@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
-import { addFavoriteRecipe, removeFavoriteRecipe } from '@/shared/api/endpoints/favorites';
-import { queryClient } from '@/queries/queryClient';
-import { QUERY_KEYS } from '@/queries/constants';
+import { addFavoriteRecipe, removeFavoriteRecipe } from '@/shared/api/endpoints/favorites.js';
+import { queryClient } from '@/entities/user/queryClient.js';
+import { QUERY_KEYS } from '@/entities/user/constants.js';
 
 export const useFavoriteRecipe = () => {
   const addMutation = useMutation({

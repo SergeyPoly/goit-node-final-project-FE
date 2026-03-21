@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { removeFavoriteRecipe } from '@/shared/api/endpoints/favorites';
-import { QUERY_KEYS } from '@/queries/constants';
+import { QUERY_KEYS } from '@/entities/user/constants.js';
 
 export const useDeleteFavoriteRecipe = () => {
   const queryClient = useQueryClient();
@@ -12,4 +12,3 @@ export const useDeleteFavoriteRecipe = () => {
     },
   });
 };
-

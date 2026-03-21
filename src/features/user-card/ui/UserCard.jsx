@@ -1,11 +1,11 @@
 import { ProfileCard } from '@/shared/ui/ProfileCard.jsx';
 import { Button } from '@/shared/ui/Button.jsx';
-import { useLogoutUser, useFollowUser, useCurrentUser } from '@/queries/user/index.js';
+import { useLogoutUser, useFollowUser, useCurrentUser } from '@/entities/user/api/index.js';
 import { useParams } from 'react-router-dom';
-import { useUploadAvatar } from '@/queries/user/use-upload-avatar.js';
+import { useUploadAvatar } from '@/entities/user/api/use-upload-avatar.js';
 import { useUserDetails } from '@/entities/user/api/use-user-details.js';
 import { useUserSubscribers } from '@/entities/user/api/use-user-subscribers.js';
-import { useUnfollowUser } from '@/queries/user/use-unfollow-user.js';
+import { useUnfollowUser } from '@/entities/user/api/use-unfollow-user.js';
 import { useCallback, useMemo } from 'react';
 
 export const UserCard = () => {

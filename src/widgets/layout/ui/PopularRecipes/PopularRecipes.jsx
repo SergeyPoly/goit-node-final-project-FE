@@ -1,7 +1,7 @@
 import { usePopularRecipes } from '@/entities/recipe/api/usePopularRecipes.js';
 import { RecipeCard } from '@/shared/ui/RecipeCard.jsx';
 import { RecipeCardSkeleton } from '@/shared/ui/RecipeCardSkeleton.jsx';
-import { useFavorites } from '@/queries/user';
+import { useFavorites } from '@/entities/user/api/index.js';
 import { useId } from 'react';
 
 export const PopularRecipes = () => {

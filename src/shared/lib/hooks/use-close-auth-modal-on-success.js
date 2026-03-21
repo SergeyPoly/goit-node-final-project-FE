@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useModalStore } from '@/entities/modal';
-import { useCurrentUser } from '@/queries/user';
+import { useCurrentUser } from '@/entities/user/api/index.js';
 
 export const useCloseAuthModalOnSuccess = () => {
   const { closeCurrentModal, currentModal } = useModalStore();

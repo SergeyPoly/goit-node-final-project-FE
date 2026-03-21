@@ -1,9 +1,9 @@
-import { Modal } from '@/shared/ui/Modal';
-import { MODAL_NAMES, useModalStore } from '@/entities/modal';
-import { LoginModal } from './modals/login';
-import { RegisterModal } from './modals/register';
-import { MobileMenuModal } from '@/features/mobile-menu';
-import { LogoutConfirmationModal } from './modals/logout-confirmation';
+import { Modal } from '@/shared/ui/Modal.jsx';
+import { MODAL_NAMES, useModalStore } from '@/entities/modal/index.js';
+import { LoginModal } from './modals/login/index.jsx';
+import { RegisterModal } from './modals/register/index.jsx';
+import { MobileMenuModal } from '@/features/mobile-menu/index.js';
+import { LogoutConfirmationModal } from './modals/logout-confirmation/index.jsx';
 
 const MODAL_COMPONENTS = {
   [MODAL_NAMES.LOGIN]: LoginModal,

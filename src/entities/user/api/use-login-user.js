@@ -1,7 +1,7 @@
-import { loginUser } from '@/shared/api/endpoints/auth';
+import { loginUser } from '@/shared/api/endpoints/auth.js';
 import { useMutation } from '@tanstack/react-query';
-import { QUERY_KEYS } from '../constants';
-import { useTokenStore } from '@/entities/token';
+import { QUERY_KEYS } from '../constants.js';
+import { useTokenStore } from '@/entities/token/index.js';
 
 export const useLoginUser = () => {
   const { setToken } = useTokenStore();

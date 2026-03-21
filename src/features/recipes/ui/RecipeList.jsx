@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import { RecipeCard } from '@/shared/ui/RecipeCard';
 import { RecipeCardSkeleton } from '@/shared/ui/RecipeCardSkeleton.jsx';
-import { useFavorites } from '@/queries/user';
+import { useFavorites } from '@/entities/user/api/index.js';
 
 export const RecipeList = ({ recipes = [], isLoading = false, skeletonCount = 8 }) => {
   const { isFavorite, toggleFavorite, isPending } = useFavorites();

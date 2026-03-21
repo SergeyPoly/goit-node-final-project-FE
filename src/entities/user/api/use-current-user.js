@@ -1,8 +1,8 @@
-import { useTokenStore } from '@/entities/token/store';
-import { getCurrentUser } from '@/shared/api/endpoints/user';
-import { useToastOnError } from '@/shared/lib/hooks/use-toast-on-error';
+import { useTokenStore } from '@/entities/token/store.js';
+import { getCurrentUser } from '@/shared/api/endpoints/user.js';
+import { useToastOnError } from '@/shared/lib/hooks/use-toast-on-error.js';
 import { useQuery } from '@tanstack/react-query';
-import { QUERY_KEYS } from '../constants';
+import { QUERY_KEYS } from '../constants.js';
 
 export const useCurrentUser = () => {
   const { token } = useTokenStore();

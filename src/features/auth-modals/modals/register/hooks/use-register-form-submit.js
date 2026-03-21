@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
-import { useRegisterUser } from '@/queries/user';
-import { useCloseAuthModalOnSuccess } from '@/shared/lib/hooks/use-close-auth-modal-on-success';
+import { useRegisterUser } from '@/entities/user/api/index.js';
+import { useCloseAuthModalOnSuccess } from '@/shared/lib/hooks/use-close-auth-modal-on-success.js';
 import { useState } from 'react';
 
 export const useRegisterFormSubmit = () => {

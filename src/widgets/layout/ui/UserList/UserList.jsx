@@ -1,10 +1,10 @@
-import { useUserList } from '@/queries/user/use-user-list';
-import { useFollowUser } from '@/queries/user/use-follow-user';
-import { useUnfollowUser } from '@/queries/user/use-unfollow-user';
+import { useUserList } from '@/entities/user/api/use-user-list.js';
+import { useFollowUser } from '@/entities/user/api/use-follow-user.js';
+import { useUnfollowUser } from '@/entities/user/api/use-unfollow-user.js';
 import { Pagination } from '@/shared/ui/Pagination';
 import { FollowingCard, FollowingCardSkeleton } from '@/shared/ui/FollowingCard';
 import { useToastOnError } from '@/shared/lib/hooks/use-toast-on-error';
-import { useCurrentUser } from '@/queries/user/use-current-user';
+import { useCurrentUser } from '@/entities/user/api/use-current-user.js';
 
 const EMPTY_MESSAGES = {
   followers:

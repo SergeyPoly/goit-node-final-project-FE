@@ -1,8 +1,8 @@
 import { useMemo, useCallback } from 'react';
 
-import { useCurrentUser } from './use-current-user';
-import { useFavoriteRecipe } from './use-favorite-recipe';
-import { getFavoriteIdsSet } from '@/shared/lib/favorites/getFavoriteIdsSet';
+import { useCurrentUser } from './use-current-user.js';
+import { useFavoriteRecipe } from './use-favorite-recipe.js';
+import { getFavoriteIdsSet } from '@/shared/lib/favorites/getFavoriteIdsSet.js';
 
 export const useFavorites = () => {
   const {

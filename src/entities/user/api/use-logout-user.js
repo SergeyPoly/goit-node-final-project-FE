@@ -1,8 +1,8 @@
 import toast from 'react-hot-toast';
-import { logoutUser } from '@/shared/api/endpoints/auth';
-import { clearSession } from '@/shared/api/session/clearSession';
+import { logoutUser } from '@/shared/api/endpoints/auth.js';
+import { clearSession } from '@/shared/api/session/clearSession.js';
 import { useMutation } from '@tanstack/react-query';
-import { QUERY_KEYS } from '../constants';
+import { QUERY_KEYS } from '../constants.js';
 
 export const useLogoutUser = ({ onSuccess } = {}) => {
   const { mutate, isPending } = useMutation({

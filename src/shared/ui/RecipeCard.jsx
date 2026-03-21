@@ -2,7 +2,7 @@ import { Button } from '@/shared/ui/Button';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBreakpoint } from '@/shared/lib/hooks/use-breakpoint';
-import { useCurrentUser } from '@/queries/user/use-current-user';
+import { useCurrentUser } from '@/entities/user/api/use-current-user.js';
 import { useModalStore } from '@/entities/modal/store/use-modal-store';
 import { MODAL_NAMES } from '@/entities/modal/constants';
 

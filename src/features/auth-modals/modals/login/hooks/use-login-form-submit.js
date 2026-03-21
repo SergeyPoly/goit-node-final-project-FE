@@ -1,5 +1,5 @@
-import { useLoginUser } from '@/queries/user';
-import { useCloseAuthModalOnSuccess } from '@/shared/lib/hooks/use-close-auth-modal-on-success';
+import { useLoginUser } from '@/entities/user/api/index.js';
+import { useCloseAuthModalOnSuccess } from '@/shared/lib/hooks/use-close-auth-modal-on-success.js';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 

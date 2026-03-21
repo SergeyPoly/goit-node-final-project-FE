@@ -1,8 +1,8 @@
 import * as Yup from 'yup';
 
-import { useModalStore } from '@/entities/modal/store/use-modal-store';
-import { Button } from '@/shared/ui/Button';
-import { useLogoutUser } from '@/queries/user';
+import { useModalStore } from '@/entities/modal/store/use-modal-store.js';
+import { Button } from '@/shared/ui/Button.jsx';
+import { useLogoutUser } from '@/entities/user/api/index.js';
 
 export const LogoutConfirmationModal = () => {
   const { closeCurrentModal } = useModalStore();

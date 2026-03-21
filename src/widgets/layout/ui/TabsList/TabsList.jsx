@@ -1,7 +1,7 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { cn } from '@/shared/lib/clsx';
 import { UserList } from '../UserList/UserList';
-import { useCurrentUser } from '@/queries/user/index.js';
+import { useCurrentUser } from '@/entities/user/api/index.js';
 import { useParams } from 'react-router-dom';
 import { useMemo } from 'react';
 import { MyRecipesTab } from '@/features/recipes/ui/my-profile-tabs/MyRecipesTab';

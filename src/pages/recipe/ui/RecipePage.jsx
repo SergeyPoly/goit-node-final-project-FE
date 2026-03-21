@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useRecipe } from '@/entities/recipe/api/useRecipe';
 import { RecipeDetails } from '@/features/recipe-details/ui/RecipeDetails.jsx';
 import { RecipeCardSkeleton } from '@/shared/ui/RecipeCardSkeleton.jsx';
-import { useFavorites } from '@/queries/user';
+import { useFavorites } from '@/entities/user/api/index.js';
 
 export const RecipePage = () => {
   const { id } = useParams();

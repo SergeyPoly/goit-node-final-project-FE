@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
-import { uploadUserAvatar } from '@/shared/api/endpoints/user';
-import { queryClient } from '@/queries/queryClient';
-import { QUERY_KEYS } from '@/queries/constants';
+import { uploadUserAvatar } from '@/shared/api/endpoints/user.js';
+import { queryClient } from '@/entities/user/queryClient.js';
+import { QUERY_KEYS } from '@/entities/user/constants.js';
 
 export const useUploadAvatar = () => {
   const { mutateAsync, isPending } = useMutation({

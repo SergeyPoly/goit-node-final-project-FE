@@ -1,11 +1,11 @@
 import { useMemo, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQueryParam } from '@/shared/lib/hooks/use-query-param';
-import { useBreakpoint } from '@/shared/lib/hooks/use-breakpoint';
+import { useQueryParam } from '@/shared/lib/hooks/use-query-param.js';
+import { useBreakpoint } from '@/shared/lib/hooks/use-breakpoint.js';
 import { useQuery } from '@tanstack/react-query';
-import { useTokenStore } from '@/entities/token/store';
-import { QUERY_KEYS } from '../constants';
-import { getUserFollowers, getUserFollowing } from '@/shared/api/endpoints/user';
+import { useTokenStore } from '@/entities/token/store.js';
+import { QUERY_KEYS } from '../constants.js';
+import { getUserFollowers, getUserFollowing } from '@/shared/api/endpoints/user.js';
 
 const CONFIG = {
   followers: {
