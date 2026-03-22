@@ -108,7 +108,9 @@ export const RecipeCard = ({
               />
             </div>
 
-            <span className="tablet:text-base text-dark text-sm font-bold">{ownerName}</span>
+            <span className="tablet:text-base text-dark cursor-pointer! text-sm font-bold">
+              {ownerName}
+            </span>
           </button>
 
           <div className="flex gap-1">

@@ -97,7 +97,7 @@ export const RecipeDetails = ({
             </div>
             <div className="flex flex-col">
               <span className="text-main/50 text-xs">Created by:</span>
-              <span className="text-dark text-sm leading-tight font-bold">
+              <span className="text-dark cursor-pointer! text-sm leading-tight font-bold">
                 {owner.name ?? 'Guest'}
               </span>
             </div>

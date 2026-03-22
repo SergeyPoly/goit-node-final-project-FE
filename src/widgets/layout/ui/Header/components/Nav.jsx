@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { cn } from '@/shared/lib/clsx';
 
 const baseStyle =
-  'box-border font-bold text-xs uppercase p-[14px] rounded-3xl border transition-all duration-200';
+  'box-border font-bold text-xs uppercase p-[14px] rounded-[1.875rem] border transition-all duration-300';
 
 export const Nav = ({ isDarkType = true }) => {
   const getNavLinkStyle = ({ isActive }) =>
@@ -14,7 +14,7 @@ export const Nav = ({ isDarkType = true }) => {
     );
 
   return (
-    <nav className="tablet:flex desktop:gap-10 hidden font-medium">
+    <nav className="tablet:flex tablet:gap-4 desktop:gap-10 hidden font-medium">
       <NavLink to="/" className={getNavLinkStyle}>
         Home
       </NavLink>
