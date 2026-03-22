@@ -44,14 +44,27 @@ const STATE_CLASSES = {
   },
 };
 
-const ButtonContent = ({ children, iconName, iconClass, iconVisualHiddenText }) => (
+const ButtonContent = ({
+  children,
+  iconName,
+  iconClass,
+  iconVisualHiddenText,
+  isLoading,
+  loaderClassName,
+}) => (
   <>
     {children}
-    {iconName && (
-      <svg className={cn(iconClass, 'text-inherit')} aria-hidden="true">
-        <use href={`/icons.svg#${iconName}`}></use>
-      </svg>
+
+    {isLoading ? (
+      <span className={cn('loader-circle', loaderClassName)} aria-hidden="true" />
+    ) : (
+      iconName && (
+        <svg className={cn(iconClass, 'text-inherit')} aria-hidden="true">
+          <use href={`/icons.svg#${iconName}`}></use>
+        </svg>
+      )
     )}
+
     {iconVisualHiddenText && <span className="sr-only">{iconVisualHiddenText}</span>}
   </>
 );
@@ -67,6 +80,9 @@ export const Button = ({
   iconVisualHiddenText = '',
   href = '',
   external = false,
+  isLoading = false,
+  loaderClassName = '',
+  disabled,
   ...props
 }) => {
   const isIcon = variant === 'icon';
@@ -84,19 +100,24 @@ export const Button = ({
       iconName={iconName}
       iconClass={iconClass}
       iconVisualHiddenText={iconVisualHiddenText}
+      isLoading={isLoading}
+      loaderClassName={loaderClassName}
     >
       {children}
     </ButtonContent>
   );
+
+  const isActuallyDisabled = Boolean(disabled || isLoading);
 
   if (href) {
     if (external) {
       return (
         <a
           href={href}
-          className={commonClasses}
+          className={cn(commonClasses, isActuallyDisabled && 'pointer-events-none opacity-60')}
           target="_blank"
           rel="noopener noreferrer"
+          aria-disabled={isActuallyDisabled || undefined}
           {...props}
         >
           {content}
@@ -104,7 +125,12 @@ export const Button = ({
       );
     }
     return (
-      <Link to={href} className={commonClasses} {...props}>
+      <Link
+        to={href}
+        className={cn(commonClasses, isActuallyDisabled && 'pointer-events-none opacity-60')}
+        aria-disabled={isActuallyDisabled || undefined}
+        {...props}
+      >
         {content}
       </Link>
     );
@@ -115,6 +141,7 @@ export const Button = ({
       type={type}
       className={commonClasses}
       aria-pressed={isIcon || variant === 'favorite' ? isActive : undefined}
+      disabled={isActuallyDisabled}
       {...props}
     >
       {content}

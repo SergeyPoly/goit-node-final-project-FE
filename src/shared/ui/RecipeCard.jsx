@@ -1,5 +1,5 @@
 import { Button } from '@/shared/ui/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBreakpoint } from '@/shared/lib/hooks/use-breakpoint';
 import { useCurrentUser } from '@/entities/user/api/use-current-user.js';
@@ -23,6 +23,13 @@ export const RecipeCard = ({
   const { setCurrentModal } = useModalStore();
 
   const [isImgError, setIsImgError] = useState(false);
+  const [isFavoriteSubmitting, setIsFavoriteSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (!isToggleFavoriteDisabled) {
+      queueMicrotask(() => setIsFavoriteSubmitting(false));
+    }
+  }, [isToggleFavoriteDisabled]);
 
   const placeholderMob = '/images/placeholder/No-Image-Placeholder-mob.webp';
   const placeholderDesk = '/images/placeholder/No-Image-Placeholder-desk.webp';
@@ -48,6 +55,8 @@ export const RecipeCard = ({
       return;
     }
     if (!id) return;
+
+    setIsFavoriteSubmitting(true);
     onToggleFavorite?.(id, isFavorite);
   };
 
@@ -120,6 +129,8 @@ export const RecipeCard = ({
               iconClass="w-4 tablet:w-4.5 h-4 tablet:h-4.5"
               isActive={isFavorite}
               onClick={toggleFavorite}
+              isLoading={isFavoriteSubmitting}
+              loaderClassName="loader-circle"
               disabled={isToggleFavoriteDisabled || !id}
               iconVisualHiddenText={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
             />
