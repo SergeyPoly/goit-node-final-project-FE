@@ -13,7 +13,7 @@ export const RecipePreview = ({ id, img, title, description = '', onRemove, canR
       />
       <div className="tablet:gap-8 flex w-full flex-row justify-between gap-4">
         <div className="tablet:gap-2.5 desktop:max-w-152.5 flex w-fit flex-col gap-2">
-          <h4 className="tablet:text-xl line-clamp-1 text-base font-extrabold uppercase">
+          <h4 className="tablet:text-xl line-clamp-1 cursor-default text-base font-extrabold uppercase">
             {title}
           </h4>
           <Subtitle className="tablet:text-base tablet:text-(--text-secondary-dark) line-clamp-2 text-sm leading-6 font-medium text-(--text-secondary)">

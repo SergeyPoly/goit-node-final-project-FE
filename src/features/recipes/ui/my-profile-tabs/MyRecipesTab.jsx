@@ -5,17 +5,25 @@ import { RecipePreviewSkeleton } from './RecipePreviewSkeleton';
 import { useState } from 'react';
 import { useUserRecipesQuery } from '@/features/recipes/model/use-user-recipes-query';
 
-export const MyRecipesTab = ({ userId } = {}) => {
+export const MyRecipesTab = ({ userId, isOwnProfile } = {}) => {
   const [page, setPage] = useState(1);
 
   const limit = 9;
 
   const effectivePage = Math.max(page, 1);
 
-  const ownQuery = useOwnRecipesQuery(effectivePage, limit);
-  const userRecipesQuery = useUserRecipesQuery(userId, effectivePage, limit);
+  const resolvedIsOwn = Boolean(isOwnProfile ?? !userId);
 
-  const query = userId ? userRecipesQuery : ownQuery;
+  const ownQuery = useOwnRecipesQuery(effectivePage, limit, { enabled: resolvedIsOwn });
+
+  const userRecipesQuery = useUserRecipesQuery(
+    resolvedIsOwn ? undefined : userId,
+    effectivePage,
+    limit,
+    { enabled: !resolvedIsOwn && Boolean(userId) }
+  );
+
+  const query = resolvedIsOwn ? ownQuery : userRecipesQuery;
 
   const recipes = query.data?.recipes ?? [];
   const totalPages = query.data?.totalPages ?? 1;
@@ -35,7 +43,7 @@ export const MyRecipesTab = ({ userId } = {}) => {
 
   return (
     <div className="flex flex-col gap-6">
-      <MyRecipeList ownRecipes={recipes} canRemove={!userId} />
+      <MyRecipeList ownRecipes={recipes} canRemove={resolvedIsOwn} />
       {totalPages > 1 && (
         <Pagination
           page={query.data?.currentPage ?? clampedPage}

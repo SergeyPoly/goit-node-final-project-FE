@@ -62,7 +62,7 @@ export const FollowingCard = ({
               <h2
                 className={cn(
                   'm-0 block h-6 truncate',
-                  'font-sans text-[20px] leading-6 font-extrabold tracking-[-0.02em] text-[#050505] uppercase'
+                  'cursor-default font-sans text-[20px] leading-6 font-extrabold tracking-[-0.02em] text-[#050505] uppercase'
                 )}
                 title={name}
               >

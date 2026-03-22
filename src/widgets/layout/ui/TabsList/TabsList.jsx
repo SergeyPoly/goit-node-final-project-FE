@@ -45,7 +45,7 @@ export const TabsList = () => {
       </Tabs.List>
 
       <Tabs.Content value="my-recipes" className="outline-none" key={userId}>
-        <MyRecipesTab userId={isOwnProfile ? undefined : userId} />
+        <MyRecipesTab userId={userId} isOwnProfile={isOwnProfile} />
       </Tabs.Content>
 
       {isOwnProfile && (

@@ -106,7 +106,9 @@ export const ProfileCard = (props) => {
         onChange={isOwnProfile ? onUploadAvatar : undefined}
       />
 
-      <h3 className="h3 tablet:text-[1.25rem] tablet:leading-[1.2] text-center">{name}</h3>
+      <h3 className="h3 tablet:text-[1.25rem] tablet:leading-[1.2] cursor-default text-center">
+        {name}
+      </h3>
 
       <div className="tablet:min-w-58.5 flex w-full min-w-51.25 flex-col gap-1.5">
         <ProfileStatRow
